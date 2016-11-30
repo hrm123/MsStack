@@ -196,13 +196,36 @@
 
         $scope.toolbarTemplate = $("#template").html();
         $scope.toolbarClick = function () {
-            console.log("click");
+
             var selected = $scope.myGrid.select();
             if (selected.length == 0) {
                 alert('No record selected')
             } else {
                 var selectedItem = $scope.myGrid.dataItem(selected[0]).ContactId
-                $state.go("EditItem", { id: selectedItem });
+
+                $state.go("contacts");
+                //$scope.myGrid.editRow(selected);
+            }
+        }
+
+        $scope.deleteContact = function () {
+
+            var selected = $scope.myGrid.select();
+            if (selected.length == 0) {
+                alert('No record selected')
+            } else {
+                var selectedItem = $scope.myGrid.dataItem(selected[0]).ContactId
+                var url = "http://localhost:21395/api/contactsapp/DeleteContact/" + selectedItem;
+                $http.post(url)
+                .success(function (data, status, headers, config) {
+                    $scope.saveSucess = data.Success;
+                    $scope.serverError = !data.Success;
+                    $state.reload();
+                })
+                .error(function (data, status, header, config) {
+                    $scope.serverError = true;
+                });
+                
                 //$scope.myGrid.editRow(selected);
             }
         }

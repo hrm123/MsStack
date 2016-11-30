@@ -29,7 +29,23 @@ namespace ContactMgmtApp.Api
             }
         }
 
-
+        [Route("DeleteContact/{id}")]
+        [HttpPost]
+        public bool DeleteContact(int id)
+        {
+            try
+            {
+                IUnitofWork uow = new UnitOfWork();
+                uow.ContactRepository.Delete(id);
+                uow.Save();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // TODO - log error
+                return false;
+            }
+        }
 
 
         [Route("AddContact")]
