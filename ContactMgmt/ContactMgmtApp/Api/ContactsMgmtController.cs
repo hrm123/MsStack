@@ -56,32 +56,22 @@ namespace ContactMgmtApp.Api
 
         [Route("Groups/{startpage}/{pageSize}")]
         [HttpGet]
-        public ApiResponseBase<List<Group>> GetAllGroups(int startpage, int pageSize)
+        public List<Group> GetAllGroups(int startpage, int pageSize)
         {
+            List<Group> grpList = new List<Group>();
             try
             {
                 //http://localhost:21395/api/contactsapp/Groups/1/10
                 IUnitofWork uow = new UnitOfWork();
                 int totalCount = 0;
-                var data = uow.GroupsRepository.GetPage(startpage, pageSize, ref totalCount);
-                ApiResponseBase<List<Group>> resp = new ApiResponseBase<List<Group>>
-                {
-                    AddnlInfo = totalCount.ToString(),
-                    PayLoad = data.ToList(),
-                    StatusMessage = "Success",
-                    Success = true
-                };
-                return resp;
+                grpList = uow.GroupsRepository.GetPage(startpage, pageSize, ref totalCount).ToList();
+                
+                return grpList;
             }
             catch (Exception ex)
             {
                 // TODO - log error
-                ApiResponseBase<List<Group>> resp = new ApiResponseBase<List<Group>>
-                {
-                    StatusMessage = "Failed with server error.",
-                    Success = false
-                };
-                return resp;
+                return grpList;
 
             }
         }

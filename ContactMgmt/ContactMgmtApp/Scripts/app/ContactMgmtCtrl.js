@@ -3,10 +3,67 @@
     app.controller('ContactMgmtController', menuController);
 
 
-    menuController.$inject = ["$http","$scope","$stateParams"];
+    menuController.$inject = ["$http","$scope","$stateParams","groupsList"];
     
-    function menuController($http, $scope, $stateParams) {
+    function menuController($http, $scope, $stateParams,groupsList) {
               
+        debugger;
+        $scope.groups = groupsList;
+        $scope.selectedGrpIds = [];
+
+        $scope.newContact = {
+            FirstName: '',
+            LastName: '',
+            groups: [],
+            'firsNameLen': 4,
+            'lastNameLen': 4,
+            'maxLenName': 20
+        }
+
+
+
+        $scope.selectGrpOptions = {
+            placeholder: "Select groups...",
+            dataTextField: "GroupName",
+            dataValueField: "GroupId",
+            valuePrimitive: true,
+            autoBind: false,
+            dataSource: $scope.groups
+        };
+        
+
+        $scope.onSelectCallback = function (someParam, selectedItems) {
+            debugger;
+            /*
+            console.log("on select calback");
+            console.log(someParam);
+            console.log(selectedItems);
+            console.log("on select calback");
+            */
+        };
+
+/*        
+        //function getGroups(){
+             $http.get('http://localhost:21395/api/contactsapp/Groups/0/1000').then(function success(response) {
+                //debugger;
+                $scope.groups = response.data.PayLoad;
+            }, function error(response) {
+                alert('something went wrong while fetching groups')
+                console.log(response);
+            });
+        //}
+        */
+
+
+
+        $scope.AddContact = function() {
+            debugger;
+            $scope.newContact.groups = $scope.selectedGrpIds;
+            
+
+        }
+        
+
         $scope.mainGridOptions = {
             dataSource: {
                 type: "json",

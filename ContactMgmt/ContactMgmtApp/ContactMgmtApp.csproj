@@ -160,6 +160,8 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\app\ContactMgmtApp.js" />
     <Content Include="Scripts\app\ContactMgmtCtrl.js" />
+    <Content Include="Scripts\app\ContactMgmtSvc.js" />
+    <Content Include="Scripts\app\multiSelectDrtv.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

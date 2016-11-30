@@ -1,1 +1,59 @@
-﻿add contact
+﻿
+<form name="addContactForm" novalidate class="container" >
+    <div class="row">
+            <div class="col-md-5">
+            Groups:
+            </div>
+            <div class="col-md-7">
+
+                <select kendo-multi-select k-options="selectGrpOptions" k-ng-model="selectedGrpIds"></select>
+            @*<select style="width:200px;" kendo-multiselect-dctv k-data-source='groups' k-data-text-field='GroupName' k-data-value-field='GroupId'
+                    k-data-item="selectedGrpIds" default-text='Please select groups ..' on-select="onSelectCallback('some param',items)"></select>*@
+            </div>
+        </div>
+</form>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            First Name* :
+        </div>
+        <div class="col-md-7">
+             <input type="text" name="firstName" placeholder="Enter firstname:"
+                                 ng-model="$scope.newContact.FirstName"
+                                 ng-required="true" ng-minlength="$scope.newContact.firsNameLen" ng-maxlength="$scope.newContact.maxLenName" />
+            <span ng-show="(addContactForm.firstName.$error.minlength || addContactForm.firstName.$error.required)
+             && addContactForm.firstName.$touched">
+                First name must be at least {{$scope.newContact.firsNameLen}} characters long
+            </span>
+            <span ng-show="addContactForm.firstName.$error.maxlength && addContactForm.firstName.$touched">
+                First name must not be longer than {{$scope.newContact.maxLenName}} characters
+            </span>
+            </div>
+        </div>
+    <div class="row">
+        <div class="col-md-5">
+            Last Name* :
+        </div>
+        <div class="col-md-7">
+             <input type="text" name="lastName" placeholder="Enter lastname:"
+                               ng-model="$scope.newContact.LastName" 
+                               required ng-minlength="$scope.newContact.firsNameLen" ng-maxlength="$scope.newContact.maxLenName" />
+            <span ng-show="(addContactForm.lastName.$error.minlength || addContactForm.lastName.$error.required)
+             && addContactForm.lastName.$touched">
+                Last name must be at least {{$scope.newContact.firsNameLen}} characters long
+            </span>
+            <span ng-show="addContactForm.lastName.$error.maxlength && addContactForm.lastName.$touched">
+                Last name must not be longer than {{$scope.newContact.maxLenName}} characters
+            </span>
+            </div>
+        </div>
+    <div class="row">
+        <span ng-show="saveSucess" style="color:green">Contact added.</span>
+    </div>
+    <div class="row">
+        <span ng-show="serverError" style="color:red">Add error... please retry.</span>
+    </div>
+    <div class="row">
+        <button   type="submit" ng-click="AddContact()">Add</button>
+    </div>
+</div>

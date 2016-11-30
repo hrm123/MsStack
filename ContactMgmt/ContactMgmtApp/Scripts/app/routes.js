@@ -12,20 +12,35 @@
     // Set up UI states
     $stateProvider
         .state('contacts', {
-        url: '/contacts/',
-        templateUrl: 'http://localhost:21395/home/list/',
-        controller: 'ContactMgmtController'
+            url: '/contacts/',
+            templateUrl: 'http://localhost:21395/home/list/',
+            controller: 'ContactMgmtController',
+            resolve: {
+                    groupsList: ['ContactMgmtSvc', function (svc) {
+                        return svc.getGroups();
+                    }]
+                } 
         })
 
         .state('EditItem', {
-        url: '/edit:id',
-        templateUrl: 'http://localhost:21395/home/editcontact/',
-        controller: 'ContactMgmtController'
+            url: '/edit:id',
+            templateUrl: 'http://localhost:21395/home/editcontact/',
+            controller: 'ContactMgmtController' , 
+            resolve: {
+                groupsList: ['ContactMgmtSvc', function (svc) {
+                    return svc.getGroups();
+                }]
+            } 
         })
         .state('AddItem', {
             url: '/add',
             templateUrl: 'http://localhost:21395/home/addcontact/',
-            controller: 'ContactMgmtController'
+            controller: 'ContactMgmtController',
+             resolve: {
+                groupsList: ['ContactMgmtSvc', function (svc) {
+                    return svc.getGroups();
+                }]
+            } 
         })
 
     }
