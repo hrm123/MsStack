@@ -8,9 +8,24 @@ namespace ContactMgmtApp.Controllers
 {
     public class HomeController : Controller
     {
+        public ActionResult list()
+        {
+            return PartialView();
+        }
+
+        public ActionResult editcontact(int id)
+        {
+            return PartialView();
+        }
+
+        public ActionResult addcontact()
+        {
+            return PartialView();
+        }
+
         public ActionResult Index()
         {
-            return View();
+            return View("ContactMgmt");
         }
 
         public ActionResult About()

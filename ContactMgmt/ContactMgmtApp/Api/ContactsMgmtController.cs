@@ -13,20 +13,29 @@ namespace ContactMgmtApp.Api
     [RoutePrefix("api/contactsapp")]
     public class ContactsMgmtController : ApiController
     {
-        [Route("Contacts/{startpage}/{pageSize}")]
+        [Route("contacts")]
         [HttpGet]
-        public ApiResponseBase<List<Contact>> GetAllContacts(int startpage, int pageSize)
+        public ApiResponseBase<List<Contact>> GetAllContacts([FromUri] int page, [FromUri] int pageSize)
         {
             //http://localhost:21395/api/contactsapp/contacts/1/10
             try
             {
+                page = page - 1; // kendo gives 1 based 
                 IUnitofWork uow = new UnitOfWork();
                 int totalCount = 0;
-                var data = uow.ContactRepository.GetPage(startpage, pageSize, ref totalCount);
+                var data = uow.ContactRepository.GetPage(page, pageSize, ref totalCount).ToList();
+
+                /*
+                for(int i = 0; i < 10; i++)
+                {
+                    data.Add(new Contact { FirstName = "fn" + i, LastName = "ln" + i });
+                }
+                */
+                
                 ApiResponseBase<List<Contact>> resp = new ApiResponseBase<List<Contact>>
                 {
-                    AddnlInfo = totalCount.ToString(),
-                    PayLoad = data.ToList(),
+                    AddnlInfo =  totalCount.ToString(),
+                    PayLoad = data ,
                     StatusMessage = "Success",
                     Success = true
                 };
@@ -37,7 +46,7 @@ namespace ContactMgmtApp.Api
                 // TODO - log error
                 ApiResponseBase<List<Contact>> resp = new ApiResponseBase<List<Contact>>
                 {
-                    StatusMessage = "Failed wih server error.",
+                    StatusMessage = "Failed with server error.",
                     Success = false
                 };
                 return resp;
