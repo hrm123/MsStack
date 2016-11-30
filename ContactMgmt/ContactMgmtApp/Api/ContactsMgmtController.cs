@@ -14,7 +14,7 @@ namespace ContactMgmtApp.Api
     public class ContactsMgmtController : ApiController
     {
         [Route("GetContact/{id}")]
-        [HttpPost]
+        [HttpGet]
         public Contact GetContact(int id)
         {
             try

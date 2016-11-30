@@ -11,7 +11,7 @@
         var service = this;
 
         service.getContact = function (id) {
-            return $http.get('http://localhost:21395/api/contactsapp/AddContact/'+id).then(function success(response) {
+            return $http.get('http://localhost:21395/api/contactsapp/GetContact/'+id).then(function success(response) {
                 return response.data;
             }, function error(response) {
                 alert('something went wrong while fetching groups')

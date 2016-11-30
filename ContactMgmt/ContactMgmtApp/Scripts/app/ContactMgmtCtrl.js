@@ -8,21 +8,32 @@
     function menuController($http, $scope, $stateParams,groupsList,$state, editContact) {
               
         $scope.groups = groupsList;
-        $scope.selectedGrpIds = [];
+
+        if( $.isEmptyObject(editContact))
+        {
+            $scope.newContact = {
+                FirstName: '',
+                LastName: '',
+                Email: '',
+                Phone: '',
+                BirthDate: '',
+                DoB: new Date(),
+                GroupIdsTemp: [],
+                firsNameLen: 4,
+                lastNameLen: 4,
+                maxLenName: 20
+            };
+            $scope.selectedGrpIds = [];
+        }
+        else {
+            $scope.newContact = editContact;
+            $scope.selectedGrpIds = editContact.GroupIdsTemp.split(',');
+        }
+
+        
         $scope.saveSucess = false;
         $scope.serverError = false;
-        $scope.newContact = {
-            FirstName: '',
-            LastName: '',
-            Email: '',
-            Phone: '',
-            BirthDate: '',
-            DoB : new Date(),
-            GroupIdsTemp: [],
-            firsNameLen: 4,
-            lastNameLen: 4,
-            maxLenName: 20
-        }
+        
 
 
         $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
@@ -66,7 +77,6 @@
 /*        
         //function getGroups(){
              $http.get('http://localhost:21395/api/contactsapp/Groups/0/1000').then(function success(response) {
-                //debugger;
                 $scope.groups = response.data.PayLoad;
             }, function error(response) {
                 alert('something went wrong while fetching groups')
@@ -85,6 +95,14 @@
             .error(function (data, status, header, config) {
                 $scope.serverError = true;
             });
+        }
+
+
+        $scope.UpdateContact = function() {
+
+            $scope.newContact.GroupIdsTemp = $scope.selectedGrpIds.join(',');
+            $scope.saveContactData($scope.newContact);
+
         }
 
         $scope.AddContact = function() {
@@ -115,7 +133,6 @@
                         var url1 = 'http://localhost:21395/api/contactsapp/contacts/?page=' + requestData.page + "&pageSize=" + requestData.pageSize;
                         $http.get(url1)
                           .then(function success(response) {
-                              debugger;
                               e.success(response.data.PayLoad);
                           }, function error(response) {
                               alert('something went wrong')
@@ -180,7 +197,6 @@
         $scope.toolbarTemplate = $("#template").html();
         $scope.toolbarClick = function () {
             console.log("click");
-            debugger;
             var selected = $scope.myGrid.select();
             if (selected.length == 0) {
                 alert('No record selected')

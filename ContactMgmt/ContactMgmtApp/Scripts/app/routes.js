@@ -31,11 +31,9 @@
             controller: 'ContactMgmtController' , 
             resolve: {
                 groupsList: ['ContactMgmtSvc', function (svc) {
-                    debugger;
                     return svc.getGroups();
                 }],
-                editContact: ['ContactMgmtSvc', function (svc, $stateParams) {
-                    debugger;
+                editContact: ['ContactMgmtSvc','$stateParams', function (svc, $stateParams) {
                     return svc.getContact($stateParams.id);
                 }],
             } 
