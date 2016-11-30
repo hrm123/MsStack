@@ -15,12 +15,23 @@ namespace ContactMgmtApp.Api
     {
         [Route("AddContact")]
         [HttpPost]
-        public ApiResponseBase<Contact> AddContact([FromBody]  Contact c)
+        public ApiResponseBase<int> AddContact([FromBody]  Contact c)
         {
             try
             {
                 IUnitofWork uow = new UnitOfWork();
                 int totalCount = 0;
+                
+                if (c.GroupIdsTemp.Length > 0)
+                {
+                    HashSet<Group> grps = new HashSet<Group>();
+                    foreach (string gid  in c.GroupIdsTemp.Split(','))
+                    {
+                        grps.Add(uow.GroupsRepository.Get(int.Parse(gid)));
+                    }
+                    c.Groups = grps;
+                }
+
                 if(c.ContactId >0)
                 {
                     uow.ContactRepository.Update(c);
@@ -32,10 +43,10 @@ namespace ContactMgmtApp.Api
                 
                 uow.Save();
 
-                ApiResponseBase<Contact> resp = new ApiResponseBase<Contact>
+                ApiResponseBase<int> resp = new ApiResponseBase<int>
                 {
-                    AddnlInfo = totalCount.ToString(),
-                    PayLoad = c,
+                    AddnlInfo = c.ContactId.ToString(),
+                    PayLoad = c.ContactId,
                     StatusMessage = "Success",
                     Success = true
                 };
@@ -44,7 +55,7 @@ namespace ContactMgmtApp.Api
             catch (Exception ex)
             {
                 // TODO - log error
-                ApiResponseBase<Contact> resp = new ApiResponseBase<Contact>
+                ApiResponseBase<int> resp = new ApiResponseBase<int>
                 {
                     StatusMessage = "Failed with server error.",
                     Success = false
@@ -64,14 +75,17 @@ namespace ContactMgmtApp.Api
                 page = page - 1; // kendo gives 1 based 
                 IUnitofWork uow = new UnitOfWork();
                 int totalCount = 0;
-                var data = uow.ContactRepository.GetPage(page, pageSize, ref totalCount).ToList();
+                List<Contact> data = uow.ContactRepository.GetPage(page, pageSize, ref totalCount).ToList();
 
-                /*
-                for(int i = 0; i < 10; i++)
+                
+                foreach(Contact c in data)
                 {
-                    data.Add(new Contact { FirstName = "fn" + i, LastName = "ln" + i });
+                    if (c.Groups.Count > 0)
+                    {
+                        c.GroupIdsTemp = string.Join(",", c.Groups.Select(g => g.GroupId).ToList());
+                    }
                 }
-                */
+                
                 
                 ApiResponseBase<List<Contact>> resp = new ApiResponseBase<List<Contact>>
                 {

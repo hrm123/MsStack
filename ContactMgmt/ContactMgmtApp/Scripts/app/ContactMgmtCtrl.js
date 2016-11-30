@@ -18,7 +18,7 @@
             Email: '',
             Phone: '',
             BirthDate:'',
-            Groups: [],
+            GroupIdsTemp: [],
             firsNameLen: 4,
             lastNameLen: 4,
             maxLenName: 20
@@ -72,7 +72,7 @@
 
         $scope.AddContact = function() {
             debugger;
-            $scope.newContact.Groups = $scope.selectedGrpIds;
+            $scope.newContact.GroupIdsTemp = $scope.selectedGrpIds.join(',');
             $scope.saveContactData($scope.newContact);
 
         }
@@ -148,7 +148,7 @@
                 title: "DoB",
                 width: "120px"
             }, {
-                field: "Groups",
+                field: "GroupIdsTemp",
                 title: "Groups",
                 width: "120px"
             }],

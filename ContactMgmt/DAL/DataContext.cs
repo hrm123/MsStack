@@ -14,6 +14,7 @@ namespace ContactMgmtApp.DAL
         public ContactDataContext() : base()
         {
             Database.SetInitializer(new ContactDataInitializer());
+            this.Configuration.ProxyCreationEnabled = false;
         }
 
         public DbSet<Contact> Contacts { get; set; }
@@ -21,6 +22,7 @@ namespace ContactMgmtApp.DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
             modelBuilder.Entity<Contact>()
@@ -28,8 +30,8 @@ namespace ContactMgmtApp.DAL
                .WithMany(g => g.Contacts)
                .Map(cg =>
                {
-                   cg.MapLeftKey("ContactRefId");
-                   cg.MapRightKey("GroupRefId");
+                   cg.MapLeftKey("ContactId");
+                   cg.MapRightKey("GroupId");
                    cg.ToTable("ContactGroup");
                });
         }

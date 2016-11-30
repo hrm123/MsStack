@@ -24,6 +24,7 @@ namespace ContactMgmtApp.DAL.Model
         public string Phone { get; set; }
         public DateTime BirthDate { get; set; }
         public byte[] Photo { get; set; }
+        public string GroupIdsTemp { get; set; }
         public virtual ICollection<Group> Groups { get; set; }
     }
 }

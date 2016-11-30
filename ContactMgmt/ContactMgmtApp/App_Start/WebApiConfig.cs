@@ -21,7 +21,7 @@ namespace ContactMgmtApp
                 defaults: new { id = RouteParameter.Optional }
             );
             */
-            config.Formatters.JsonFormatter.MaxDepth = 3;
+            config.Formatters.JsonFormatter.MaxDepth = 1;
             config.Formatters.JsonFormatter.SupportedMediaTypes
             .Add(new MediaTypeHeaderValue("text/html"));
         }
