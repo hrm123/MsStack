@@ -2,12 +2,12 @@
 "use strict";
 
     angular.module('ContactMgmtApp')
-    .service('ContactMgmtSvc', MenuService);
+    .service('ContactMgmtSvc', ContactMgmtService);
 
 
-    MenuService.$inject = ['$http'];
+    ContactMgmtService.$inject = ['$http'];
 
-    function MenuService($http) {
+    function ContactMgmtService($http) {
         var service = this;
 
         service.getGroups = function () {

@@ -10,14 +10,18 @@
         debugger;
         $scope.groups = groupsList;
         $scope.selectedGrpIds = [];
-
+        $scope.saveSucess = false;
+        $scope.serverError = false;
         $scope.newContact = {
             FirstName: '',
             LastName: '',
-            groups: [],
-            'firsNameLen': 4,
-            'lastNameLen': 4,
-            'maxLenName': 20
+            Email: '',
+            Phone: '',
+            BirthDate:'',
+            Groups: [],
+            firsNameLen: 4,
+            lastNameLen: 4,
+            maxLenName: 20
         }
 
 
@@ -54,12 +58,22 @@
         //}
         */
 
-
+        $scope.saveContactData = function (contact) {
+            var url = "http://localhost:21395/api/contactsapp/AddContact";
+            $http.post(url, contact)
+            .success(function (data, status, headers, config) {
+                $scope.saveSucess = data.Success;
+                $scope.serverError = !data.Success;
+            })
+            .error(function (data, status, header, config) {
+                $scope.serverError = true;
+            });
+        }
 
         $scope.AddContact = function() {
             debugger;
-            $scope.newContact.groups = $scope.selectedGrpIds;
-            
+            $scope.newContact.Groups = $scope.selectedGrpIds;
+            $scope.saveContactData($scope.newContact);
 
         }
         
@@ -120,6 +134,22 @@
             }, {
                 field: "LastName",
                 title: "Last Name",
+                width: "120px"
+            }, {
+                field: "Email",
+                title: "Email",
+                width: "120px"
+            }, {
+                field: "Phone",
+                title: "Phone",
+                width: "120px"
+            }, {
+                field: "BirthDate",
+                title: "DoB",
+                width: "120px"
+            }, {
+                field: "Groups",
+                title: "Groups",
                 width: "120px"
             }],
             sortable: false,

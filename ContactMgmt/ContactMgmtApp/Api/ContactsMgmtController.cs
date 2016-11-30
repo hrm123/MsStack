@@ -13,6 +13,47 @@ namespace ContactMgmtApp.Api
     [RoutePrefix("api/contactsapp")]
     public class ContactsMgmtController : ApiController
     {
+        [Route("AddContact")]
+        [HttpPost]
+        public ApiResponseBase<Contact> AddContact([FromBody]  Contact c)
+        {
+            try
+            {
+                IUnitofWork uow = new UnitOfWork();
+                int totalCount = 0;
+                if(c.ContactId >0)
+                {
+                    uow.ContactRepository.Update(c);
+                }
+                else
+                {
+                    uow.ContactRepository.Insert(c);
+                }
+                
+                uow.Save();
+
+                ApiResponseBase<Contact> resp = new ApiResponseBase<Contact>
+                {
+                    AddnlInfo = totalCount.ToString(),
+                    PayLoad = c,
+                    StatusMessage = "Success",
+                    Success = true
+                };
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                // TODO - log error
+                ApiResponseBase<Contact> resp = new ApiResponseBase<Contact>
+                {
+                    StatusMessage = "Failed with server error.",
+                    Success = false
+                };
+                return resp;
+
+            }
+        }
+
         [Route("contacts")]
         [HttpGet]
         public ApiResponseBase<List<Contact>> GetAllContacts([FromUri] int page, [FromUri] int pageSize)
