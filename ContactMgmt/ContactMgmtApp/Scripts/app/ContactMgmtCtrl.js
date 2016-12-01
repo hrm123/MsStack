@@ -7,7 +7,6 @@
     
     function menuController($http, $scope, $stateParams,groupsList) {
               
-        debugger;
         $scope.groups = groupsList;
         $scope.selectedGrpIds = [];
         $scope.saveSucess = false;
@@ -25,6 +24,23 @@
         }
 
 
+        $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+
+            if ($scope.addContactForm.$dirty) {
+                
+                if (confirm('You have unsaved changes. Are you sure you want to navigate away?')) {
+                    // navigate away
+                    
+                    $scope.addContactForm.$setPristine();
+                    $state.go(toState, toParams);
+                } else {
+                    event.preventDefault();
+                    // Cancelled request, stay on dirty form, don't need to do anything
+                }
+            }
+        });
+
+
 
         $scope.selectGrpOptions = {
             placeholder: "Select groups...",
@@ -37,7 +53,7 @@
         
 
         $scope.onSelectCallback = function (someParam, selectedItems) {
-            debugger;
+
             /*
             console.log("on select calback");
             console.log(someParam);
@@ -71,7 +87,7 @@
         }
 
         $scope.AddContact = function() {
-            debugger;
+
             $scope.newContact.GroupIdsTemp = $scope.selectedGrpIds.join(',');
             $scope.saveContactData($scope.newContact);
 

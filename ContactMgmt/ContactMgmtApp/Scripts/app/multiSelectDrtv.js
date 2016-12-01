@@ -20,7 +20,6 @@ app.directive('kendoMultiselectDctv', function () {
                     value: exisitingItems,
                     change: function (e) {
                         var currentItems = e.sender._values;
-                        debugger;
                         if (typeof scope.kDataItem != "undefined") { //update selected item on parent scope
                             scope.$apply(function () {
                                 scope.kDataItem = currentItems;
