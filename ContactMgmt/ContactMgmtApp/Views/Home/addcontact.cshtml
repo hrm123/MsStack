@@ -77,9 +77,12 @@
                 Date of Birth
             </div>
             <div class="col-md-7">
-                <input type="text" name="dob" placeholder="Enter Date:mm-dd-yyyy" ng-model="newContact.BirthDate" pattern="(\d{2})-(\d{2})-(\d{4})" />
+                <input kendo-date-picker ng-model="newContact.BirthDate"
+                        k-ng-model="newContact.DoB" name="dob"
+                       style="width: 100%;" />
+                <!-- input type="date" name="dob" placeholder="Enter Date:mm-dd-yyyy" ng-model="newContact.DoB" pattern="(\d{2})\\/(\d{2})\\/(\d{4})" / -->
                 <span ng-if="addContactForm.dob.$invalid  && addContactForm.dob.$touched">
-                    Must be a valid date : mm-dd-yyyy
+                    Must be a valid date : mm/dd/yyyy
                 </span>
             </div>
         </div>
