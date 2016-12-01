@@ -1,2 +1,99 @@
 ﻿
-edit contact
+<form name="addContactForm" novalidate class="container">
+    <div class="row">
+        <div class="col-md-5">
+            Groups:
+        </div>
+        <div class="col-md-7">
+
+            <select kendo-multi-select k-options="selectGrpOptions" k-ng-model="selectedGrpIds"></select>
+            @*<select style="width:200px;" kendo-multiselect-dctv k-data-source='groups' k-data-text-field='GroupName' k-data-value-field='GroupId'
+                k-data-item="selectedGrpIds" default-text='Please select groups ..' on-select="onSelectCallback('some param',items)"></select>*@
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                First Name* :
+            </div>
+            <div class="col-md-7">
+                <input type="text" name="firstName" placeholder="Enter firstname:"
+                       ng-model="newContact.FirstName"
+                       ng-required="true" ng-minlength="newContact.firsNameLen" ng-maxlength="newContact.maxLenName" />
+                <span ng-show="(addContactForm.firstName.$error.minlength || addContactForm.firstName.$error.required)
+             && addContactForm.firstName.$touched">
+                    First name must be at least {{newContact.firsNameLen}} characters long
+                </span>
+                <span ng-show="addContactForm.firstName.$error.maxlength && addContactForm.firstName.$touched">
+                    First name must not be longer than {{newContact.maxLenName}} characters
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                Last Name* :
+            </div>
+            <div class="col-md-7">
+                <input type="text" name="lastName" placeholder="Enter lastname:"
+                       ng-model="newContact.LastName"
+                       required ng-minlength="newContact.firsNameLen" ng-maxlength="newContact.maxLenName" />
+                <span ng-show="(addContactForm.lastName.$error.minlength || addContactForm.lastName.$error.required)
+             && addContactForm.lastName.$touched">
+                    Last name must be at least {{newContact.firsNameLen}} characters long
+                </span>
+                <span ng-show="addContactForm.lastName.$error.maxlength && addContactForm.lastName.$touched">
+                    Last name must not be longer than {{newContact.maxLenName}} characters
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                Email*
+            </div>
+            <div class="col-md-7">
+                <input type="email" required name="email" placeholder="Enter email:" ng-model="newContact.Email" />
+                <span ng-if="addContactForm.email.$error.required && addContactForm.email.$touched">
+                    email is required
+                </span>
+                <span ng-if="addContactForm.email.$invalid  && addContactForm.email.$touched">
+                    Must be a valid email address: handle@domain format
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                Phone
+            </div>
+            <div class="col-md-7">
+                <input type="phone" name="phone" placeholder="Enter phone:###-###-####" ng-model="newContact.Phone" pattern="(\d{3})-(\d{3})-(\d{4})" />
+                <span ng-if="addContactForm.phone.$invalid  && addContactForm.phone.$touched">
+                    Must be a valid phone : ###-###-####
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                Date of Birth
+            </div>
+            <div class="col-md-7">
+                <input kendo-date-picker ng-model="newContact.BirthDate"
+                       k-ng-model="newContact.DoB" name="dob"
+                       style="width: 100%;" />
+                <!-- input type="date" name="dob" placeholder="Enter Date:mm-dd-yyyy" ng-model="newContact.DoB" pattern="(\d{2})\\/(\d{2})\\/(\d{4})" / -->
+                <span ng-if="addContactForm.dob.$invalid  && addContactForm.dob.$touched">
+                    Must be a valid date : mm/dd/yyyy
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <span ng-show="saveSucess" style="color:green">Contact added.</span>
+        </div>
+        <div class="row">
+            <span ng-show="serverError" style="color:red">Add error... please retry.</span>
+        </div>
+        <div class="row">
+            <button type="submit" ng-click="AddContact()">Add</button>
+        </div>
+    </div>
+</form>

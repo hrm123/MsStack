@@ -3,9 +3,9 @@
     app.controller('ContactMgmtController', menuController);
 
 
-    menuController.$inject = ["$http","$scope","$stateParams","groupsList"];
+    menuController.$inject = ["$http","$scope","$stateParams","groupsList","$state","editContact"];
     
-    function menuController($http, $scope, $stateParams,groupsList) {
+    function menuController($http, $scope, $stateParams,groupsList,$state, editContact) {
               
         $scope.groups = groupsList;
         $scope.selectedGrpIds = [];
@@ -27,7 +27,7 @@
 
         $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
 
-            if ($scope.addContactForm.$dirty) {
+            if ($scope.addContactForm && $scope.addContactForm.$dirty) {
                 
                 if (confirm('You have unsaved changes. Are you sure you want to navigate away?')) {
                     // navigate away
@@ -131,6 +131,9 @@
                         pageSizes: [10, 100, 200],
 
                     },
+                    editable: "popup",
+                    selectable: true,
+                    //toolbar: ["create", { name: "customEdit", text: "Edit", imageClass: "k-edit", className: "k-custom-edit", iconClass: "k-icon" }],
                     serverPaging: true,
                     serverSorting: false,
                     schema: {
@@ -173,6 +176,37 @@
             pageable: true
           
         }
+
+        $scope.toolbarTemplate = $("#template").html();
+        $scope.toolbarClick = function () {
+            console.log("click");
+            debugger;
+            var selected = $scope.myGrid.select();
+            if (selected.length == 0) {
+                alert('No record selected')
+            } else {
+                var selectedItem = $scope.myGrid.dataItem(selected[0]).ContactId
+                $state.go("EditItem", { id: selectedItem });
+                //$scope.myGrid.editRow(selected);
+            }
+        }
+
+        /*
+        $scope.$on("kendoWidgetCreated", function (event, widget) {
+            if (widget === $scope.myGrid) {
+                widget.element.find(".k-custom-edit").on("click", function (e) {
+                    e.preventDefault();
+                    var selected = $scope.myGrid.select();
+                    if (selected.length == 0) {
+                        alert('No record selected')
+                    } else {
+                        $scope.myGrid.editRow(selected);
+                    }
+
+                });
+            }
+        });
+        */
     }
         
 })();

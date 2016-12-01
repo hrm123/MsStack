@@ -1,2 +1,7 @@
-﻿<kendo-grid options="mainGridOptions"></kendo-grid>
+﻿<script id="template" type="text/x-kendo-template">
+
+    <a class="k-button" href="\#" ng-click="toolbarClick()">Edit Selected Contact</a>
+</script>
+
+<div kendo-grid="myGrid" k-selectable="true" options="mainGridOptions" k-toolbar="toolbarTemplate"></div>
 

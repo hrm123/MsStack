@@ -18,18 +18,26 @@
             resolve: {
                     groupsList: ['ContactMgmtSvc', function (svc) {
                         return svc.getGroups();
-                    }]
+                    }],
+                    editContact: function () { return {}; }
                 } 
         })
 
         .state('EditItem', {
             url: '/edit:id',
-            templateUrl: 'http://localhost:21395/home/editcontact/',
+            templateUrl: function (stateParams) {
+                return 'http://localhost:21395/home/editcontact/' + stateParams.id  ;
+            },
             controller: 'ContactMgmtController' , 
             resolve: {
                 groupsList: ['ContactMgmtSvc', function (svc) {
+                    debugger;
                     return svc.getGroups();
-                }]
+                }],
+                editContact: ['ContactMgmtSvc', function (svc, $stateParams) {
+                    debugger;
+                    return svc.getContact($stateParams.id);
+                }],
             } 
         })
         .state('AddItem', {
@@ -39,7 +47,8 @@
              resolve: {
                 groupsList: ['ContactMgmtSvc', function (svc) {
                     return svc.getGroups();
-                }]
+                }],
+                editContact: function () { return {}; }
             } 
         })
 

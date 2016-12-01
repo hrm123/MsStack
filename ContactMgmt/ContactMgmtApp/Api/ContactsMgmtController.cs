@@ -13,6 +13,25 @@ namespace ContactMgmtApp.Api
     [RoutePrefix("api/contactsapp")]
     public class ContactsMgmtController : ApiController
     {
+        [Route("GetContact/{id}")]
+        [HttpPost]
+        public Contact GetContact(int id)
+        {
+            try
+            {
+                IUnitofWork uow = new UnitOfWork();
+                return uow.ContactRepository.Get(id);
+            }
+            catch (Exception ex)
+            {
+                // TODO - log error
+                return null;
+            }
+        }
+
+
+
+
         [Route("AddContact")]
         [HttpPost]
         public ApiResponseBase<int> AddContact([FromBody]  Contact c)

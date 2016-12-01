@@ -36,10 +36,10 @@ namespace ContactMgmtApp
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css",
-                      "~/Content/kendo.common-material.min.css",
-                    "~/Content/kendo.material.min.css",
-                "~/Content/kendo.material.mobile.min.css"));
+                      "~/Content/site.css"));//,
+                      //"~/Content/kendo.common-material.min.css",
+                    //"~/Content/kendo.material.min.css",
+                //"~/Content/kendo.material.mobile.min.css"));
         }
     }
 }
