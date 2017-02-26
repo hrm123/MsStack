@@ -1,9 +1,8 @@
-{
+﻿{
   "version": "1.0.0-*",
 
   "dependencies": {
-    "NETStandard.Library": "1.6.0",
-    "xunit": "2.2.0-rc4-build3536"
+    "NETStandard.Library": "1.6.0"
   },
 
   "frameworks": {
