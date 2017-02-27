@@ -10,6 +10,10 @@ namespace Fastbank2.Api.Repo
         {
         }
  
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseInMemoryDatabase();
+        }
         public DbSet<User> Users { get; set; }
  
         public DbSet<Account> Posts { get; set; }

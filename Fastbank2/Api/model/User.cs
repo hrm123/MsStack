@@ -6,6 +6,7 @@ namespace Fastbank2.Api.Model
     public class User : IDalEntity
     {
         public int Id { get; set; }
+        public string Name { get; set; }
         public virtual ICollection<Account> UserAccounts { get; set; }
 
         public User()

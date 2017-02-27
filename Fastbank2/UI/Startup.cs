@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Fastbank2.Api;
+using Fastbank2.Api.Repo;
 
 namespace Fastbank2.UI
 {
@@ -31,6 +31,9 @@ namespace Fastbank2.UI
             //services.AddDbContext<ApiContext>(opt => opt.UseInMemoryDatabase());
             // Add framework services.
             services.AddMvc();
+
+            //services.AddDbContext<ApiContext>(opt => opt.UseInMemoryDatabase());
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

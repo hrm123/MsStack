@@ -25,7 +25,10 @@
     "Microsoft.AspNetCore.Http": "1.1.0",
     "Microsoft.AspNetCore.Http.Abstractions": "1.1.0",
     "Microsoft.AspNetCore.Diagnostics": "1.1.0",
-    "Microsoft.AspNetCore.StaticFiles": "1.1.0"
+    "Microsoft.AspNetCore.StaticFiles": "1.1.0",
+    "Microsoft.EntityFrameworkCore.InMemory": "1.1.0",
+    "Microsoft.Extensions.DependencyInjection.Abstractions": "1.1.0",
+    "Microsoft.AspNetCore.Routing": "1.1.0"
   },
   "tools": {
     "Microsoft.EntityFrameworkCore.Tools": "1.1.0-preview4-final"
