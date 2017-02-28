@@ -7,10 +7,11 @@ namespace Fastbank2.Api.Repo
     public class UnitofWork : IUnitofWork
     {
         #region Fields
-            private bool disposed = false;
-            public IRepository<Account> AccountsRepository { get; private set; }
-            public IRepository<User> UsersRepository { get; private set;}
-            public IRepository<Bank> BanksRepository { get; private set;}
+            private bool _disposed = false;
+            private ApiContext _contx = null;
+            public BaseRepository<Account> AccountsRepository { get; private set; }
+            public BaseRepository<User> UsersRepository { get; private set;}
+            public BaseRepository<Bank> BanksRepository { get; private set;}
         #endregion Fields
 
         public UnitofWork()
@@ -18,16 +19,16 @@ namespace Fastbank2.Api.Repo
             var optionsBuilder = new DbContextOptionsBuilder<ApiContext>();
             //optionsBuilder.UseSqlite("Filename=./blog.db");
             optionsBuilder.UseInMemoryDatabase();
-            ApiContext contx = new ApiContext(optionsBuilder.Options);
-            BanksRepository = new BaseRepository<Model.Bank>(contx);
-            UsersRepository = new BaseRepository<Model.User>(contx);
-            AccountsRepository = new BaseRepository<Model.Account>(contx);
+            _contx = new ApiContext(optionsBuilder.Options);
+            BanksRepository = new BaseRepository<Model.Bank>(_contx);
+            UsersRepository = new BaseRepository<Model.User>(_contx);
+            AccountsRepository = new BaseRepository<Model.Account>(_contx);
 
         }
 
         public void Save()
         {
-
+            _contx.SaveChanges();
         }
 
         public void Dispose()
@@ -43,7 +44,7 @@ namespace Fastbank2.Api.Repo
         protected virtual void Dispose(bool disposing)
         {
             // Check to see if Dispose has already been called.
-            if(!this.disposed)
+            if(!this._disposed)
             {
                 // If disposing equals true, dispose all managed
                 // and unmanaged resources.
@@ -60,7 +61,7 @@ namespace Fastbank2.Api.Repo
                 
 
                 // Note disposing has been done.
-                disposed = true;
+                _disposed = true;
 
             }
         }

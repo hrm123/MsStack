@@ -16,8 +16,8 @@ namespace Fastbank2.Api.Repo
         }
         public DbSet<User> Users { get; set; }
  
-        public DbSet<Account> Posts { get; set; }
+        public DbSet<Account> Accounts { get; set; }
 
-        public DbSet<Account> Banks { get; set; }
+        public DbSet<Bank> Banks { get; set; }
     }
 }
