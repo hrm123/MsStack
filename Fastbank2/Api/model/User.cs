@@ -7,6 +7,7 @@ namespace Fastbank2.Api.Model
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public Bank UserBank { get; set; }
         public virtual ICollection<Account> UserAccounts { get; set; }
 
         public User()

@@ -25,6 +25,17 @@ namespace Fastbank2.Api.Repo
             AccountsRepository = new BaseRepository<Model.Account>(_contx);
 
         }
+        public UnitofWork(ApiContext contxt)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<ApiContext>();
+            //optionsBuilder.UseSqlite("Filename=./blog.db");
+            optionsBuilder.UseInMemoryDatabase();
+            _contx = contxt;
+            BanksRepository = new BaseRepository<Model.Bank>(_contx);
+            UsersRepository = new BaseRepository<Model.User>(_contx);
+            AccountsRepository = new BaseRepository<Model.Account>(_contx);
+
+        }
 
         public void Save()
         {

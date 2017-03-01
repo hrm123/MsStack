@@ -33,9 +33,15 @@ namespace Fastbank2.UI
         {
             //services.AddDbContext<ApiContext>(opt => opt.UseInMemoryDatabase());
             // Add framework services.
-            services.AddMvc();
-            services.AddTransient<IUnitofWork, UnitofWork>();
+            services.AddMvc()
+                .AddJsonOptions(options =>
+                {
+                    options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 
+                });
+            services.AddTransient<IUnitofWork, UnitofWork>();
+            services.AddDbContext<ApiContext>();
 
 
             //services.AddDbContext<ApiContext>(opt => opt.UseInMemoryDatabase());
@@ -92,7 +98,7 @@ namespace Fastbank2.UI
                 context.AccountsRepository.Insert(ta);
 
             }
-            context.Save();
+            //context.Save();
 
             for(int i=1;i<10;i++)
             {
@@ -102,7 +108,7 @@ namespace Fastbank2.UI
                 currentUsr.UserAccounts.Add(currentAct);
 
             }
-            context.Save();
+            //context.Save();
 
             Bank b1 = new Bank();
             b1.Id = 1;
@@ -111,8 +117,10 @@ namespace Fastbank2.UI
             {
                 User currentUsr = context.UsersRepository.Get(i);
                 b1.Users.Add(currentUsr);
+                currentUsr.UserBank = b1;
             }
-
+            context.BanksRepository.Insert(b1);
+            context.Save();
         
             
         }

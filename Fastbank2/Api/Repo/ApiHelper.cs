@@ -22,7 +22,7 @@ namespace Fastbank2.Api.Repo
 
         public List<User> GetUsers(int id)
         {
-            return _contxt.BanksRepository.Get( b => b.Id == id).ToList()[0].Users.ToList();
+            return _contxt.BanksRepository.Get(b => b.Id == id,null,"Users").ToList()[0].Users.ToList();
         }
 
         

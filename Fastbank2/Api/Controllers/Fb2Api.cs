@@ -20,21 +20,22 @@ namespace PrototypeApi.Controllers
         }
  
         [HttpGet("Bank/{bankId:int}/Users")]
-        public IActionResult Get(int bankId)
+        public IEnumerable<User> Get(int bankId)
         {
             Console.WriteLine("bank Id: " + bankId.ToString());
             ApiHelper hlpr = new ApiHelper(_contxt);
             var response = hlpr.GetUsers(bankId);
-            return Ok(response);
+            return response;
             //return new string[] { "value1_" + bankId, "value2_" + bankId };
         }
 
         [HttpGet("{bankId}")]
-        public IActionResult Get1(int bankId)
+        public IList<User> Get1(int bankId)
         {
             ApiHelper hlpr = new ApiHelper(_contxt);
             var response = hlpr.GetUsers(bankId);
-            return Ok(response);
+            //return Ok(response);
+            return response;
             //return new string[] { "value1_" + bankId, "value2_" + bankId };
         }
 
