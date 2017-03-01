@@ -5,22 +5,54 @@ using Fastbank2.Api.Interfaces;
 using Fastbank2.Api.Model;
 using Microsoft.EntityFrameworkCore;
 using Fastbank2.Api.Repo;
+using System.Collections.Generic;
+using System;
 
 namespace PrototypeApi.Controllers
 {
-    [Route("api/[controller]")]
-    public class UsersController : Controller
+    [Route("api/")]
+    public class FastBankApiController : Controller
     {
         IUnitofWork _contxt = null;
-        public UsersController(IUnitofWork contxt)
+        public FastBankApiController(IUnitofWork contxt)
         {
             _contxt = contxt;
         }
  
-        public IActionResult GetUsers(int bankId)
+        [HttpGet("Bank/{bankId:int}/Users")]
+        public IActionResult Get(int bankId)
+        {
+            Console.WriteLine("bank Id: " + bankId.ToString());
+            ApiHelper hlpr = new ApiHelper(_contxt);
+            var response = hlpr.GetUsers(bankId);
+            return Ok(response);
+            //return new string[] { "value1_" + bankId, "value2_" + bankId };
+        }
+
+        [HttpGet("{bankId}")]
+        public IActionResult Get1(int bankId)
         {
             ApiHelper hlpr = new ApiHelper(_contxt);
             var response = hlpr.GetUsers(bankId);
+            return Ok(response);
+            //return new string[] { "value1_" + bankId, "value2_" + bankId };
+        }
+
+        [HttpGet()]
+        [Route("Bank/{bankId}/Users")]
+        public IActionResult GetUsersOfBank(int bankId)
+        {
+            ApiHelper hlpr = new ApiHelper(_contxt);
+            var response = hlpr.GetUsers(bankId);
+            return Ok(response);
+        }
+
+        [HttpGet()]
+        [Route("User/{userId:int}")]
+        public IActionResult GetUsersById(int userId)
+        {
+            ApiHelper hlpr = new ApiHelper(_contxt);
+            var response = hlpr.GetUser(userId);
             return Ok(response);
         }
     }

@@ -61,8 +61,8 @@ namespace Fastbank2.UI
             app.UseStaticFiles();
 
 
-            //var context = app.ApplicationServices.GetService<ApiContext>();
-           // AddTestData(context);
+            var context = app.ApplicationServices.GetService<IUnitofWork>();
+            AddTestData(context);
             
             app.UseMvc(routes =>
             {
@@ -72,7 +72,7 @@ namespace Fastbank2.UI
             });
         }
 
-        private void AddTestData(ApiContext context)
+        private void AddTestData(IUnitofWork context)
         {
             for(int i=1;i<10;i++)
             {
@@ -82,34 +82,34 @@ namespace Fastbank2.UI
                     Name = "u" + i.ToString()
                 };
             
-                context.Users.Add(tu);
+                context.UsersRepository.Insert(tu);
 
                 var ta = new Account
                 {
                     Id = i,
                     Name = "a" + i.ToString()
                 };
-                context.Accounts.Add(ta);
+                context.AccountsRepository.Insert(ta);
 
             }
-            context.SaveChanges();
+            context.Save();
 
             for(int i=1;i<10;i++)
             {
-                Account currentAct = context.Accounts.Single( a => a.Id == i);
-                User currentUsr = context.Users.Single( u => u.Id == i);
+                Account currentAct = context.AccountsRepository.Get(i);
+                User currentUsr = context.UsersRepository.Get(i);
                 currentAct.AccountUser = currentUsr;
                 currentUsr.UserAccounts.Add(currentAct);
 
             }
-            context.SaveChanges();
+            context.Save();
 
             Bank b1 = new Bank();
             b1.Id = 1;
             b1.Name = "Bank of America";
             for(int i=1;i<10;i++)
             {
-                User currentUsr = context.Users.Single( u => u.Id == i);
+                User currentUsr = context.UsersRepository.Get(i);
                 b1.Users.Add(currentUsr);
             }
 
