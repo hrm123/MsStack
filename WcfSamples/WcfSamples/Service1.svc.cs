@@ -49,7 +49,7 @@ namespace WcfSamples
 
             then post req from postman
             http://localhost:8081/testwcf1
-            with sam eboady as above postman req.
+            with same body as above postman req.
              */
         }
 
