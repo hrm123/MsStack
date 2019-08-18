@@ -1,0 +1,2 @@
+﻿1. to delete a edge (v1-v2) just make value of that entry in matrix (v1 intersection v2 point in matrix) as 0
+2. to add an edge (v1->v2 or v1-v2) in matrix make corresponding intersection(/s) as 1
