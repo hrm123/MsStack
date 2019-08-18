@@ -1,6 +1,6 @@
 ﻿using AlgoDemos.ExpressionTree;
 using AlgoDemos.Graph;
-
+using AlgoDemos.Graph.AdjList;
 using System;
 
 namespace AlgoDemos
@@ -16,9 +16,13 @@ namespace AlgoDemos
             expTree.Demo(postfix);
             */
 
+            /*
             DiGraphAdjMatr adjMatrixDemo = new DiGraphAdjMatr();
             adjMatrixDemo.Demo();
+            */
 
+            LinkedDiGraph linkedDiGraph = new LinkedDiGraph();
+            linkedDiGraph.Demo();
             
 
             Console.Write("Press any key to continue ...");

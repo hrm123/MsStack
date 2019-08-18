@@ -130,8 +130,8 @@ namespace AlgoDemos.Graph.AdjList
                 Console.WriteLine("Invalid edge - start and end vertices are same");
                 return;
             }
-            VertexNode v = FindVertex(s1);
-            VertexNode u = FindVertex(s2);
+            VertexNode u = FindVertex(s1);
+            VertexNode v = FindVertex(s2);
             if(u == null || v == null)
             {
                 Console.WriteLine("Start or End vertex not present");
@@ -248,7 +248,7 @@ namespace AlgoDemos.Graph.AdjList
             }
             int ind = 0;
             
-            for (VertexNode p = u; p != null; p = p.nextVertex)
+            for (VertexNode p = start; p != null; p = p.nextVertex)
             {
                 for(EdgeNode q = p.firstEdge; q != null; q = q.nextEdge)
                 {
