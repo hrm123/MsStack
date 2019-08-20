@@ -1,0 +1,33 @@
+﻿1. Connected graph - There is a path (of length one or more) from 
+any vertex to any other vertex.
+2. Non connected graph has parts called connected components. 
+Connected component is a maximal connected subgraph.
+3. Bridge
+Bridge is an edge in graph which is removed makes the graph disconnected.
+4. Articulation point
+A vertex in a graph which if removed makes the graph disconencted.
+5. Biconencted graph
+Is agraph that is conencted and has no articualtion points
+Biconencted componets is maximal biconnected subgraph.
+6. Strongly connected graph -
+A graph in which for any pair of vertices (u,v) a path from u to v 
+as well as v to u exists.
+Strongly connected components of a graph is a maximal strongly connected subgraph
+7. Weekly connected graph
+If undirected graph of a digraph is connected then digraph is said to be weekly conencted.
+8. Tree - 
+Is a acyclic connected graph (no cycles and all vertices are conecnted).
+9. Forest -
+Disjoint union of trees.
+There is at most one path between any two vertices.
+
+10. Spanning tree -
+Subgraph T of connected graph G is a spanning tree of G -> 
+T contains all the vertices of G and T is a tree.
+Spanning Forest -
+is a subgraph that consists of a spaning tree corresponding to each conneccted component.
+
+11. Finding connected components -
+BFS in Undirected graph.
+While doing BFS we give label to each node and finally gather all nodes with same label as one conencted component.
+
