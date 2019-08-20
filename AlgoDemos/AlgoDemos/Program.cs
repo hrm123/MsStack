@@ -1,4 +1,5 @@
-﻿using AlgoDemos.ExpressionTree;
+﻿using AlgoDemos.DijkstrasAlgo;
+using AlgoDemos.ExpressionTree;
 using AlgoDemos.Graph;
 using AlgoDemos.Graph.AdjList;
 using System;
@@ -21,9 +22,13 @@ namespace AlgoDemos
             adjMatrixDemo.Demo();
             */
 
+            /*
             LinkedDiGraph linkedDiGraph = new LinkedDiGraph();
             linkedDiGraph.Demo();
-            
+            */
+
+            DiWtedGraphShortestPath dijkDemo = new DiWtedGraphShortestPath();
+            dijkDemo.Demo();
 
             Console.Write("Press any key to continue ...");
             Console.Read();
