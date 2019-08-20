@@ -1,0 +1,19 @@
+﻿Minimum Spanning Tree (MST) -
+Given a connected graph G with positive edge weights, find minimum set of edges that connect all of the vertices.
+This means MST has the least total weight to visit all vertices.
+Applications - 
+- Approximation algorithms for NP hard problems :
+Travelling salesman problem (visit all locations with minimum cost),
+- Phone company that wants lines to run between several points/locations
+- max bottleneck paths, learning salient features for real-time dface verification, auto config
+protocol for Ethernet bridging to avoid cycles in a network etc.
+
+- Prims algorithm; 
+
+- Kruskals Algorithm:
+
+1. Grpah og n vertices
+2. Create forest of n distinct trees (with no edges) where each forest is one vertex.
+3. In each step edges are joined so that number of forestes get reduced till finally we get single MST.
+In each step -
+Edge of graph is examined and is included if it does not form a cycle and has minimum weight.

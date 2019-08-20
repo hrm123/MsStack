@@ -3,6 +3,7 @@ using AlgoDemos.ExpressionTree;
 using AlgoDemos.Graph;
 using AlgoDemos.Graph.AdjList;
 using AlgoDemos.Graph.Connectivity;
+using AlgoDemos.MST.KruskalsAlgo;
 using System;
 
 namespace AlgoDemos
@@ -33,7 +34,12 @@ namespace AlgoDemos
             dijkDemo.Demo();
             */
 
+            /*
             UnDiGraphConComp g = new UnDiGraphConComp();
+            g.Demo();
+            */
+
+            UndiWtedGraphKruskal g = new UndiWtedGraphKruskal();
             g.Demo();
 
             Console.Write("Press any key to continue ...");
