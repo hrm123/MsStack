@@ -1,0 +1,65 @@
+﻿> Sorting algorithms
+
+> Efficiency of algorithm -
+Depends on running time of algorithm and memory occupied by it.
+Efficient algo takes less running time and also occupies less memory.
+RUNNING TIME is most concern since memory is cheap nowadays.
+
+2 ways of measuring running time-
+Emperical / experimental method - 
+Algo implemented in a language and run on different imputs and running time is recorded. But here running time is dependent on software and hardware. But a bad algo may sound more efficient when run on good machine or good language.
+So all algos need to be run on same software and hardware to compare and this may not be possible always.
+All inputs cannot be covered easily.
+for algos that take long time to execute recording time is difficult.
+Analytical method -
+Here analyse running time based on input size.
+Independent of hardware and software environments.
+Easy to consider all possible inputs as well as long running times.
+
+Size of input (n) is input for efficiency of algo. 
+Big O notations is used to determine rate at which algorithm performance deteriorrates with input size.
+
+Definition of Big O: { O means Order}
+---
+f(n) is O(g(n)) if there exists constants c and n0 such that 
+f(n) <= c * g(n) for all n > n0;
+[[ the constants c and n0 may not be unique)]]
+ex:
+1. take a function  f(n) = 5n + 4 ;
+5n + 4 <= 5n + (n -4) + 4 for all n>=4..  { since n-4 is zero/positive}
+so 5n+4 <= 6n
+so 5n+4 is O(n)
+
+There are some set of rules to find order of function rather than deriving like above:
+
+- g(n) has some simple functions to provide upper bound (slow growing to fast growing )-
+1, log n, n, n log n, npow2,, n por k, 2 pow n , 3 pow n, k pow n, n!
+-  We can keep fastest growing term of function and discard all lower terms and constants.
+ 5npow 2 + 7n means it is of order npow2
+ - if f(n) is constant it is of order O(1)
+ - base of logarithm is not important (since different bases are related by constant factor)
+
+ We go by least upper bound function approximation for bigO - if a function can be O(npow2) as well as O(n!) then we choose O(npow2)
+
+ - Running Time:
+ is proportional to number of primitive operations executed during run time (comparisions, arithmetic operations, input and output, assignments etc)
+ It boils down more to number of loops in the algorithm that are dependent on n.
+ we are not interested in time taken for a computation but only numebr of time a primitive operation is executed.
+
+
+ for(i = 0 to n){
+ for(i1=n-1;i1>1;i /=2 ..
+ for(j=0;j<n;j++ ..)) ..
+ } -- this is nlog(n) + npow2 -- which means it is O(npow2)
+
+
+ > Worst, Average and Best Case analysis - When Running time of algo depends on sizeor type of input data.
+ Define time complexity of algo in these 3 cases (all of input size n) ..In worst case we take input that causes max number of operations to be execurted (ex: sorting algo with all elements in reverse sort gorder in input ?)
+ Best case - when in linear search the element to be searched is present as first element. - O(1)
+ Average case - assumtion is that al possible permutations of input are equally likely. consider all possible inputs and compute average. This analysis is rarely done is it is diffult to compute.
+
+ usually worst case is analysed for algorithms. O9n) is the worst case time efficiency.
+
+
+
+

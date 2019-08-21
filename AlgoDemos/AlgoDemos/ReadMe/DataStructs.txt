@@ -1,0 +1,29 @@
+﻿> Linear data structs -
+
+Array (contiguous memory), linked list (non contiguous memory)
+
+
+> Nonlinear data structures -
+Tree
+
+Appropriate data structure can greatly simplify an algorithm implementation.
+
+Abstract data types (ADT):
+Concept that defines a data type logically. Specifies set of data and set of operations that can be performed. Does nto mention about how they actually implemented (physically).
+
+List ADT can be implemented in different Data Structures -  using arrays, single linekd list or double linked list.
+Stack or Queue ADT can be implemented either using arrays or linked list.
+Different implementations of ADT are comapred based on time and space and used based on the end needs.
+
+ex: If user makes lot of insert and delte .. better to use linekd list (since array is costly to change memory)
+
+
+ADT is specification language for Data Structure.
+
+ADT is interface
+User of data structure - client
+
+Clients usually can only see the ADT/interface.
+
+ex: when using int datatype we need to know waht values it can take and how to set and get .. no need to know how it is implemented internally.
+
