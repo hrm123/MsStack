@@ -31,7 +31,7 @@ namespace NextVideoServer
 
             try
             {
-                Stream inpStream = new FileStream(request.Fullfilename, FileMode.Open,
+                Stream inpStream = new FileStream("c:\\temp\\" + request.Fullfilename, FileMode.Open,
                     FileAccess.Read, FileShare.Read);
                 dataToRead = inpStream.Length;
                 int start = 0;
