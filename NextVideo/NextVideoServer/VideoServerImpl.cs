@@ -74,41 +74,55 @@ namespace NextVideoServer
 
         public override async Task<SvcResponse> SaveMp4File(IAsyncStreamReader<Chunk> requestStream, ServerCallContext context)
         {
-            SvcResponse resp = new SvcResponse();
             String fileName = System.Guid.NewGuid().ToString() + ".mp4";
-            resp.Message = fileName;
-
-            Console.WriteLine("SaveFile ->" + fileName);
-
-            CancellationToken ct = new CancellationToken();
-
-            if(destinationStrem == null)
+            try
             {
-                destinationStrem = File.Create("c:\\temp\\" + fileName);
+                SvcResponse resp = new SvcResponse();
+
+                resp.Message = fileName;
+
+                Console.WriteLine("SaveFile ->" + fileName);
+
+                CancellationToken ct = new CancellationToken();
+
+                if (destinationStrem == null)
+                {
+                    destinationStrem = File.Create("c:\\temp\\" + fileName);
+                }
+
+                var stream = new CodedOutputStream(destinationStrem, true);
+                while (await requestStream.MoveNext(ct))
+                {
+                    var arr = requestStream.Current.PayLoad.ToByteArray();
+                    destinationStrem.Write(arr, 0, arr.Length);
+                }
+                destinationStrem.Flush();
+                stream.Flush();
+                stream.Dispose();
+
+                if (destinationStrem != null)
+                {
+                    destinationStrem.Dispose();
+                    destinationStrem.Close();
+                    destinationStrem = null;
+                }
+                Console.WriteLine("saved file -" + fileName);
+
+                return new SvcResponse
+                {
+                    Message = fileName,
+                    Code = "1"
+                };
             }
-
-            var stream = new CodedOutputStream(destinationStrem, true);
-            while(await requestStream.MoveNext(ct))
+            catch (Exception ex)
             {
-                var arr = requestStream.Current.PayLoad.ToByteArray();
-                destinationStrem.Write(arr, 0, arr.Length);
+                Console.WriteLine(ex.ToString());
+                return new SvcResponse
+                {
+                    Message = fileName,
+                    Code = "0"
+                };
             }
-            destinationStrem.Flush();
-            stream.Flush();
-            stream.Dispose();
-
-            if(destinationStrem != null)
-            {
-                destinationStrem.Dispose();
-                destinationStrem.Close();
-                destinationStrem = null;
-            }
-
-            return new SvcResponse
-            {
-                Message = fileName,
-                Code = "1"
-            };
         }
     }
 }

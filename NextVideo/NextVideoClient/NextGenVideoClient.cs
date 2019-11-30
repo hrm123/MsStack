@@ -62,8 +62,18 @@ namespace NextVideoClient
                         msg.PayLoad = ByteString.CopyFrom(buffer, 0, buffer.Length);
                         await call.RequestStream.WriteAsync(msg);
                         bytesRead = sourceStream.Read(buffer, 0, buffer.Length);
+                        Console.Write("chunk sent..");
                     }
                     await call.RequestStream.CompleteAsync();
+                    var resp = await call.ResponseAsync;
+                    if (resp.Code == "1")
+                    {
+                        Console.Write("sent the chunks of file -" + fileNameLocal);
+                    }
+                    else
+                    {
+                        Console.Write("error in sending  the chunks of file -" + fileNameLocal);
+                    }
                 }
                 return true;
             }

@@ -64,6 +64,8 @@ namespace NextVideoClient
             {
                 var resp = clnt.ListFiles();
                 resp.Wait();
+                string fileString = string.Join(",", resp.Result.Item2);
+                Console.WriteLine("file list - " + fileString);
             }
             else
             {
