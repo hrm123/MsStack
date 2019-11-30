@@ -12,7 +12,7 @@ namespace NextVideoServer
         {
             int port = 50051;
             string host = "localhost";
-
+            
             if(args.Length == 2)
             {
                 if(!int.TryParse(args[0], out port))
@@ -24,6 +24,8 @@ namespace NextVideoServer
                 {
                     host = args[1];
                 }
+
+                
             }
             else
             {

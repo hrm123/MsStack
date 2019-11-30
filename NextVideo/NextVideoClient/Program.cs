@@ -12,8 +12,9 @@ namespace NextVideoClient
         {
             int port = 50051;
             string host = "localhost";
+            string mode = "1";
 
-            if (args.Length == 2)
+            if (args.Length == 3)
             {
                 if (!int.TryParse(args[0], out port))
                 {
@@ -24,20 +25,57 @@ namespace NextVideoClient
                 {
                     host = args[1];
                 }
+
+                if (!String.IsNullOrEmpty(args[2]))
+                {
+                    mode = args[2];
+                }
             }
             else
             {
-                Console.WriteLine("Arguments not correct.. using default port and host");
+                if (args.Length == 2)
+                {
+                    if (!int.TryParse(args[0], out port))
+                    {
+                        port = 50051;
+                    }
+
+                    if (!String.IsNullOrEmpty(args[1]))
+                    {
+                        host = args[1];
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Arguments not correct.. using default port and host");
+                }
             }
 
             NextGenVideoClient clnt = new NextGenVideoClient(port, host);
             clnt.Start();
-
-            Console.WriteLine("fetching vid1.mp4");
-            var resp = clnt.GetFile("vid1", ".mp4");
-            resp.Wait();
-
-            Console.WriteLine("file " + resp.Result.Item2 + " fetched sucessfully");
+            if (mode == "1")
+            {
+                Console.WriteLine("fetching vid1.mp4");
+                var resp = clnt.GetFile("vid1", ".mp4");
+                resp.Wait();
+                Console.WriteLine("file " + resp.Result.Item2 + " fetched sucessfully");
+            }
+            else
+            {
+                //should be file name
+                Console.WriteLine("saving " + mode + ".mp4");
+                var resp = clnt.SaveFile(mode, ".mp4");
+                resp.Wait();
+                if (resp.Result)
+                {
+                    Console.WriteLine("file " + mode + ".mp4" + " saved sucessfully");
+                }
+                else
+                {
+                    Console.WriteLine("file " + mode + ".mp4" + " save faield");
+                }
+            }
+            
             Console.WriteLine();
         }
     }

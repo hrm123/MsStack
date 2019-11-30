@@ -19,6 +19,7 @@ namespace NextVideoClient
         NextGenVideoServiceClient _client = null;
         string _fileName = string.Empty;
         FileStream destinationStream = null;
+        FileStream sourceStream = null;
 
         public NextGenVideoClient(int port, string host)
         {
@@ -30,6 +31,48 @@ namespace NextVideoClient
         {
             _channel = new Channel(Host + ":" + Port, ChannelCredentials.Insecure);
             _client = new NextGenVideoServiceClient(_channel);
+        }
+
+
+        public async Task<bool> SaveFile(string fileName, string fileExt)
+        {
+            try
+            {
+                if (fileExt != ".mp4")
+                {
+                    throw new ApplicationException("not implemented.");
+                }
+
+                string fileNameLocal = "c:\\temp\\" + fileName + fileExt;
+                if (sourceStream == null)
+                {
+                    //create file to save stream to
+                    sourceStream = File.OpenRead(fileNameLocal);
+                }
+                byte[] buffer = new byte[1024];
+                int totalLen = 0;
+                using (var call = _client.SaveMp4File())
+                {
+                    int bytesRead = sourceStream.Read(buffer, 0, buffer.Length);
+
+                    while (bytesRead > 0)
+                    {
+                        Chunk msg = new Chunk();
+                        totalLen += buffer.Length;
+                        msg.PayLoad = ByteString.CopyFrom(buffer, 0, buffer.Length);
+                        await call.RequestStream.WriteAsync(msg);
+                        bytesRead = sourceStream.Read(buffer, 0, buffer.Length);
+                    }
+                    await call.RequestStream.CompleteAsync();
+                }
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Console.Write(ex.ToString());
+                return false;
+            }
+
         }
 
         public async Task<Tuple<bool, string>> GetFile(string fileName, string fileExt)
