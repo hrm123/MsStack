@@ -114,6 +114,14 @@ namespace NextVideoClient
             return new Tuple<bool, string>( true, fileNameLocal);
         }
 
+        public async Task<Tuple<bool, string[]>> ListFiles()
+        {
+
+            FileListReq req = new FileListReq();
+            FileListResp resp = await _client.ListFilesAsync(req);
+            return new Tuple<bool, string[]>(true, resp.Files.Select((v, i) => v.FileName_).ToArray());
+        }
+
 
     }
 }

@@ -27,19 +27,26 @@ namespace Com.Hrm123.Nextgenvideo {
             "CiZOZXh0VmlkZW8vcHJvdG9zL25leHRnZW52aWRlb3N2Yy5wcm90bxIXY29t",
             "LmhybTEyMy5uZXh0Z2VudmlkZW8iGAoFQ2h1bmsSDwoHUGF5TG9hZBgBIAEo",
             "DCIsCgtTdmNSZXNwb25zZRIPCgdNZXNzYWdlGAEgASgJEgwKBENvZGUYAiAB",
-            "KAkiHwoHRmlsZVJlcRIUCgxmdWxsZmlsZW5hbWUYASABKAkyuwEKE05leHRH",
-            "ZW5WaWRlb1NlcnZpY2USVQoLU2F2ZU1wNEZpbGUSHi5jb20uaHJtMTIzLm5l",
-            "eHRnZW52aWRlby5DaHVuaxokLmNvbS5ocm0xMjMubmV4dGdlbnZpZGVvLlN2",
-            "Y1Jlc3BvbnNlKAESTQoHR2V0RmlsZRIgLmNvbS5ocm0xMjMubmV4dGdlbnZp",
-            "ZGVvLkZpbGVSZXEaHi5jb20uaHJtMTIzLm5leHRnZW52aWRlby5DaHVuazAB",
-            "QjYKGmNvbS5ocm0xMjMubmV4dGdlbnZpZGVvc3ZjQg9OZXh0R2VuVmlkZW9T",
-            "dmNQAaICBE5HVlNiBnByb3RvMw=="));
+            "KAkiHwoHRmlsZVJlcRIUCgxmdWxsZmlsZW5hbWUYASABKAkiQAoMRmlsZUxp",
+            "c3RSZXNwEjAKBWZpbGVzGAEgAygLMiEuY29tLmhybTEyMy5uZXh0Z2Vudmlk",
+            "ZW8uRmlsZU5hbWUiHAoIRmlsZU5hbWUSEAoIRmlsZU5hbWUYASABKAkiDQoL",
+            "RmlsZUxpc3RSZXEylQIKE05leHRHZW5WaWRlb1NlcnZpY2USVQoLU2F2ZU1w",
+            "NEZpbGUSHi5jb20uaHJtMTIzLm5leHRnZW52aWRlby5DaHVuaxokLmNvbS5o",
+            "cm0xMjMubmV4dGdlbnZpZGVvLlN2Y1Jlc3BvbnNlKAESTQoHR2V0RmlsZRIg",
+            "LmNvbS5ocm0xMjMubmV4dGdlbnZpZGVvLkZpbGVSZXEaHi5jb20uaHJtMTIz",
+            "Lm5leHRnZW52aWRlby5DaHVuazABElgKCUxpc3RGaWxlcxIkLmNvbS5ocm0x",
+            "MjMubmV4dGdlbnZpZGVvLkZpbGVMaXN0UmVxGiUuY29tLmhybTEyMy5uZXh0",
+            "Z2VudmlkZW8uRmlsZUxpc3RSZXNwQjYKGmNvbS5ocm0xMjMubmV4dGdlbnZp",
+            "ZGVvc3ZjQg9OZXh0R2VuVmlkZW9TdmNQAaICBE5HVlNiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Hrm123.Nextgenvideo.Chunk), global::Com.Hrm123.Nextgenvideo.Chunk.Parser, new[]{ "PayLoad" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Hrm123.Nextgenvideo.SvcResponse), global::Com.Hrm123.Nextgenvideo.SvcResponse.Parser, new[]{ "Message", "Code" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Hrm123.Nextgenvideo.FileReq), global::Com.Hrm123.Nextgenvideo.FileReq.Parser, new[]{ "Fullfilename" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Hrm123.Nextgenvideo.FileReq), global::Com.Hrm123.Nextgenvideo.FileReq.Parser, new[]{ "Fullfilename" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Hrm123.Nextgenvideo.FileListResp), global::Com.Hrm123.Nextgenvideo.FileListResp.Parser, new[]{ "Files" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Hrm123.Nextgenvideo.FileName), global::Com.Hrm123.Nextgenvideo.FileName.Parser, new[]{ "FileName_" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Hrm123.Nextgenvideo.FileListReq), global::Com.Hrm123.Nextgenvideo.FileListReq.Parser, null, null, null, null)
           }));
     }
     #endregion
@@ -455,6 +462,357 @@ namespace Com.Hrm123.Nextgenvideo {
             Fullfilename = input.ReadString();
             break;
           }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class FileListResp : pb::IMessage<FileListResp> {
+    private static readonly pb::MessageParser<FileListResp> _parser = new pb::MessageParser<FileListResp>(() => new FileListResp());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<FileListResp> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Com.Hrm123.Nextgenvideo.NextgenvideosvcReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public FileListResp() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public FileListResp(FileListResp other) : this() {
+      files_ = other.files_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public FileListResp Clone() {
+      return new FileListResp(this);
+    }
+
+    /// <summary>Field number for the "files" field.</summary>
+    public const int FilesFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::Com.Hrm123.Nextgenvideo.FileName> _repeated_files_codec
+        = pb::FieldCodec.ForMessage(10, global::Com.Hrm123.Nextgenvideo.FileName.Parser);
+    private readonly pbc::RepeatedField<global::Com.Hrm123.Nextgenvideo.FileName> files_ = new pbc::RepeatedField<global::Com.Hrm123.Nextgenvideo.FileName>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::Com.Hrm123.Nextgenvideo.FileName> Files {
+      get { return files_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as FileListResp);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(FileListResp other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!files_.Equals(other.files_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= files_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      files_.WriteTo(output, _repeated_files_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      size += files_.CalculateSize(_repeated_files_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(FileListResp other) {
+      if (other == null) {
+        return;
+      }
+      files_.Add(other.files_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            files_.AddEntriesFrom(input, _repeated_files_codec);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class FileName : pb::IMessage<FileName> {
+    private static readonly pb::MessageParser<FileName> _parser = new pb::MessageParser<FileName>(() => new FileName());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<FileName> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Com.Hrm123.Nextgenvideo.NextgenvideosvcReflection.Descriptor.MessageTypes[4]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public FileName() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public FileName(FileName other) : this() {
+      fileName_ = other.fileName_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public FileName Clone() {
+      return new FileName(this);
+    }
+
+    /// <summary>Field number for the "FileName" field.</summary>
+    public const int FileName_FieldNumber = 1;
+    private string fileName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string FileName_ {
+      get { return fileName_; }
+      set {
+        fileName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as FileName);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(FileName other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (FileName_ != other.FileName_) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (FileName_.Length != 0) hash ^= FileName_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (FileName_.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(FileName_);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (FileName_.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(FileName_);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(FileName other) {
+      if (other == null) {
+        return;
+      }
+      if (other.FileName_.Length != 0) {
+        FileName_ = other.FileName_;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            FileName_ = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class FileListReq : pb::IMessage<FileListReq> {
+    private static readonly pb::MessageParser<FileListReq> _parser = new pb::MessageParser<FileListReq>(() => new FileListReq());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<FileListReq> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Com.Hrm123.Nextgenvideo.NextgenvideosvcReflection.Descriptor.MessageTypes[5]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public FileListReq() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public FileListReq(FileListReq other) : this() {
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public FileListReq Clone() {
+      return new FileListReq(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as FileListReq);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(FileListReq other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(FileListReq other) {
+      if (other == null) {
+        return;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
         }
       }
     }

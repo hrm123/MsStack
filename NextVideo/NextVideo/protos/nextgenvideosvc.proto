@@ -20,7 +20,18 @@ message FileReq {
 	string fullfilename=1;
 }
 
+message FileListResp{
+	repeated FileName files = 1;
+}
+
+message FileName{
+	string FileName = 1;
+}
+
+message FileListReq {}
+
 service NextGenVideoService {
 	rpc SaveMp4File(stream Chunk) returns (SvcResponse);
 	rpc GetFile(FileReq) returns (stream Chunk);
+	rpc ListFiles(FileListReq) returns (FileListResp);
 }

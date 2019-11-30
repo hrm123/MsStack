@@ -21,6 +21,22 @@ namespace NextVideoServer
             GrpcEnvironment.SetLogger(new TextWriterLogger(Console.Out));
         }
 
+        public override Task<FileListResp> ListFiles(FileListReq request, ServerCallContext context)
+        {
+            DirectoryInfo DirInfo = new DirectoryInfo(@"c:\temp\");
+            var files = from f in DirInfo.EnumerateFiles()
+                        where f.Extension == ".mp4"
+                        orderby f.CreationTime
+                        select new FileName
+                        {
+                            FileName_ = f.Name
+                        };
+            var resp = new FileListResp();
+            resp.Files.AddRange(files);
+            
+            return Task.FromResult(resp);
+        }
+
         public override async Task GetFile(FileReq request, IServerStreamWriter<Chunk> responseStream, ServerCallContext context)
         {
             long dataToRead;

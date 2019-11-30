@@ -15,6 +15,8 @@ namespace Com.Hrm123.Nextgenvideo {
     static readonly grpc::Marshaller<global::Com.Hrm123.Nextgenvideo.Chunk> __Marshaller_com_hrm123_nextgenvideo_Chunk = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Com.Hrm123.Nextgenvideo.Chunk.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Com.Hrm123.Nextgenvideo.SvcResponse> __Marshaller_com_hrm123_nextgenvideo_SvcResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Com.Hrm123.Nextgenvideo.SvcResponse.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Com.Hrm123.Nextgenvideo.FileReq> __Marshaller_com_hrm123_nextgenvideo_FileReq = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Com.Hrm123.Nextgenvideo.FileReq.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Com.Hrm123.Nextgenvideo.FileListReq> __Marshaller_com_hrm123_nextgenvideo_FileListReq = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Com.Hrm123.Nextgenvideo.FileListReq.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Com.Hrm123.Nextgenvideo.FileListResp> __Marshaller_com_hrm123_nextgenvideo_FileListResp = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Com.Hrm123.Nextgenvideo.FileListResp.Parser.ParseFrom);
 
     static readonly grpc::Method<global::Com.Hrm123.Nextgenvideo.Chunk, global::Com.Hrm123.Nextgenvideo.SvcResponse> __Method_SaveMp4File = new grpc::Method<global::Com.Hrm123.Nextgenvideo.Chunk, global::Com.Hrm123.Nextgenvideo.SvcResponse>(
         grpc::MethodType.ClientStreaming,
@@ -29,6 +31,13 @@ namespace Com.Hrm123.Nextgenvideo {
         "GetFile",
         __Marshaller_com_hrm123_nextgenvideo_FileReq,
         __Marshaller_com_hrm123_nextgenvideo_Chunk);
+
+    static readonly grpc::Method<global::Com.Hrm123.Nextgenvideo.FileListReq, global::Com.Hrm123.Nextgenvideo.FileListResp> __Method_ListFiles = new grpc::Method<global::Com.Hrm123.Nextgenvideo.FileListReq, global::Com.Hrm123.Nextgenvideo.FileListResp>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "ListFiles",
+        __Marshaller_com_hrm123_nextgenvideo_FileListReq,
+        __Marshaller_com_hrm123_nextgenvideo_FileListResp);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -46,6 +55,11 @@ namespace Com.Hrm123.Nextgenvideo {
       }
 
       public virtual global::System.Threading.Tasks.Task GetFile(global::Com.Hrm123.Nextgenvideo.FileReq request, grpc::IServerStreamWriter<global::Com.Hrm123.Nextgenvideo.Chunk> responseStream, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::Com.Hrm123.Nextgenvideo.FileListResp> ListFiles(global::Com.Hrm123.Nextgenvideo.FileListReq request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -91,6 +105,22 @@ namespace Com.Hrm123.Nextgenvideo {
       {
         return CallInvoker.AsyncServerStreamingCall(__Method_GetFile, null, options, request);
       }
+      public virtual global::Com.Hrm123.Nextgenvideo.FileListResp ListFiles(global::Com.Hrm123.Nextgenvideo.FileListReq request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return ListFiles(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::Com.Hrm123.Nextgenvideo.FileListResp ListFiles(global::Com.Hrm123.Nextgenvideo.FileListReq request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_ListFiles, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::Com.Hrm123.Nextgenvideo.FileListResp> ListFilesAsync(global::Com.Hrm123.Nextgenvideo.FileListReq request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return ListFilesAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::Com.Hrm123.Nextgenvideo.FileListResp> ListFilesAsync(global::Com.Hrm123.Nextgenvideo.FileListReq request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_ListFiles, null, options, request);
+      }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override NextGenVideoServiceClient NewInstance(ClientBaseConfiguration configuration)
       {
@@ -104,7 +134,8 @@ namespace Com.Hrm123.Nextgenvideo {
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_SaveMp4File, serviceImpl.SaveMp4File)
-          .AddMethod(__Method_GetFile, serviceImpl.GetFile).Build();
+          .AddMethod(__Method_GetFile, serviceImpl.GetFile)
+          .AddMethod(__Method_ListFiles, serviceImpl.ListFiles).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the  service binding logic.
@@ -115,6 +146,7 @@ namespace Com.Hrm123.Nextgenvideo {
     {
       serviceBinder.AddMethod(__Method_SaveMp4File, serviceImpl == null ? null : new grpc::ClientStreamingServerMethod<global::Com.Hrm123.Nextgenvideo.Chunk, global::Com.Hrm123.Nextgenvideo.SvcResponse>(serviceImpl.SaveMp4File));
       serviceBinder.AddMethod(__Method_GetFile, serviceImpl == null ? null : new grpc::ServerStreamingServerMethod<global::Com.Hrm123.Nextgenvideo.FileReq, global::Com.Hrm123.Nextgenvideo.Chunk>(serviceImpl.GetFile));
+      serviceBinder.AddMethod(__Method_ListFiles, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Com.Hrm123.Nextgenvideo.FileListReq, global::Com.Hrm123.Nextgenvideo.FileListResp>(serviceImpl.ListFiles));
     }
 
   }

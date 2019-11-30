@@ -28,7 +28,7 @@ namespace NextVideoClient
 
                 if (!String.IsNullOrEmpty(args[2]))
                 {
-                    mode = args[2];
+                    mode = args[2]; // can be "list" or "<filename without extension>"
                 }
             }
             else
@@ -59,6 +59,11 @@ namespace NextVideoClient
                 var resp = clnt.GetFile("vid1", ".mp4");
                 resp.Wait();
                 Console.WriteLine("file " + resp.Result.Item2 + " fetched sucessfully");
+            }
+            else if(mode == "list")
+            {
+                var resp = clnt.ListFiles();
+                resp.Wait();
             }
             else
             {
