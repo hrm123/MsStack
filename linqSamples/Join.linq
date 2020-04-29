@@ -31,8 +31,17 @@ void Main()
 		new Dept { Name = "dept4", DeptId= 4}
 	};
 	
-	// get all employees by department (iinerr join)
+	// get all employees by department (inner join)
 	//Console.WriteLine(People.Join(Depts, p=>p.DeptId, d => d.DeptId, (p,d) => new { EmplName = p.Name, EmplDept = p.DeptId, DeptName = d.Name}).GroupBy( empdept => empdept.DeptName ));
+	var empDept = (from emp in People
+				join depart in Depts on  emp.DeptId  equals depart.DeptId
+				select new {
+					EmplName  = emp.Name,
+					DeptName = depart.Name
+				}).ToList();
+				
+	// Console.WriteLine(empDept);				
+				
 
 	// get employee with highest salary in each department
 	
@@ -46,15 +55,27 @@ void Main()
 	
 	
 	//left/right outer join between employees and depts
+	/*
 	Console.WriteLine(
 		People.GroupJoin(Depts, p=>p.DeptId, d => d.DeptId, (person,depts) => new { Empl = person, Dept = depts.Select( d1 => d1.Name) })
 		);
-		
-		
+	*/	
+	
+		/*
 	Console.WriteLine(
 		Depts.GroupJoin(People, p=>p.DeptId, d => d.DeptId, 
 			(d1,p1) => new { DeptName = d1.Name, Peopls = p1.Select( p12 => p12.Name).ToArray() })
 		);	// Get all people in a dept
+		*/
+	var empIncludingNoDept = (from emp in People
+				join depart in Depts on  emp.DeptId  equals depart.DeptId
+				into empDepts
+				from empdept  in empDepts.DefaultIfEmpty()
+				select new {
+					EmplName  = emp.Name,
+					AssignedDept = empdept == null ? "No Department" : empdept.Name
+				}).ToList();
+	Console.WriteLine(empIncludingNoDept);
 	
 	/*
 	//cross join
@@ -80,4 +101,3 @@ public class Dept
 	public string Name {get;set;}
 	public int DeptId {get;set;}
 }
-

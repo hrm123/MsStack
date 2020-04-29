@@ -1,0 +1,23 @@
+﻿@page
+@model aspnetcoredemo.Pages.Restaurants.ListModel
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>Restaurants</h1>
+@Model.Message
+
+<table class="table">
+    @foreach (var restaurant in Model.Restaurants)
+    {
+        <tr>
+            <td>@restaurant.Name</td>
+        </tr>
+        <tr>
+            <td>@restaurant.Location</td>
+        </tr>
+        <tr>
+            <td>@restaurant.Cuisine</td>
+        </tr>
+    }
+</table>
