@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eflix", "eflix\eflix.csproj", "{43CBAD7E-AC1E-47B4-B632-F2E961A05480}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{43CBAD7E-AC1E-47B4-B632-F2E961A05480}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43CBAD7E-AC1E-47B4-B632-F2E961A05480}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43CBAD7E-AC1E-47B4-B632-F2E961A05480}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43CBAD7E-AC1E-47B4-B632-F2E961A05480}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E5AF93AD-78CB-4EBE-867A-6F7FC318B956}
+	EndGlobalSection
+EndGlobal
