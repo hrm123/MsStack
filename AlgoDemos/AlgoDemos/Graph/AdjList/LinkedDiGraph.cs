@@ -44,6 +44,37 @@ namespace AlgoDemos.Graph.AdjList
             n++;
         }
 
+
+        public void AddVertex(String s)
+        {
+            VertexNode temp = new VertexNode(s);
+            if (start != null)
+            {
+                VertexNode p = start;
+                while (p.nextVertex != null)
+                {
+                    if (p.name.Equals(s))
+                    {
+                        Console.WriteLine("Vertex already present");
+                        return;
+                    }
+                    p = p.nextVertex;
+                }
+                if (p.name.Equals(s))
+                {
+                    Console.WriteLine("Vertex already present");
+                    return;
+                }
+                p.nextVertex = temp;
+
+            }
+            else
+            {
+                start = temp;
+            }
+            n++;
+        }
+
         public void DeleteVertex(String s)
         {
             DeletefromEdgeLists(s);
@@ -166,6 +197,49 @@ namespace AlgoDemos.Graph.AdjList
             }
         }
 
+        public void AddEdge(String s1, String s2)
+        {
+            if (s1.Equals(s2))
+            {
+                Console.WriteLine("Invalid edge - start and end vertices are same");
+                return;
+            }
+            VertexNode u = FindVertex(s1);
+            VertexNode v = FindVertex(s2);
+            if (u == null || v == null)
+            {
+                Console.WriteLine("Start or End vertex not present");
+                return;
+            }
+
+            EdgeNode temp = new EdgeNode(v);
+            if (u.firstEdge == null)
+            {
+                u.firstEdge = temp;
+                e++;
+            }
+            else
+            {
+                EdgeNode p = u.firstEdge;
+                while (p.nextEdge != null)
+                {
+                    if (p.endVertex.name.Equals(s2))
+                    {
+                        Console.WriteLine("Edge present.");
+                        return;
+                    }
+                    p = p.nextEdge;
+                }
+                if (p.endVertex.name.Equals(s2))
+                {
+                    Console.WriteLine("edge present.");
+                    return;
+                }
+                p.nextEdge = temp;
+                e++;
+            }
+        }
+
         public void DeleteEdge(String s1, String s2)
         {
             VertexNode u = FindVertex(s1);
@@ -198,6 +272,7 @@ namespace AlgoDemos.Graph.AdjList
 
         public void Display()
         {
+            
             EdgeNode q;
             for (VertexNode p = start; p != null; p = p.nextVertex)
             {
@@ -209,6 +284,73 @@ namespace AlgoDemos.Graph.AdjList
                 Console.WriteLine();
             }
         }
+
+        private void FindFullCyclesStartingAtNode(VertexNode startNode, VertexNode currentNode, 
+            String pathTillNow, List<string> allFullCycles)
+        {
+            
+            if (currentNode == null)
+            {
+                startNode.isVisited = true;
+                // start of recursion
+                for (EdgeNode en = startNode.firstEdge; en != null; en = en.nextEdge)
+                {
+                    FindFullCyclesStartingAtNode(startNode, en.endVertex, pathTillNow, allFullCycles);
+                }
+                return;
+            }
+
+            pathTillNow += "-" +  currentNode.name;
+            if (currentNode.isVisited)
+            { // full cycle found
+                if (currentNode.name == startNode.name)
+                {
+                    // full cycle found
+                    if (currentNode.isProcessed)
+                    { // ignore this path since path that passes through this node already found out
+                        return;
+                    }
+                    allFullCycles.Add(pathTillNow);
+                    return;
+                } else
+                {
+                    // this is a sub cycle that does nto end with start node .. so ignore this path
+                    return;
+                }
+            }
+
+            currentNode.isVisited = true;
+        
+            for (EdgeNode en = currentNode.firstEdge; en != null; en = en.nextEdge)
+            {
+                    FindFullCyclesStartingAtNode(startNode, en.endVertex, pathTillNow, allFullCycles);
+            }
+
+            currentNode.isVisited = false;
+
+        }
+
+        public List<string> FindFullCycles()
+        {
+            Dictionary<string, bool> visitedNodes = new Dictionary<string, bool>();
+            for (VertexNode cur = start; cur != null; cur = cur.nextVertex)
+            {
+                cur.isProcessed = false;
+            }
+
+            List<string> allFullCycles = new List<string>();
+            for (VertexNode cur = start; cur != null; cur = cur.nextVertex)
+            {
+                // dfs for each node with if current node is startnode then full cycle found .. if current 
+                // node is null cycle not there
+                cur.isProcessed = false;
+                
+                FindFullCyclesStartingAtNode(cur, null, cur.name, allFullCycles);
+                cur.isProcessed = true;
+            }
+            return allFullCycles;
+        }
+
 
         public bool EdgeExists(String s1, String s2)
         {

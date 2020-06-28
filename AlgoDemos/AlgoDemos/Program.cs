@@ -4,6 +4,7 @@ using AlgoDemos.Graph;
 using AlgoDemos.Graph.AdjList;
 using AlgoDemos.Graph.Connectivity;
 using AlgoDemos.MST.KruskalsAlgo;
+using AlgoDemos.puzzles;
 using System;
 
 namespace AlgoDemos
@@ -39,9 +40,13 @@ namespace AlgoDemos
             g.Demo();
             */
 
-            UndiWtedGraphKruskal g = new UndiWtedGraphKruskal();
-            g.Demo();
+            //UndiWtedGraphKruskal g = new UndiWtedGraphKruskal();
+            // g.Demo();
 
+            // OptimalTransfers optTrans = new OptimalTransfers();
+            // optTrans.Demo();
+            AllPalindromes palindromes = new AllPalindromes();
+            palindromes.Demo();
             Console.Write("Press any key to continue ...");
             Console.Read();
 
