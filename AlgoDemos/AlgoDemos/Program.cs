@@ -45,8 +45,20 @@ namespace AlgoDemos
 
             // OptimalTransfers optTrans = new OptimalTransfers();
             // optTrans.Demo();
+
+            /*
             AllPalindromes palindromes = new AllPalindromes();
             palindromes.Demo();
+            */
+
+            /*
+            NumberPuzzles numberPuzzles = new NumberPuzzles();
+            numberPuzzles.demo();
+            */
+
+            LinkedListStuff lls = new LinkedListStuff();
+            lls.demo();
+
             Console.Write("Press any key to continue ...");
             Console.Read();
 

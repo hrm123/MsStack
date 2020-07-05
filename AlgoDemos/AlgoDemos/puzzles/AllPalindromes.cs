@@ -13,7 +13,65 @@ namespace AlgoDemos.puzzles
 
         public void Demo()
         {
-            FindAllPalindromes("mdw");
+            string word = "mdaam";
+            string[] allPalindromes = FindAllPalindromes(word);
+            int minimmumSwaps = FindMinimumSwapsReqd(word, allPalindromes);
+            Console.WriteLine("minimmumSwaps - " + minimmumSwaps);
+            Console.ReadKey();
+        }
+
+        private int FindNumberOfSwaps(string source, string palindrome)
+        {
+            char[] palindromeCharArray = palindrome.ToCharArray();
+            List<char> sourceChars = source.ToCharArray().ToList();
+            int swapCount = 0;
+
+            for (int i=0;i< palindromeCharArray.Length; i++)
+            {
+                if (sourceChars[i] == palindromeCharArray[i]) continue;
+                int pointer = sourceChars.IndexOf(palindromeCharArray[i]);
+                swapCount += pointer - i;
+                sourceChars[pointer] = sourceChars[i];
+                sourceChars[i] = '\0'; //make already matched chars from source as null
+            }
+            return swapCount;
+        }
+
+
+        private void DataStructures()
+        {
+            Stack<string> reverseWord = new Stack<string>();
+            Queue<string> cellphoneOrders = new Queue<string>();
+            LinkedList<string> sentence = new LinkedList<string>();
+            Dictionary<string, string> hashWordMeanings = new Dictionary<string, string>();
+            // hashtable uses - fast data lookup, indexing the database, caches, unique data representation
+            Array integersArray = Array.CreateInstance(typeof(Int32), 5);
+            integersArray.SetValue(33,0);
+            integersArray.SetValue(23, 1);
+            integersArray.SetValue(13, 2);
+            integersArray.SetValue(83, 3);
+            integersArray.SetValue(63, 4);
+            Array.BinarySearch(integersArray, 63); // o(n) search
+            Array.Sort(integersArray); // sorts the array
+            Array.BinarySearch(integersArray, 63); // o(log n) search
+            
+
+
+        }
+        public int FindMinimumSwapsReqd(string source, string[] allPalindromes)
+        {
+            int minimumSwaps = -1;
+
+            foreach (string palindrome in allPalindromes.Distinct())
+            {
+                int numSwaps = FindNumberOfSwaps(source, palindrome);
+                if(minimumSwaps == -1 && numSwaps > -1)
+                {
+                    minimumSwaps = numSwaps;
+                }
+                minimumSwaps = numSwaps < minimumSwaps ? numSwaps : minimumSwaps;
+            }
+            return minimumSwaps;
 
         }
 
@@ -29,8 +87,19 @@ namespace AlgoDemos.puzzles
             fLettersTree.AddRootNode(rootNode);
             CreateTreeOfLetters(source, rootNode);
 
-            fLettersTree.PrintDFSPathsToConsole(rootNode, "");
+            // fLettersTree.PrintDFSPathsToConsole(rootNode, "");
+
+            allPalindromes = fLettersTree.GetPalindromes();
+            foreach(string palindrome in allPalindromes)
+            {
+                Console.WriteLine(palindrome);
+            }
+            
             Console.ReadKey();
+
+            //now that we have the tree of all possible words of same length prune the tree for palindromes
+
+
             return allPalindromes;
         }
 
@@ -58,7 +127,9 @@ namespace AlgoDemos.puzzles
 
             foreach(var childObj in childObjs)
             {
-                CreateTreeOfLetters(new string(word.AsEnumerable().Where(c => c != childObj.Data).ToArray()), childObj);
+                int itr = 0; // remove only first occurence of childObj data
+                CreateTreeOfLetters(new string(word.AsEnumerable().Where(c => !(c == childObj.Data && itr++ == 0)  ).ToArray()), childObj);
+                itr = 0;
             }
 
             /*

@@ -1,5 +1,6 @@
 ﻿using AlgoDemos.ExpressionTree;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,44 @@ namespace AlgoDemos.Graph
             return true;
         }
         */
+        
+        private bool IsPalindrome(string word)
+        {
+            char[] wordChars = word.ToCharArray();
+            int wordLength = word.Length -1;
+            for (int i=0; i < wordLength; i++)
+            {
+                if (wordChars[i] != wordChars[wordLength - i]) return false;
+            }
+            return true;
+        }
+
+        BlockingCollection<string> palindromes = new BlockingCollection<string>();
+
+        public string[] GetPalindromes()
+        {
+            GetPalindromes(RootNode, "");
+            return palindromes.ToArray();
+        }
+
+        private void GetPalindromes(GraphNode<T> node, string pathTillNow)
+        {
+            // DFS search and in each dfs path from root to leaf node validate if that can be a palindrome
+            // at the end of DFS path validate if that string is palindrome
+            if (node.ChildNodes == null || node.ChildNodes.Count == 0)
+            {
+                if (IsPalindrome(pathTillNow))
+                {
+                    palindromes.Add(pathTillNow);
+                }
+                return;
+            }
+            foreach (var child in node.ChildNodes)
+            {
+                // Console.WriteLine(child.nodeIdentifier);
+                GetPalindromes(child, pathTillNow + child.Data);
+            }
+        }
 
         public void PrintDFSPathsToConsole(GraphNode<T> node, string pathTillNow)
         {
