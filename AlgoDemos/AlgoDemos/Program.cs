@@ -56,8 +56,13 @@ namespace AlgoDemos
             numberPuzzles.demo();
             */
 
+            /*
             LinkedListStuff lls = new LinkedListStuff();
             lls.demo();
+            */
+
+            stringstuff ss = new stringstuff();
+            ss.demo();
 
             Console.Write("Press any key to continue ...");
             Console.Read();
