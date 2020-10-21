@@ -61,8 +61,10 @@ namespace AlgoDemos
             lls.demo();
             */
 
-            stringstuff ss = new stringstuff();
-            ss.demo();
+            // stringstuff ss = new stringstuff();
+            // ss.demo();
+            NumberPuzzles numberPuzzles = new NumberPuzzles();
+            numberPuzzles.demo();
 
             Console.Write("Press any key to continue ...");
             Console.Read();
