@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "92884",
+    "ThreadId": "27844",
+    "Html": "I am working on a commercial library project where PowerCollections is used as an utility library (ie, it is not the main feature). That said, I would still like to expose it publicly as a convenience. What I would like to know for sure is if I can refactor PowerCollections (e.g. split Algorithms class in smaller parts, change the namespace/class/method names, etc.) and distribute said modifications, both in binary and source form, given that I include the original license and copyright notices, and clearly annotate where I modified the original source code. Reading the EPL, I am guessing the answer is yes, but I would like a confirmation of that as I am not 100% sure. Thank you.",
+    "PostedDate": "2008-05-16T03:16:33.77-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "671526",
+    "ThreadId": "27844",
+    "Html": "<p>I face a similar problem now that I have StyleCop'd the entire Solution. I have had to change virtually every line if only to remove tab characters. Unless I define changes as lines that are stylecop compliant, I would just have to mark as 100% updated.</p>\r\n<p>I would like to release the updated code back to Codeplex.</p>\r\n<p>A response from the Wintellect Team, would be appreciated.</p>",
+    "PostedDate": "2011-09-13T23:15:37.127-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

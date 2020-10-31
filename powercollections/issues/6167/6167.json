@@ -1,0 +1,75 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "On 09/15/2008, I downloaded the latest help documentation file from the \"Releases\" page.  The left pane shows all objects, members, etc., but the right pane always says \"The address is not valid\".",
+    "LastUpdatedDate": "2013-02-21T15:40:09.82-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "PowerCollections",
+    "ReportedDate": "2008-09-15T04:02:33.91-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Help File Still Not Fixed",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 4,
+    "Id": 6167
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "This is probably related to a security feature in the html viewer. Right click the downloaded file > properties > unblock file. And it should work.",
+      "PostedDate": "2008-09-17T10:13:12.41-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2008-10-09T12:21:44.95-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2008-10-21T05:30:30.49-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2008-12-02T10:54:14.647-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "As Morty mentions, this is happening because the file gets blocked. I had this error, too, then unblocked the file, and it works just fine.",
+      "PostedDate": "2009-01-29T12:38:04.413-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "Unblocked using the above suggestions, but still does not work.  Running xp64bit.",
+      "PostedDate": "2010-07-14T09:24:12.6-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-02-21T15:40:09.82-08:00",
+      "Id": -2147483648
+    }
+  ]
+}

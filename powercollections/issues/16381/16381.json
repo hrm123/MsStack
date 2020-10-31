@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "I'm using your library with an LGPL'ed license. As I cannot change the license to EPL or any EPL compiliant license I ask you to change Powercollection's license to an MIT style license or allow dual licensing EPL/LGPL.",
+    "LastUpdatedDate": "2013-08-27T02:22:20.45-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "PowerCollections",
+    "ReportedDate": "2013-08-27T02:22:20.45-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Change to MIT-License",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 1,
+    "Id": 16381
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "432065",
+    "ThreadId": "209611",
+    "Html": "<p>What is the .NET framework Power Collections is built on ? Does it support .NET 3.5</p>",
+    "PostedDate": "2010-04-16T13:55:25.21-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "663913",
+    "ThreadId": "209611",
+    "Html": "<table cellspacing=\"0\" cellpadding=\"0\">\r\n<tbody>\r\n<tr id=\"PostPanel\" class=\"Post\">\r\n<td id=\"PostDetailsCell_663901\" class=\"AltPost\" style=\"vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none;\">\r\n<div class=\"Details\">\r\n<div class=\"SubText\"><span class=\"smartDate\"><br /></span></div>\r\n</div>\r\n</td>\r\n<td id=\"PostContent_663901\" class=\"discussionListContent AltPost\" style=\"width: 100%; vertical-align: top;\">\r\n<p>I have power collections running under VS2010. I have been making it styleCop compliant. It is now down to 22 issues!</p>\r\n<p>I have just tried resetting from Framework 2.0 to 4.0 - the test  RandomShuffle1 failed first time I ran it under 4.0, however I have  rerun the entire test suite and it passed 100%.</p>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>(The Framework collection was originally written for 2.0)</p>",
+    "PostedDate": "2011-08-26T09:45:15.367-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "671518",
+    "ThreadId": "209611",
+    "Html": "<p>Stylecop issues are now down to about 30 across the whole solution. Unit tests continue to pass 100%.</p>",
+    "PostedDate": "2011-09-13T22:57:15.79-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

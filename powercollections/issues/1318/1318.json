@@ -1,0 +1,65 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": "2007-09-08T15:39:06.05-07:00",
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "Test 'ToStringEnumerable' in ‘AlgorithmsTests’ class has errors. Errors are in lines 4331, 4333 and 4336.  '.' (dot) is used in strings as a decimal separator(-8.9). I think that CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator should be used. Additionally in the Asserts, the first value should be the one that is expected, not the second one.",
+    "LastUpdatedDate": "2013-05-16T03:38:35.953-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "PowerCollections",
+    "ReportedDate": "2007-09-07T11:08:39.867-07:00",
+    "Status": {
+      "Name": "Closed",
+      "Id": 4
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Errors in unit test",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 1318
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "This has been correct in the latest code in source control. If you continue to have this problem with the new source let me know.\r\n\r\nThanks for the help...",
+      "PostedDate": "2007-09-08T15:38:45.847-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2007-09-08T15:39:06.05-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "The problem still exists: Without explicitly specifying a CultureInfo for ToString() and alike, numeric formatting may vary and thus the test fails.\r\n\r\nAlgorithmsTests.ToStringEnumerable : Failed\r\n\r\nNUnit.Framework.AssertionException:   String lengths are both 22. Strings differ at index 19.\r\n  Expected: \"{hello,8,{1,2,3},-8,9}\"\r\n  But was:  \"{hello,8,{1,2,3},-8.9}\"\r\n  ------------------------------^\r\n\r\nbei NUnit.Framework.Assert.That(Object actual, Constraint constraint, String message, Object[] args)\r\nbei NUnit.Framework.Assert.AreEqual(Object expected, Object actual, String message, Object[] args)\r\nbei NUnit.Framework.Assert.AreEqual(Object expected, Object actual)\r\nbei Wintellect.PowerCollections.Tests.AlgorithmsTests.ToStringEnumerable() in AlgorithmsTests.cs: line 4331.",
+      "PostedDate": "2009-05-12T23:38:48.337-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-02-21T15:40:11.62-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-05-16T03:38:35.953-07:00",
+      "Id": -2147483648
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "If you try to remove an item from a MultiDictionary when it doesn't exist and there is only one element in the MultiDictionary, the last element is removed. See code snippet below:\n \n \nMultiDictionary<string, int> lMultiDictionary = new MultiDictionary<string, int>(false);\nlMultiDictionary.Add(\"key\", 1);\nlMultiDictionary.Remove(\"key\", 2);\n \nIf this code is executed the MultiDictionary will no longer contain any values for \"key\".\n \nFrom the PowerCollections source code in MultiDictionary::Remove(TKey key, TValue value)\n{\n...\n        if (existingCount == 1) {                                           //***** There is no check here for indexFound >= 0********\n                    // Removing the last value. Remove the key.\n                    hash.Delete(existing, out keyValues);\n                    return true;\n                }\n                else if (indexFound >= 0) {\n                    // Found a value. Remove it.\n                    if (indexFound < existingCount - 1)\n                        Array.Copy(existing.Values, indexFound + 1, existing.Values, indexFound, existingCount - indexFound - 1);\n                    existing.Count = existingCount - 1;\n \n                    // Update the hash.\n                    hash.Find(existing, true, out keyValues);\n                    return true;\n                }\n                else {\n                    // Value was not found.\n                    return false;\n                }\n...\n}",
+    "LastUpdatedDate": "2014-11-03T12:54:06.95-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "PowerCollections",
+    "ReportedDate": "2008-02-19T07:38:05.27-08:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "MultiDictionary Remove and RemoveMany bug",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 3,
+    "Id": 3728
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

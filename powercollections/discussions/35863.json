@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "119203",
+    "ThreadId": "35863",
+    "Html": "It happen a lot to me that I need a bidirectional dictionary which is a dictioanry in which every key has value and each key is unique and each value is unique.$0This way it is possible to search for value by key and also search for key by value.$0$0$0$0$0It can be great addition to the libray.$0",
+    "PostedDate": "2008-09-17T12:25:35.033-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "119358",
+    "ThreadId": "35863",
+    "Html": "I've often needed such a data structure. However, it is almost always absent from data structure libraries! I've not seen an implementation of one for .NET either. C++ has such a data structure in the Boost libraries.<br>\r\n",
+    "PostedDate": "2008-09-18T05:35:35.637-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

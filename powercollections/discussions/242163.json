@@ -1,0 +1,42 @@
+[
+  {
+    "Id": "550955",
+    "ThreadId": "242163",
+    "Html": "\r\n<p>Hi,</p>\r\n<p>PowerCollections are very useful collections for dotnet 2.0. From the available information on web it appears that there is no release after 2005.</p>\r\n<p>Can you please confirm whether any further release happened for dotnet 3.0 or 3.5?&nbsp;</p>\r\n<p>Is there any plan for supporting dotnet framework 4.0 in near future?</p>\r\n<p>Thanks in advance! It will help us to plan whether we should wait for new version(4.0) from wintellect or need to customize solution as per our need.</p>\r\n<p>Regards,</p>\r\n<p>Madhur</p>\r\n",
+    "PostedDate": "2011-01-17T19:09:50.08-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "663901",
+    "ThreadId": "242163",
+    "Html": "<p>I have power collections running under VS2010. I have been making it styleCop compliant. It is now down to 22 issues!</p>\r\n<p>I have just tried resetting from Framework 2.0 to 4.0 - the test RandomShuffle1 failed first time I ran it under 4.0, however I have rerun the entire test suite and it passed 100%.</p>",
+    "PostedDate": "2011-08-26T09:27:46.523-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "674628",
+    "ThreadId": "242163",
+    "Html": "<p>The whole solution is now down to below the 20 issues mark.&nbsp; This does raise an interesting issue with the Eclipse licence as virtually every line has been modified.</p>\r\n<p>I have modified the code to use LINQ where possible.</p>",
+    "PostedDate": "2011-09-21T04:32:25.01-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "674641",
+    "ThreadId": "242163",
+    "Html": "<p>Thanks TATWORTH!! I'm able to compile targetting 4.0. I'm not sure what 20 issues you are mentioning. Is it Stylecop issues?</p>",
+    "PostedDate": "2011-09-21T05:05:41.17-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "680644",
+    "ThreadId": "242163",
+    "Html": "<p>These are mainly stylecop issues. I did locate a problem in GhostDoc which will be fixed in the next release of GhostDoc.</p>",
+    "PostedDate": "2011-10-05T22:58:27.957-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

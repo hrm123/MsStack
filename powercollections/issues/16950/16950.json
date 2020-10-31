@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "Let us look at the following code\n\n```\nint n = 1000000;\n\t\t\tvar x = new int[n];\n\t\t\tRandom r = new Random();\n\t\t\tfor (int i = 0; i < n; ++i)\n\t\t\t\tx[i] = r.Next(100000);\n\n\t\t\tStopwatch s = new Stopwatch();\n\n\t\t\t// let us test Microsoft's sorted set\n\t\t\ts.Start();\n\t\t\tSortedSet<int> set1 = new SortedSet<int>();\n\t\t\tfor (int i = 0; i < n; ++i)\n\t\t\t\tset1.Add(x[i]);\n\t\t\ts.Stop();\n\t\t\tConsole.WriteLine(s.Elapsed);\n\t\t\tConsole.WriteLine(set1.Count);\n\n\t\t\t//\tand not lwt us test Wintellect's OrderedSet (the same red black tree)\n\t\t\ts.Start();\n\t\t\tOrderedSet<int> set2 = new OrderedSet<int>();\n\t\t\tfor (int i = 0; i < n; ++i)\n\t\t\t\tset2.Add(x[i]);\n\t\t\ts.Stop();\n\t\t\tConsole.WriteLine(s.Elapsed);\n\t\t\tConsole.WriteLine(set2.Count);\n```\n\nThe result is as following:\n\n00:00:00.8194165\n99992\n00:00:03.3726086\n99992\n\nSo, Microsoft't OrderedSet  is 4.1 times faster than Wintellect's.\n\nCan anyone explain this?  Maybe I did not take into account some conditions?",
+    "LastUpdatedDate": "2014-08-13T07:07:30.893-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "PowerCollections",
+    "ReportedDate": "2014-08-13T07:07:30.893-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Speed of OrderedSet<T> and Microsoft's",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 1,
+    "Id": 16950
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

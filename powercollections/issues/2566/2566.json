@@ -1,0 +1,50 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "The following snippet shows that RemoveAll throws InvalidOperationException: Collection was modified during an enumeration.\n \nusing System;\nusing System.Collections.Generic;\nusing Wintellect.PowerCollections;\n \nnamespace TestPowerCollections\n{\n    class Program\n    {\n        static readonly MultiDictionary<int, int> list = new MultiDictionary<int, int>(false);\n        static void Main(string[] args)\n        {\n            for (int i = 0; i < 100000; i++)\n                list.Add(i, i);\n \n            ICollection<KeyValuePair<int, ICollection<int>>> removed = list.RemoveAll(delegate(KeyValuePair<int, ICollection<int>> obj)\n            {\n                return true;\n            });\n \n            Console.WriteLine(\"Removed: \" + removed.Count);\n            Console.WriteLine(\"Remaining: \" + list.Count);\n \n            Console.ReadLine();\n        }\n \n    }\n}",
+    "LastUpdatedDate": "2013-02-21T15:40:10.717-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "PowerCollections",
+    "ReportedDate": "2007-12-01T11:57:17.62-08:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Bug in MultiDictionary: RemoveAll throws InvalidOperationException: Collection was modified during an enumeration.",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 2566
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "   at Wintellect.PowerCollections.Hash`1.CheckEnumerationStamp(Int32 startStamp)\r\n   at Wintellect.PowerCollections.MultiDictionary`2.<EnumerateValues>d__1a.MoveNext()\r\n   at Wintellect.PowerCollections.MultiDictionaryBase`2.RemoveMany(TKey key, IEnumerable`1 values)\r\n   at Wintellect.PowerCollections.MultiDictionaryBase`2.Remove(KeyValuePair`2 pair)\r\n   at Wintellect.PowerCollections.Algorithms.RemoveWhere[T](ICollection`1 collection, Predicate`1 predicate)\r\n   at Wintellect.PowerCollections.CollectionBase`1.RemoveAll(Predicate`1 predicate)\r\n   at TestPowerCollections.Program.Main(String[] args) in C:\\Users\\Robert\\Documents\\Visual Studio 2008\\Projects\\TestPowerCollections\\TestPowerCollections\\Program.cs:line 15\r\n",
+      "PostedDate": "2007-12-01T11:59:26.557-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-02-21T15:40:10.717-08:00",
+      "Id": -2147483648
+    }
+  ]
+}

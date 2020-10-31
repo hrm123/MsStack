@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "233971",
+    "ThreadId": "68755",
+    "Html": "<p>It appears that this collection library has not been updated since 2005. Given that .NET has moved a long way since then, it might be useful to provide the following information on the main page so that folks can better understand what, if any, value this project has for them.</p>\r\n<p>- What types of collections are offered (including both name and definition)? From Roger Dahlman's blog on CodePlex, it looks like these include:&nbsp;</p>\r\n<ul>\r\n<li>Set </li>\r\n<li>OrderedSet </li>\r\n<li>Bag </li>\r\n<li>OrderedBag </li>\r\n<li>BigList </li>\r\n<li>Deque </li>\r\n<li>MultiDictionary </li>\r\n<li>OrderedDictionary </li>\r\n<li>OrderedMultiDictionary </li>\r\n</ul>\r\n<p>- How does LINQ and other functionality available in .NET 3.X affect the usefulness of these collections?</p>\r\n<p>- How do the collections here compare to other versions available elsewhere? (For example, how do the set collections compare with the IESI collections?)</p>\r\n<p>- Would it be possible to put together a sample or two of each collection type and explain where it might be appropriate to use it?</p>\r\n<p>- What improvements are planned?</p>\r\n<p>- What improvements are needed, and how can the community help?</p>\r\n<p>Otherwise, it just looks like the project is dead. In my mind, it seems like some of these collection classes could be somewhat useful. Like most folks, I just don't have time to download and review the library without some more concrete specifics as to the benefits and utility I might derive from it.</p>\r\n<p>&nbsp;</p>",
+    "PostedDate": "2009-09-12T21:49:38.837-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "671519",
+    "ThreadId": "68755",
+    "Html": "<p>I have ported the solution to VS2010 / framework 4.</p>",
+    "PostedDate": "2011-09-13T22:59:25.083-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

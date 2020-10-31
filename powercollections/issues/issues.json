@@ -1,0 +1,66 @@
+[
+  {
+    "Id": 1306,
+    "Title": "Bad help file on site"
+  },
+  {
+    "Id": 1318,
+    "Title": "Errors in unit test"
+  },
+  {
+    "Id": 1704,
+    "Title": "Empty Set<> serialization bug"
+  },
+  {
+    "Id": 1749,
+    "Title": "MultiDictionary<TKey, TValue> Serialization issue when empty"
+  },
+  {
+    "Id": 1991,
+    "Title": "Still one problem in unit tests"
+  },
+  {
+    "Id": 2566,
+    "Title": "Bug in MultiDictionary: RemoveAll throws InvalidOperationException: Collection was modified during an enumeration."
+  },
+  {
+    "Id": 3728,
+    "Title": "MultiDictionary Remove and RemoveMany bug"
+  },
+  {
+    "Id": 3979,
+    "Title": "Pair<TFirst, TSecond> should *not* implement IComparable, should implement IEquatable"
+  },
+  {
+    "Id": 5458,
+    "Title": "Support Linq extension methods."
+  },
+  {
+    "Id": 6167,
+    "Title": "Help File Still Not Fixed"
+  },
+  {
+    "Id": 7822,
+    "Title": "Sign library with arbitrary key to be possible to deploy in GAC"
+  },
+  {
+    "Id": 12822,
+    "Title": "OrderedMultiDictionary class"
+  },
+  {
+    "Id": 14014,
+    "Title": "Bringing Power collections up to date"
+  },
+  {
+    "Id": 16381,
+    "Title": "Change to MIT-License"
+  },
+  {
+    "Id": 16950,
+    "Title": "Speed of OrderedSet<T> and Microsoft's"
+  },
+  {
+    "Id": 17330,
+    "Title": "Can't use help file"
+  }
+]

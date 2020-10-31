@@ -1,0 +1,91 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "This sample crashes then the Set is empty.\n \nnew BinaryFormatter().Serialize(new MemoryStream(), new Set<int>());",
+    "LastUpdatedDate": "2013-02-21T15:40:11.41-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "PowerCollections",
+    "ReportedDate": "2007-10-03T09:27:53.617-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Empty Set<> serialization bug",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 4,
+    "Id": 1704
+  },
+  "FileAttachments": [
+    {
+      "FileId": 441,
+      "FileName": "Hash.cs",
+      "DownloadUrl": ".\\441"
+    }
+  ],
+  "Comments": [
+    {
+      "Message": "Replace the attached file to fix this issue. ",
+      "PostedDate": "2007-10-25T07:15:55.933-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2007-10-25T07:15:57.637-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2007-11-21T23:48:41.787-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2007-12-01T15:09:15.3-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2007-12-19T09:06:07.027-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "Here is the fixed code if anybody is interested:\r\n        void IDeserializationCallback.OnDeserialization(object sender)\r\n        {\r\n            if (serializationInfo == null)\r\n                return;\r\n\r\n            loadFactor = serializationInfo.GetSingle(\"loadFactor\");\r\n            equalityComparer = (IEqualityComparer<T>) serializationInfo.GetValue(\"equalityComparer\", typeof(IEqualityComparer<T>));\r\n\r\n            T[] items = (T[])serializationInfo.GetValue(\"items\", typeof(T[]));\r\n            if (items != null)\r\n            {\r\n                T dummy;\r\n\r\n                EnsureEnoughSlots(items.Length);\r\n                foreach (T item in items)\r\n                    Insert(item, true, out dummy);\r\n            }\r\n\r\n            serializationInfo = null;\r\n        }\r\n\r\nvoid ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)\r\n        {\r\n            if (info == null)\r\n                throw new ArgumentNullException(\"info\");\r\n\r\n            info.AddValue(\"equalityComparer\", equalityComparer, typeof(IEqualityComparer<T>));\r\n            info.AddValue(\"loadFactor\", loadFactor, typeof(float));\r\n            T[] items = new T[count];\r\n            int i = 0;\r\n            if (table != null)\r\n            {\r\n                foreach (Slot slot in table)\r\n                    if (!slot.Empty)\r\n                        items[i++] = slot.item;\r\n                info.AddValue(\"items\", items, typeof(T[]));\r\n            }\r\n            else\r\n                info.AddValue(\"items\", null, typeof(T[]));\r\n        }",
+      "PostedDate": "2007-12-23T12:43:08.917-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "Duh, I see that fix is already posted :-)",
+      "PostedDate": "2007-12-23T12:44:16.79-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "can this be worked into the source? moderator?",
+      "PostedDate": "2011-10-04T08:30:08.63-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-02-21T15:40:11.41-08:00",
+      "Id": -2147483648
+    }
+  ]
+}

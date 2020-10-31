@@ -1,0 +1,50 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "When moving thru an OrderedMultidictionary collection, the last kvp is being skipped!",
+    "LastUpdatedDate": "2013-02-21T15:40:09.323-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "PowerCollections",
+    "ReportedDate": "2011-01-13T02:12:41.507-08:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "OrderedMultiDictionary class",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 12822
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "Do you have code that can be the basis of a unit test?",
+      "PostedDate": "2011-08-07T13:17:51.2-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-02-21T15:40:09.323-08:00",
+      "Id": -2147483648
+    }
+  ]
+}

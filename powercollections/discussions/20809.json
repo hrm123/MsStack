@@ -1,0 +1,34 @@
+[
+  {
+    "Id": "69251",
+    "ThreadId": "20809",
+    "Html": "\r\nHi.<br /><br />I used Wintellect's Power Collections for my .NET CF projects (recompiled against .NET CF 2.0 without Serializable attribute and replaced just one native call with same implementation for .NET CF). I can provide source code changes for it (paths). If somebody plans to official .NET CF 2.0 support for library where i can send paths?<br /><br />Best regards,<br />  Zaripov Rinat .<br />",
+    "PostedDate": "2008-01-22T01:57:34.627-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "162708",
+    "ThreadId": "20809",
+    "Html": "Hi!<br>\r\n<br>\r\nI know it's a bit late, but it would be great if you could share your changes.<br>\r\nEither upload or via email ( giggsy@gmx.at )<br>\r\n<br>\r\nThanks in advance!<br>\r\n<br>\r\nChristian \r\n",
+    "PostedDate": "2009-02-27T04:42:13.09-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "162711",
+    "ThreadId": "20809",
+    "Html": "Hi.<br>\r\n<br>\r\nI sent it to you.<br>\r\n<br>\r\nIf someone else need's that library, just ask.<br>\r\n<br>\r\nBest regards,<br>\r\nRZ. \r\n",
+    "PostedDate": "2009-02-27T04:53:47.96-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "240424",
+    "ThreadId": "20809",
+    "Html": "<p>Hello Zaripov</p>\r\n<p>I am looking to use some of the reader writer locks from the power threading library in my compact framework 2.0 app.</p>\r\n<p>Do you still have access to the compilation you made, and could email me them?</p>\r\n<p>Many thanks</p>\r\n<p>Paul</p>",
+    "PostedDate": "2009-09-30T07:12:59.453-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

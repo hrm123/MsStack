@@ -1,0 +1,10 @@
+[
+  {
+    "Id": "191262",
+    "ThreadId": "56597",
+    "Html": "<p>I've noticed&nbsp;significant memory growth&nbsp;when you enumerate the items in a large redblack tree (e.g. OrderedBag with millions of items). From what I can tell, it seems like the yield return pattern is pretty heavy weight when used with recursion. I imagine&nbsp;that&nbsp;the&nbsp;compiler created state objects are to blame for the growth. I ended up implementing a different enumerator that doesn't use the yield return and&nbsp;has no memory growth. Is this a known issue? any plans to address?</p>",
+    "PostedDate": "2009-05-17T16:02:34.267-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

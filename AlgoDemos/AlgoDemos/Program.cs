@@ -63,8 +63,12 @@ namespace AlgoDemos
 
             // stringstuff ss = new stringstuff();
             // ss.demo();
-            NumberPuzzles numberPuzzles = new NumberPuzzles();
-            numberPuzzles.demo();
+
+            // NumberPuzzles numberPuzzles = new NumberPuzzles();
+            // numberPuzzles.demo();
+
+            Nqueen nQueen = new Nqueen(8);
+            nQueen.demo();
 
             Console.Write("Press any key to continue ...");
             Console.Read();

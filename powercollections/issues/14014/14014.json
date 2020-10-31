@@ -1,0 +1,55 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "When will the Power Collection be brought up to date? Amoung the issues are:\n \n1) Use of an out of date version of NUnit\n2) Code is not style-cop compliant\n3) Solution not updated for VS2008 / VS2010",
+    "LastUpdatedDate": "2015-06-07T01:00:03.837-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "PowerCollections",
+    "ReportedDate": "2011-07-30T14:02:06.447-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Bringing Power collections up to date",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 2,
+    "Id": 14014
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "I have power collections running under VS2010 and NUnit 2.5.10. I have been making it styleCop compliant. The Library is now down to 22 issues! The Unit Tests are next!\r\n\r\nI have just tried resetting from Framework 2.0 to 4.0 - the test RandomShuffle1 failed first time I ran it under 4.0, however I have rerun the entire test suite and it passed 100%.",
+      "PostedDate": "2011-08-26T09:48:44.597-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-02-21T15:40:08.45-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2015-06-07T01:00:03.837-07:00",
+      "Id": -2147483648
+    }
+  ]
+}

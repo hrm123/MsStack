@@ -1,0 +1,55 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "A very nice additon to PowerCollections would be the addition of Linq extension methods.",
+    "LastUpdatedDate": "2013-02-21T15:40:10.043-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "PowerCollections",
+    "ReportedDate": "2008-07-01T00:42:47.227-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Support Linq extension methods.",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 2,
+    "Id": 5458
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "Nevermind. I had a senior moment. For anyone that reads this just add \"using System.Linq;\" and you get linq extentions on the various .Net interfaces that are used by the PowerCollections.\r\n",
+      "PostedDate": "2008-07-01T23:02:54.437-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2008-08-19T10:46:21.41-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-02-21T15:40:10.043-08:00",
+      "Id": -2147483648
+    }
+  ]
+}

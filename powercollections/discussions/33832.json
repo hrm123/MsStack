@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "112114",
+    "ThreadId": "33832",
+    "Html": "Too bad there were no updates since 2005, I think Power Collection would have benefited a lot from using C# 3.0.<br>\r\nAnyone knows a good alternative to it?<br>\r\n",
+    "PostedDate": "2008-08-19T10:49:49.493-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "119357",
+    "ThreadId": "33832",
+    "Html": "I'm not using C# 3.0 but I think it's still a useful library in that context. For starters there are the additional data structures. But I would guess that a number of the algorithms can be performed more conveniently using LINQ.<br>\r\n<br>\r\nPlus lots of people will be stuck on .NET 2.0 for some time.<br>\r\n<br>\r\nA similar but more powerful alternative is the C5 library. <br>\r\n<br>\r\n<a href=\"http://www.itu.dk/research/c5/\">C5 Generics Library</a><br>\r\n<br>\r\nHowever, that has also not been updated to use C# 3. However, it has had more recent patches.<br>\r\n<br>\r\n",
+    "PostedDate": "2008-09-18T05:31:47.26-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "261443",
+    "ThreadId": "33832",
+    "Html": "<p>I am the coordinator of Compass, yet another algorithms and data Structures library for .NET. I was surprised to find how old PowerCollections really is. Any book that references it is dated, that is for sure. Personally, I could do without their implementation of a RedBlackTree. I guarantee is doesn't come close to Microsoft's perfomance (and that's without even profiling).</p>\r\n<p>Furthermore, .NET 3.5 comes with its own HashSet class, which suites 99% of my needs for a set-like class. .NET 4.0 will have an SortedSet. Research shows that in most production environments List&lt;T&gt; outperforms sets, simply using methods that perform set operations. This has mostly to do with the fact that applications typically go through Build/Use/Release cycles. Build once, read many times. It is always faster to build a List&lt;T&gt; and sort it, remove duplicates, etc. once and then simply use indexed algorithms&nbsp;on it.</p>\r\n<p>I used to use PowerCollections for my old .NET 2.0 applications. It is pretty high-performant and reliable. However, it is old enough that it doesn't have any closures at all (for what reason I do not know). Wintellect probably could have steared the market if they would have preceded the .NET 3.0 wave and made more algorithms. My Compass library is almost nothing but algorithms. From what I can tell, it is one of the most comprehensive available on CodePlex. I'd still use Microsoft's Linq algorithms before Compass' if not simply for the fact that it is more widely accepted.</p>\r\n<p>Personally, I don't rely on any data structures other than those written by Microsoft. Microsoft's data structures benefit from being NGen'ed and calling native methods, if possible. Even prior to HashSet, the fastest implementation of Set was to simply use Dictionary, storing the key in the value. It used a little more memory, but the actual runtime was significantly better than anything you'd find available for free online.</p>\r\n<p>Microsoft is pretty much making libraries like Power Collections and C5 obsolete. That is a good thing, in my opinion. Word has been going around that Microsoft might be implementing a multi-index collection. You can specify different lookup methods (index into sorted list, key into dictionary, key into lookup, etc.) that can be used in parallel. This is useful when you know that you need fast numeric indexing and you need to use a different value to quickly find other values.</p>",
+    "PostedDate": "2009-11-28T17:17:45.233-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

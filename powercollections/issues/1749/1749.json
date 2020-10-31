@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "The following stacktrace occurs when trying to serialize an empty MultiDictionary:\n \n at Wintellect.PowerCollections.Hash`1.System.Runtime.Serialization.ISerializable.GetObjectData(SerializationInfo info, StreamingContext context) in E:\\PowerCollections-6259\\Source\\PowerCollections\\Hash.cs:line 617\n   at System.Runtime.Serialization.Formatters.Binary.WriteObjectInfo.InitSerialize(Object obj, ISurrogateSelector surrogateSelector, StreamingContext context, SerObjectInfoInit serObjectInfoInit, IFormatterConverter converter, ObjectWriter objectWriter)\n   at System.Runtime.Serialization.Formatters.Binary.WriteObjectInfo.Serialize(Object obj, ISurrogateSelector surrogateSelector, StreamingContext context, SerObjectInfoInit serObjectInfoInit, IFormatterConverter converter, ObjectWriter objectWriter)\n   at System.Runtime.Serialization.Formatters.Binary.ObjectWriter.Write(WriteObjectInfo objectInfo, NameInfo memberNameInfo, NameInfo typeNameInfo)\n   at System.Runtime.Serialization.Formatters.Binary.ObjectWriter.Serialize(Object graph, Header[] inHeaders, __BinaryWriter serWriter, Boolean fCheck)\n   at System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Serialize(Stream serializationStream, Object graph, Header[] headers, Boolean fCheck)\n   at System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Serialize(Stream serializationStream, Object graph)\n   at Wintellect.PowerCollections.Tests.InterfaceTests.SerializeRoundTrip(Object objToSerialize) in E:\\PowerCollections-6259\\Source\\UnitTestsVSTS\\InterfaceTests.cs:line 1707\n   at Wintellect.PowerCollections.Tests.MultiDictionaryTests.SerializeEmpty() in E:\\PowerCollections-6259\\Source\\UnitTestsVSTS\\MultiDictionaryTests.cs:line 1240\n \nI have reproduced this by using the following TestMethod on MultiDictionaryTests:\n        [TestMethod]\n        public void SerializeEmpty()\n        {\n            MultiDictionary<string,double> d = new MultiDictionary<string,double>(true);\n \n            MultiDictionary<string, double> result = (MultiDictionary<string, double>)InterfaceTests.SerializeRoundTrip(d);\n        }\n \nSeems that \"private Hash<KeyAndValues> hash;\" isn't initialized.",
+    "LastUpdatedDate": "2013-02-21T15:40:11.19-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "PowerCollections",
+    "ReportedDate": "2007-10-07T15:29:56.547-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "MultiDictionary<TKey, TValue> Serialization issue when empty",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 3,
+    "Id": 1749
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

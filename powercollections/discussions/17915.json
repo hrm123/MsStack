@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "58490",
+    "ThreadId": "17915",
+    "Html": "\r\nHi,<br /><br />I want to use power collections but since the existing applications are using .net framework 1.1,  i cannot use .net framework 2.0<br />Please suggest some workaround for the same.<br />AWAITING UR REPLY!!!<br /><br />Regards,<br /><br />Satish<br />",
+    "PostedDate": "2007-11-15T22:46:15.96-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "64420",
+    "ThreadId": "17915",
+    "Html": "\r\nThe library uses Generics,and Generics is a 2.0 only feature.<br /><br />It's (almost) 2008, and the move to 2.0 should be in your near future.<br /><br />Good luck.<br /><br />",
+    "PostedDate": "2007-12-20T14:15:14.873-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]
