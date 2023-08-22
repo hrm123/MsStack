@@ -1,4 +1,5 @@
-﻿using AlgoDemos.DijkstrasAlgo;
+﻿using AlgoDemos.codecamp;
+using AlgoDemos.DijkstrasAlgo;
 using AlgoDemos.ExpressionTree;
 using AlgoDemos.Graph;
 using AlgoDemos.Graph.AdjList;
@@ -12,7 +13,6 @@ namespace AlgoDemos
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
             /*
             var expTree = new Etree();
             String postfix = "45+3/7*42/-";
@@ -37,14 +37,24 @@ namespace AlgoDemos
             /*
             UnDiGraphConComp g = new UnDiGraphConComp();
             g.Demo();
-            */
+            
 
             UndiWtedGraphKruskal g = new UndiWtedGraphKruskal();
             g.Demo();
 
             Console.Write("Press any key to continue ...");
             Console.Read();
+            */
 
+            /*
+
+            TwoSum ts = new TwoSum();
+            ts.Run();
+
+            */
+
+            EditDistance ed = new EditDistance();
+            Console.WriteLine(ed.MinDistance("horse", "ros")); 
         }
     }
 }
