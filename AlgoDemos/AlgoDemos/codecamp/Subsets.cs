@@ -6,11 +6,23 @@ using System.Threading.Tasks;
 
 namespace AlgoDemos.codecamp
 {
+    /*
+     * Input
+        nums =
+        [1,2,3]
+        Output
+        [[],[1],[2],[3],[1,2],[2,3],[3,1],[1,2,3]]
+        Expected
+        [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+
+    */
     public class Solution
     {
         IList<IList<int>> output = new List<IList<int>>();
         int[] _nums;
         int _n;
+        List<string> outputS = new List<string>();
+
         public IList<IList<int>> Subsets(int[] nums)
         {
             _nums = nums;
@@ -18,62 +30,44 @@ namespace AlgoDemos.codecamp
             //add empty set
             List<int> empty = new List<int>();
             output.Add(empty);
+            bool[] used = new bool[nums.Length];
+
+
             for (int i = 0; i < nums.Length; i++)
             {
-                GenerateSubset(i + 1);
+                string s = "";
+
+                for (int j = 0; j < nums.Length; j++)
+                {
+                    used[j] = false;
+                }
+                GenerateSubset(i + 1, 0, ref used, s);
+            }
+            foreach (string s in outputS)
+            {
+                IList<int> arr = new List<int>();
+                output.Add(s.Split(",").Select(int.Parse).ToList());
             }
             return output;
         }
 
-        private void GenerateSubset(int batchSize)
+        // bs = batch size, cd = current depth, used
+        private void GenerateSubset(int bs, int cd, ref bool[] used, string s)
         {
-            int maxIters = (int)nCr(_n, batchSize);
-            // Console.WriteLine($"maxIters={maxIters}");
-            for (int j = 0; j < maxIters; j++)
-            { // iterate all numbers of given array
-                List<int> arr = new List<int>();
-                for (int k = j; k < (j + batchSize); k++)
-                {
-                    if (k < _n)
-                    { // does not overshoot array
-                      // Console.WriteLine($"batchSize={batchSize},j={j},k={k}");
-                        arr.Add(_nums[k]);
-                    }
-                    else
-                    { //overshoots array
-                        arr.Add(_nums[k - _n]);
-                    }
-                }
-                output.Add(arr);
+            if (cd == bs)
+            {
+                Console.WriteLine(s);
+                outputS.Add(s);
+                return;
             }
-
+            for (int i = 0; i < _n; i++)
+            {
+                if (used[i] == true) continue;
+                used[i] = true;
+                GenerateSubset(bs, cd + 1, ref used, s.Length == 0 ? (_nums[i] + "") : s + "," + _nums[i]);
+                used[i] = false;
+            }
         }
 
-        private long nCr(int n, int r)
-        {
-            // naive: return Factorial(n) / (Factorial(r) * Factorial(n - r));
-            return nPr(n, r) / Factorial(r);
-        }
-
-        private long nPr(int n, int r)
-        {
-            // naive: return Factorial(n) / Factorial(n - r);
-            return FactorialDivision(n, n - r);
-        }
-
-        private long FactorialDivision(int topFactorial, int divisorFactorial)
-        {
-            long result = 1;
-            for (int i = topFactorial; i > divisorFactorial; i--)
-                result *= i;
-            return result;
-        }
-
-        private long Factorial(int i)
-        {
-            if (i <= 1)
-                return 1;
-            return i * Factorial(i - 1);
-        }
     }
 }
