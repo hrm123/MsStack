@@ -1,0 +1,65 @@
+﻿preorder =
+[3,9,20,15,7]
+
+inorder =
+[9,3,15,20,7]
+
+Answer = [3,9,20,null,null,15,7]
+
+
+------
+
+console statements printed
+
+
+
+preStart=0, preEnd=4, inStart=0, inEnd=4
+preorder=3,9,20,15,7
+inorder=9,3,15,20,7
+inRoot=1, inStart=0, numsLeft=1
+
+preStart=1, preEnd=1, inStart=0, inEnd=0
+preorder=9
+inorder=9
+inRoot=0, inStart=0, numsLeft=0
+
+preStart=2, preEnd=1, inStart=0, inEnd=-1
+preorder=
+inorder=
+
+preStart=2, preEnd=1, inStart=1, inEnd=0
+preorder=
+inorder=
+
+preStart=2, preEnd=4, inStart=2, inEnd=4
+preorder=20,15,7
+inorder=15,20,7
+inRoot=3, inStart=2, numsLeft=1
+
+preStart=3, preEnd=3, inStart=2, inEnd=2
+preorder=15
+inorder=15
+inRoot=2, inStart=2, numsLeft=0
+
+preStart=4, preEnd=3, inStart=2, inEnd=1
+preorder=
+inorder=
+
+preStart=4, preEnd=3, inStart=3, inEnd=2
+preorder=
+inorder=
+
+preStart=4, preEnd=4, inStart=4, inEnd=4
+preorder=7
+inorder=7
+inRoot=4, inStart=4, numsLeft=0
+
+preStart=5, preEnd=4, inStart=4, inEnd=3
+preorder=
+inorder=
+
+preStart=5, preEnd=4, inStart=5, inEnd=4
+preorder=
+inorder=
+
+---------
