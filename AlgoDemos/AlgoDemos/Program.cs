@@ -53,8 +53,11 @@ namespace AlgoDemos
 
             */
 
-            EditDistance ed = new EditDistance();
-            Console.WriteLine(ed.MinDistance("horse", "ros")); 
+            //EditDistance ed = new EditDistance();
+            //Console.WriteLine(ed.MinDistance("horse", "ros")); 
+
+            JumpGame jg = new JumpGame();
+            jg.CanJump(null);
         }
     }
 }
