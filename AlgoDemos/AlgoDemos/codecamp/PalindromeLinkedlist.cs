@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace AlgoDemos.codecamp
 {
+    // another option was to store reversed linked list and then iterate through both comparing current node of both 
+    // for constant O(1) memory - have to use recursion stack - recurse one node at a time till you reach end of list. While unwinding you
+    // start comparing last element with head of node (which is stored as member variable) and keep moving along original 
+    // linked list as the recursion backs each node at time. Both nodes should have same value.
     /*
      * 206ms (beats 92% of c# users). 64MB (beats 24% of c# users)
      */
