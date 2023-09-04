@@ -15,14 +15,42 @@ namespace AlgoDemos.codecamp
 
         public int CoinChange(int[] coins, int amount)
         {
-            
-            int l = coins.Length;
-            Array.Sort(coins);
-            _coins = coins;
 
-            int recursionDepth = 0;
-            RecursiveSoln(l - 1, amount, 0, recursionDepth);
-            return (_soln == 100000000) ? -1 : _soln;
+            if (amount == 0)
+            {
+                return 0;
+            }
+
+            int[] dp = new int[amount + 1];
+
+            Array.Fill(dp, Int32.MaxValue);
+            dp[0] = 0;
+
+            for (int i = 1; i <= amount; i++)
+            {
+                foreach (int coin in coins)
+                {
+                    if (i == coin)
+                    {
+                        dp[i] = 1;
+                    }
+                    else if (i > coin)
+                    {
+                        if (dp[i - coin] == Int32.MaxValue)
+                        {
+                            continue;
+                        }
+                        dp[i] = Math.Min(dp[i - coin] + 1, dp[i]);
+                    }
+                }
+            }
+
+            if (dp[amount] == Int32.MaxValue)
+            {
+                return -1;
+            }
+
+            return dp[amount];
         }
 
         private void RecursiveSoln(int end, int total, int numCoins, int recursionDepth)
@@ -32,7 +60,7 @@ namespace AlgoDemos.codecamp
             {
                 return;
             }
-            string cachekey = end + "," + total + "," + numCoins;
+            string cachekey = end + "," + total;
 
             int response = -1;
             if (solutionCache.ContainsKey(cachekey))
