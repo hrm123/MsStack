@@ -66,7 +66,9 @@ namespace AlgoDemos
             // int answer = cc.CoinChange(coins, amount);
 
 
-            SegmentTree.testCase();
+            // SegmentTree.testCase();
+
+            PrimeNumbers.TestCase();
         }
     }
 }
