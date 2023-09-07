@@ -60,10 +60,13 @@ namespace AlgoDemos
             //JumpGame7 jg = new JumpGame7();
             //jg.CanReach(null,1,1);
 
-            CoinChangeSoln cc = new CoinChangeSoln();
-            int[] coins = new int[] { 411, 412, 413, 414, 415, 416, 417, 418, 419, 420, 421, 422 };
-            int amount = 9864; // expected soln = 24
-            int answer = cc.CoinChange(coins, amount);
+            // CoinChangeSoln cc = new CoinChangeSoln();
+            // int[] coins = new int[] { 411, 412, 413, 414, 415, 416, 417, 418, 419, 420, 421, 422 };
+            // int amount = 9864; // expected soln = 24
+            // int answer = cc.CoinChange(coins, amount);
+
+
+            SegmentTree.testCase();
         }
     }
 }
