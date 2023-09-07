@@ -68,7 +68,8 @@ namespace AlgoDemos
 
             // SegmentTree.testCase();
 
-            PrimeNumbers.TestCase();
+            PrimeNumbers.TestCase_GetPrimeDivisors();
+            Console.ReadKey();
         }
     }
 }
