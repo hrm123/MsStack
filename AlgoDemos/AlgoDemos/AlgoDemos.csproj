@@ -13,4 +13,9 @@
     <None Include="codecamp\SpiralWalk.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="codecamp\graphs\" />
+    <Folder Include="codecamp\trees\" />
+  </ItemGroup>
+
 </Project>

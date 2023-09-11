@@ -1,4 +1,5 @@
 ﻿using AlgoDemos.codecamp;
+using AlgoDemos.codecamp.strings;
 using AlgoDemos.DijkstrasAlgo;
 using AlgoDemos.ExpressionTree;
 using AlgoDemos.Graph;
@@ -68,7 +69,9 @@ namespace AlgoDemos
 
             // SegmentTree.testCase();
 
-            PrimeNumbers.TestCase_GetPrimeDivisors();
+            //PrimeNumbers.TestCase_GetPrimeDivisors();
+
+            AhoKorasick.Testcase();
             Console.ReadKey();
         }
     }
