@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace AlgoDemos.codecamp
 {
     /// <summary>
-    /// Class checks if given stream of characters ends with any of words given 
+    /// 1032. Stream of Characters - Class checks if given stream of characters ends with any of words given 
+    /// First attempt - failed on basic tests 
     /// </summary>
     public class StreamChecker
     {
@@ -15,18 +16,27 @@ namespace AlgoDemos.codecamp
         Dictionary<string, HashSet<int>> _matcher = new Dictionary<string, HashSet<int>>();
         string[] _words;
 
+        public string Reverse(string str)
+        {
+            char[] chars = str.ToCharArray();
+            Array.Reverse(chars);
+            return new string(chars);
+        }
+
         public StreamChecker(string[] words)
         {
             _words = words;
             // create matcher = Hash<char+indexinword,set of ints> which gives index of all words that have particular character at particular position
             // have to reverse words since it is easier to match
             int indexOfword = 0;
-            foreach (string word in words)
+            foreach (string wordReverse in words)
             {
-                for (int i = 0; i < word.Length; i++)
+                string wordCurrent = Reverse(wordReverse);
+                for (int i = 0; i < wordCurrent.Length; i++)
                 {
                     HashSet<int> tmp = null;
-                    string key = word[i] + "" + i;
+                    string key = wordCurrent[i] + "" + i;
+                    Console.WriteLine($"word={wordCurrent} key={key}");
                     if (_matcher.ContainsKey(key))
                     {
                         tmp = _matcher[key];
@@ -50,27 +60,45 @@ namespace AlgoDemos.codecamp
         {
             HashSet<int> prevSet = null;
             int j = 0;
+            streamedChars.Add(letter);
             for (int i = streamedChars.Count() - 1; i >= 0; i--)
             {
                 // the first streamed character should match last character of words
                 // second  streamed character should match 2nd lst character of words etc
-                HashSet<int> currentSet = _matcher[streamedChars[i] + "" + j];
+                string key = streamedChars[i] + "" + j;
+                HashSet<int> currentSet = null;
+                if (_matcher.ContainsKey(key))
+                {
+                    currentSet = _matcher[key];
+                }
+
+                // Console.WriteLine(key);
+
+                // if currentSet is empty then return false
+                if (currentSet == null || currentSet.Count == 0)
+                { // if one iteration does not return any words then intersetion with previoud set will be empty
+                    return false;
+                }
+
+
+                //check if current set has any word  of length i.. if yes that is solution
+                if (ExistsWordOfGivenLength(currentSet, j + 1))
+                {
+                    return true;
+                }
+
                 if (prevSet != null)
                 {
                     currentSet.Intersect(prevSet);
                 }
 
-                // if currentSet is empty then return false
-                if (currentSet.Count == 0)
-                { // if one iteration does not return any words then intersetion with previoud set will be empty
-                    return false;
-                }
-
                 //check if current set has any word  of length i.. if yes that is solution
-                if (ExistsWordOfGivenLength(currentSet, i))
+                if (ExistsWordOfGivenLength(currentSet, i + 1))
                 {
                     return true;
                 }
+
+                j++;
             }
             return false;
         }
@@ -87,6 +115,12 @@ namespace AlgoDemos.codecamp
             return false;
         }
     }
+
+    /**
+     * Your StreamChecker object will be instantiated and called as such:
+     * StreamChecker obj = new StreamChecker(words);
+     * bool param_1 = obj.Query(letter);
+     */
 
     /**
      * Your StreamChecker object will be instantiated and called as such:
