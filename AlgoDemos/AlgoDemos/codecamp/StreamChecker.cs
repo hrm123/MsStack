@@ -10,6 +10,7 @@ namespace AlgoDemos.codecamp
     /// 1032. Stream of Characters - Class checks if given stream of characters ends with any of words given 
     /// First attempt - failed on basic tests 
     /// </summary>
+    /// 
     public class StreamChecker
     {
 
@@ -36,7 +37,6 @@ namespace AlgoDemos.codecamp
                 {
                     HashSet<int> tmp = null;
                     string key = wordCurrent[i] + "" + i;
-                    Console.WriteLine($"word={wordCurrent} key={key}");
                     if (_matcher.ContainsKey(key))
                     {
                         tmp = _matcher[key];
@@ -51,6 +51,12 @@ namespace AlgoDemos.codecamp
                 indexOfword++;
             }
 
+            /*
+            foreach(var (key,value) in _matcher){
+                Console.WriteLine($"key={key} - value={String.Join<int>(",", value)}");
+            }
+            */
+
         }
 
 
@@ -58,9 +64,11 @@ namespace AlgoDemos.codecamp
 
         public bool Query(char letter)
         {
+            // Console.WriteLine($"-------------{letter}---------------------");
             HashSet<int> prevSet = null;
             int j = 0;
             streamedChars.Add(letter);
+            // Console.WriteLine($"count={streamedChars.Count()}");
             for (int i = streamedChars.Count() - 1; i >= 0; i--)
             {
                 // the first streamed character should match last character of words
@@ -70,9 +78,9 @@ namespace AlgoDemos.codecamp
                 if (_matcher.ContainsKey(key))
                 {
                     currentSet = _matcher[key];
+                    //Console.WriteLine($" key={key},  current set={ String.Join<int>(",", currentSet)}");   
                 }
 
-                // Console.WriteLine(key);
 
                 // if currentSet is empty then return false
                 if (currentSet == null || currentSet.Count == 0)
@@ -82,22 +90,29 @@ namespace AlgoDemos.codecamp
 
 
                 //check if current set has any word  of length i.. if yes that is solution
-                if (ExistsWordOfGivenLength(currentSet, j + 1))
-                {
-                    return true;
-                }
-
+                HashSet<int> tmp = new HashSet<int>(currentSet);
                 if (prevSet != null)
                 {
-                    currentSet.Intersect(prevSet);
+                    tmp.IntersectWith(prevSet);
+                    // Console.WriteLine($" intersect set={ String.Join<int>(",", tmp)}"); 
+                    //check if current set has any word  of length i.. if yes that is solution
+                    if (ExistsWordOfGivenLength(tmp, j + 1))
+                    {
+                        // Console.WriteLine($"ExistsWordOfGivenLength {j+1} second");
+                        return true;
+                    }
                 }
-
-                //check if current set has any word  of length i.. if yes that is solution
-                if (ExistsWordOfGivenLength(currentSet, i + 1))
+                else
                 {
-                    return true;
+                    if (ExistsWordOfGivenLength(currentSet, j + 1))
+                    {
+                        // Console.WriteLine($"ExistsWordOfGivenLength {j+1}");
+                        return true;
+                    }
                 }
 
+
+                prevSet = tmp;
                 j++;
             }
             return false;
@@ -116,6 +131,11 @@ namespace AlgoDemos.codecamp
         }
     }
 
+    /**
+     * Your StreamChecker object will be instantiated and called as such:
+     * StreamChecker obj = new StreamChecker(words);
+     * bool param_1 = obj.Query(letter);
+     */
     /**
      * Your StreamChecker object will be instantiated and called as such:
      * StreamChecker obj = new StreamChecker(words);
