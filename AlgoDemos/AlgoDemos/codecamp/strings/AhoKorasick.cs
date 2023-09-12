@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AlgoDemos.codecamp.strings
 {
-    https://www.geeksforgeeks.org/aho-corasick-algorithm-pattern-searching/
+    // https://www.geeksforgeeks.org/aho-corasick-algorithm-pattern-searching/
     public class AhoKorasick
     {
         static int MAXS = 600; // should be sum of the length of all keywords
