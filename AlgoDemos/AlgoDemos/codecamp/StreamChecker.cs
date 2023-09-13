@@ -24,6 +24,7 @@ namespace AlgoDemos.codecamp
             return new string(chars);
         }
 
+
         public StreamChecker(string[] words)
         {
             _words = words;
