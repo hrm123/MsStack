@@ -71,7 +71,9 @@ namespace AlgoDemos
 
             //PrimeNumbers.TestCase_GetPrimeDivisors();
 
-            AhoKorasick.Testcase();
+            //AhoKorasick.Testcase();
+
+            StreamCheckerTrie.TestCase();
             Console.ReadKey();
         }
     }
