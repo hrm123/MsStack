@@ -73,7 +73,7 @@ namespace AlgoDemos
 
             //AhoKorasick.Testcase();
 
-            StreamCheckerTrie.TestCase();
+            
             Console.ReadKey();
         }
     }
