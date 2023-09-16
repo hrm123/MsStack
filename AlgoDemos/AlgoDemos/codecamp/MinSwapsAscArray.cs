@@ -43,9 +43,14 @@ namespace AlgoDemos.codecamp
         bool InOrder(int depth)
         {
 
-            if (depth >= _a1.Length || depth < 0)
+            if (depth >= _a1.Length)
             {
-                Console.WriteLine($"error at {depth}");
+                Console.WriteLine($"greater than length at {depth}");
+                depth = _a1.Length - 1;
+            }
+            if (depth > _a1.Length)
+            {
+                Console.WriteLine($"error depth =  {depth}");
                 return false;
             }
 
@@ -54,12 +59,12 @@ namespace AlgoDemos.codecamp
             {
                 if (_a1[i] >= _a1[i + 1])
                 {
-                    Console.WriteLine($"{_a1[i]},{_a1[i + 1]} mismatch");
+                    // Console.WriteLine($"{_a1[i]},{_a1[i + 1]} mismatch");
                     return false;
                 }
                 if (_a2[i] >= _a2[i + 1])
                 {
-                    Console.WriteLine($"{_a2[i]},{_a2[i + 1]} mismatch");
+                    // Console.WriteLine($"{_a2[i]},{_a2[i + 1]} mismatch");
                     return false;
                 }
             }
@@ -82,30 +87,85 @@ namespace AlgoDemos.codecamp
 
                 Console.WriteLine($"not in order at depth={x}");
                 //choices - swap (i-1) / (i)  to see which on yields best result
+                // if swapping i causes mismatch in depth+1 where as swapping i-1does not cause mismatch till depth then choose swap (i-1)
+
                 int numswaps = 0;
-                numswaps += swap(x) ? 1 : 0; // with only (i) swapped
-                Console.WriteLine($"swapped {_a1[x]},{_a2[x]}");
-                if (!InOrder(x))
+                bool depthSwapWorks = false;
+                bool depthSwapWorksOptimized = false;
+                bool prevToDepthSwapWorks = false;
+
+                //swap only i
+                if (swap(x))
                 {
-                    //unswap (i)
-                    numswaps -= swap(x) ? 1 : 0;
-                    Console.WriteLine($"unswapped {_a1[x]},{_a2[x]}");
-
-                    numswaps += swap(x - 1) ? 1 : 0; // now we have swapped  i-1
-                    Console.WriteLine($"swapped {_a1[x - 1]},{_a2[x - 1]}");
-
-                    if (!InOrder(x))
+                    if (InOrder(x))
                     {
-                        //swap (i)
-                        numswaps -= swap(x) ? 1 : 0;
-                        Console.WriteLine($"swapped both {_a1[x - 1]},{_a2[x - 1]} & {_a1[x]},{_a2[x]}");
-                        if (!InOrder(x))
-                        { // // now we have swapped both i / (i-1)
-                          //fail
-                            return -1;
+                        depthSwapWorks = true;
+                    }
+                    if (InOrder(x + 1))
+                    {
+                        depthSwapWorksOptimized = true;
+                    }
+                    //unswap i
+                    swap(x);
+                }
+
+
+                //swap only i-1
+                if (swap(x - 1))
+                {
+                    if (InOrder(x))
+                    {
+                        prevToDepthSwapWorks = true;
+                    }
+                    //unswap i-1
+                    swap(x - 1);
+                }
+
+                if (depthSwapWorksOptimized)
+                {
+                    swap(x); // prefer swap at current depth since it facilitates depth+1 order too
+                    numswaps++;
+                }
+                else
+                {
+                    if (depthSwapWorks)
+                    {
+                        if (prevToDepthSwapWorks)
+                        {
+                            swap(x - 1); // prefer depth-1 swap since it will nto cause depth+1 order to go wrong
+                            numswaps++;
+                        }
+                        else
+                        {
+                            swap(x); // better swap at current depth even though it breaks the depth+1 order too
+                            numswaps++;
+                        }
+                    }
+                    else
+                    { //depthSwap does not work
+                        if (prevToDepthSwapWorks)
+                        {
+                            swap(x - 1); // prefer depth-1 swap since it will nto cause depth+1 order to go wrong
+                            numswaps++;
+                        }
+                        else
+                        {
+                            //last option - try swapping both x & x-1
+                            swap(x);
+                            swap(x - 1);
+                            if (InOrder(x))
+                            {
+                                numswaps += 2;
+                            }
+                            else
+                            {
+                                //failure
+                                return -1;
+                            }
                         }
                     }
                 }
+
                 Console.WriteLine($"numswaps={numswaps} at depth={x}");
                 dp[x] = dp[x - 1] + numswaps;
             }
