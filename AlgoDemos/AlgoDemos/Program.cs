@@ -74,7 +74,9 @@ namespace AlgoDemos
 
             //AhoKorasick.Testcase();
 
-            BitArrayDemo.TestCase_Xor();
+            // BitArrayDemo.TestCase_Xor();
+
+            MinSwapsAcsArray.testCase();
             Console.ReadKey();
         }
     }
