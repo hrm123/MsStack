@@ -1,4 +1,5 @@
-﻿using AlgoDemos.codecamp;
+﻿using AlgoDemos.bits;
+using AlgoDemos.codecamp;
 using AlgoDemos.codecamp.strings;
 using AlgoDemos.DijkstrasAlgo;
 using AlgoDemos.ExpressionTree;
@@ -73,7 +74,7 @@ namespace AlgoDemos
 
             //AhoKorasick.Testcase();
 
-            
+            BitArrayDemo.TestCase_Xor();
             Console.ReadKey();
         }
     }

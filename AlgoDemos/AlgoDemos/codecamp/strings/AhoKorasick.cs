@@ -77,7 +77,7 @@ namespace AlgoDemos.codecamp.strings
                 } // adds the alphabets of current word starting from node '0'- i.e., set g[0, int_of_current_alphabet]to a value greater than zero which points to new state in the combines alphabets of all words
 
                 // add index of  current word in output function (along with any other words index that may exist alrady there)
-                outBits[currentState] |= (1 << i); // 1 << i is current word index set in binary format of 3 bit integer (so one of 32 bits will be value 1 others will be 0)
+                outBits[currentState] |= (1 << i); // 1 << i is current word index set in binary format integer (so one of 32 bits will be value 1 others will be 0)
             }
 
             // For all characters which don't have
