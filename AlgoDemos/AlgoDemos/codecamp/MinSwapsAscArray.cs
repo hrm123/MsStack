@@ -46,7 +46,7 @@ namespace AlgoDemos.codecamp
         }
 
         // swap -  0=dont swap depth/depth-1 elements; 1=swap depth-1 element only; 2 =swapr depth element only; 3=swap both elements)
-        bool InOrderNew(int depth)
+        bool InOrder(int depth)
         {
             return _a1[depth] > _a1[depth - 1] && _a2[depth] > _a2[depth - 1];
         }
@@ -58,9 +58,9 @@ namespace AlgoDemos.codecamp
             for (int x = 1; x < _a1.Length; x++)
             {
 
-                bool inOrderWithoutSwap = InOrderNew(x);
+                bool inOrderWithoutSwap = InOrder(x);
                 swap(x);
-                bool inOrderWithSwap = InOrderNew(x);
+                bool inOrderWithSwap = InOrder(x);
                 swap(x); // revert swap
                 if (inOrderWithoutSwap)
                 {
@@ -84,9 +84,9 @@ namespace AlgoDemos.codecamp
 
                 swap(x - 1); // swap previous item
 
-                bool inOrderWithoutSwap1 = InOrderNew(x);
+                bool inOrderWithoutSwap1 = InOrder(x);
                 swap(x);
-                bool inOrderWithSwap1 = InOrderNew(x);
+                bool inOrderWithSwap1 = InOrder(x);
                 swap(x); // revert swap
                 swap(x - 1); // revert swap
 

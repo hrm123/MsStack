@@ -1,5 +1,6 @@
 ﻿using AlgoDemos.bits;
 using AlgoDemos.codecamp;
+using AlgoDemos.codecamp.arrays;
 using AlgoDemos.codecamp.strings;
 using AlgoDemos.DijkstrasAlgo;
 using AlgoDemos.ExpressionTree;
@@ -76,7 +77,15 @@ namespace AlgoDemos
 
             // BitArrayDemo.TestCase_Xor();
 
-            MinSwapsAcsArray.testCase();
+            //MinSwapsAcsArray.testCase();
+
+            // kincreasing.Testcase();
+
+            // MergeSorter sorter = new MergeSorter();
+            // sorter.MergeSort(new[] { 10, 9, 2, 5, 3, 7, 101, 18 });
+
+            LIS.TestLIS();
+
             Console.ReadKey();
         }
     }
