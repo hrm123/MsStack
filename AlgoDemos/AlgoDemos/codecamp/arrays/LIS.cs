@@ -25,6 +25,15 @@ namespace AlgoDemos.codecamp.arrays
 
         }
 
+        /// <summary>
+        /// Keep maintainging ascendening array of numbers and each iteration new number is encountered - if it is greater than end of ascending
+        /// array then add it to the array. If iit is less than last numebr of ascendign array - then the new number can overwrite one of the existing
+        /// numbers in ascending array (since the count of ascending array will not change by this replacement and it will be better since we are putting a smaller 
+        /// number into ascending array and removing a bigger number. If we folow this approach till end of aray the array will ahve 
+        /// max length of ascending numbers
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
         public int LengthOfLIS(int[] nums)
         {
 
