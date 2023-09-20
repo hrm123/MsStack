@@ -32,18 +32,17 @@ namespace AlgoDemos.codecamp
                 subarrays.Add(lst);
                 for (int j = i; j < arr.Count(); j += k)
                 {
-                    Console.WriteLine($"{j}");
                     lst.Add(arr[j]);
                 }
             }
-            int operationsReqd = 0;
+            int lisCount = 0;
             foreach (List<int> current in subarrays)
             {
-                operationsReqd += LengthOfLIS(current.ToArray());
+                lisCount += LengthOfLISWithRepetition(current.ToArray());
             }
-            return operationsReqd;
+            return arr.Length - lisCount;
         }
-        public int LengthOfLIS(int[] nums)
+        public int LengthOfLISWithRepetition(int[] nums)
         {
 
             int n = nums.Length;
@@ -71,7 +70,14 @@ namespace AlgoDemos.codecamp
                             high = mid - 1;
                         }
                     }
-                    list[low] = nums[i];
+                    if (list[low] == nums[i] && low == list.Count() -1 ) // dupe at end of list
+                    {
+                        list.Insert(low, nums[i]);
+                    }
+                    else
+                    {
+                        list[low] = nums[i];
+                    }
                 }
             }
             return list.Count();
