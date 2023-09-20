@@ -56,6 +56,13 @@ namespace AlgoDemos.codecamp
                 }
                 else
                 {
+                    // AIM of this part of code - create ascending array of all visited elements and at same time make sure
+                    // this ascending array keep minimum values of all possible ascending arrays that could be created till now
+                    // replace current ascending array so that greatest element of asc array that is <=  nums[i]    will be relaced by nums[i]. 
+                    // advantage of such activity is we are not disturbing the invariant of created array (elements should be in non descending order)
+                    // and at same time pushing lower values than elements of current ascending array into the ascending array
+                    // this way asc array will always be ready to change when the next candidate ascending array that might have better match (since new
+                    // ascending array is same length as previous asc array and even better since it has all minimum possible values that have occured till now
                     int low = 0;
                     int high = list.Count() - 1;
                     while (low <= high)
@@ -70,16 +77,7 @@ namespace AlgoDemos.codecamp
                             high = mid - 1;
                         }
                     }
-                    /*
-                    if (list[low] == nums[i] && low == list.Count() -1 ) // dupe at end of list
-                    {
-                        list.Insert(low, nums[i]);
-                    }
-                    else
-                    {
-                    */
-                        list[low] = nums[i];
-                    //}
+                    list[low] = nums[i];
                 }
             }
             return list.Count();
