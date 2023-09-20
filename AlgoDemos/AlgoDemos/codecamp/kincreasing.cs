@@ -17,7 +17,7 @@ namespace AlgoDemos.codecamp
             kincreasing soln = new kincreasing();
             // int answer = soln.k_increasing(new int[] { 5, 4, 3, 2, 1 }, 1);
             // int answer = soln.k_increasing(new int[] { 4, 1, 5, 2, 6, 2 }, 2);
-            int answer = soln.k_increasing(new int[] { 12, 6, 12, 6, 14, 2, 13, 17, 3, 8, 11, 7, 4, 11, 18, 8, 8, 3 }, 1);
+            int answer = soln.k_increasing(new int[] { 2, 2, 2, 2, 2, 1, 1, 4, 4, 3, 3, 3, 3, 3 }, 1);
             
 
 
@@ -50,7 +50,7 @@ namespace AlgoDemos.codecamp
             list.Add(nums[0]);
             for (int i = 1; i < n; i++)
             {
-                if (nums[i] > list[list.Count() - 1])
+                if (nums[i] >= list[list.Count() - 1])
                 {
                     list.Add(nums[i]);
                 }
@@ -61,7 +61,7 @@ namespace AlgoDemos.codecamp
                     while (low <= high)
                     {
                         int mid = (high + low) / 2;
-                        if (list[mid] < nums[i])
+                        if (list[mid] <= nums[i])
                         {
                             low = mid + 1;
                         }
@@ -70,14 +70,16 @@ namespace AlgoDemos.codecamp
                             high = mid - 1;
                         }
                     }
+                    /*
                     if (list[low] == nums[i] && low == list.Count() -1 ) // dupe at end of list
                     {
                         list.Insert(low, nums[i]);
                     }
                     else
                     {
+                    */
                         list[low] = nums[i];
-                    }
+                    //}
                 }
             }
             return list.Count();
