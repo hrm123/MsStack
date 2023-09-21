@@ -87,7 +87,7 @@ namespace AlgoDemos
             // LIS.TestLIS();
             // kincreasing.Testcase();
 
-            FruitHarvest.TestCase();
+            FruitHarvest.TestCase1();
 
             Console.ReadKey();
         }
