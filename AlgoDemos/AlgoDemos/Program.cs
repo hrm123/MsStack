@@ -85,7 +85,9 @@ namespace AlgoDemos
             // sorter.MergeSort(new[] { 10, 9, 2, 5, 3, 7, 101, 18 });
 
             // LIS.TestLIS();
-            kincreasing.Testcase();
+            // kincreasing.Testcase();
+
+            FruitHarvest.TestCase();
 
             Console.ReadKey();
         }
