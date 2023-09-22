@@ -14,7 +14,7 @@ namespace AlgoDemos.codecamp
     public class FruitHarvest
     {
 
-        int[,] _dp;
+        int[,,] _dp;
         int[][] _fruits;
         int _k;
         int _startPos;
@@ -71,6 +71,11 @@ namespace AlgoDemos.codecamp
             return validFruits;
         }
 
+        const int LEFT_EMPTY = 1;
+        const int RIGHT_EMPTY = 2;
+        const int BOTH_EMPTY = 0;
+        const int BOTH_FILLED = 4;
+
         public int MaxTotalFruits(int[][] fruits, int startPos, int k)
         {
             _fruits = fruits;
@@ -89,17 +94,22 @@ namespace AlgoDemos.codecamp
 
             // create new array of fruits that are k distance from current position
             _fruitsWithinReach = ValidPositions();
-            var harvestedLocations = new bool[_fruitsWithinReach.GetLength(0)];
             
-            _dp = new int[_fruitsWithinReach.GetLength(0), k + 1];
+            _dp = new int[_fruitsWithinReach.GetLength(0), k + 1, 4]; // 0 => both left/right empty, 1 = left empty, 2 = right empty, 4 = both filled
             for (int i = 0; i < _dp.GetLength(0); i++)
             {
-                _dp[i, 0] = _fruitsWithinReach[i, 1];
+                for (int j = 0; j < 4; j++)
+                {
+                    _dp[i, 0,j] = _fruitsWithinReach[i, 1];
+                }
             }
 
             for (int i = 0; i < k + 1; i++)
             {
-                _dp[0, i] =  0;
+                for (int j = 0; j < 4; j++)
+                {
+                    _dp[0, i,j] = 0;
+                }
             }
 
             for (int j = 1; j <= k; j++)
@@ -107,49 +117,46 @@ namespace AlgoDemos.codecamp
                 
                 for (int i = 1; i < _dp.GetLength(0); i++)
                 {
-                    Array.Fill(harvestedLocations, false);
-                    harvestedLocations[i] = true;
+                    _dp[i, j, BOTH_EMPTY] = _fruitsWithinReach[i, 1];
                     int v_left = -1;
                     int v_right = -1;
                     int steps_to_left = (i==0 || i == 1) ? -1 : Math.Abs( _fruitsWithinReach[i, 0] - _fruitsWithinReach[i - 1, 0]);
                     int steps_to_right = (i== _fruitsWithinReach.GetLength(0)-1) ? -1 :  Math.Abs(_fruitsWithinReach[i, 0] - _fruitsWithinReach[i + 1, 0]);
                     if(steps_to_right != -1 && j >= steps_to_right)
                     {
-                        v_right = _dp[i + 1, j-steps_to_right];
+                        v_right = _dp[i + 1, j-steps_to_right, LEFT_EMPTY];
                     }
                     if(steps_to_left != -1 && j >= steps_to_left)
                     {
-                        v_left = _dp[i - 1, j-steps_to_left];
+                        v_left = _dp[i - 1, j-steps_to_left, RIGHT_EMPTY  ];
                     }
                     if (v_left == -1) 
                     {
-                        if (v_right != -1) { 
-                            _dp[i, j] = _fruitsWithinReach[i, 1] +  v_right ;
-                            harvestedLocations[i+1] = true;
+                        if (v_right != -1) {  // right can be reached left cannot be reached
+                            _dp[i, j, BOTH_FILLED] = _fruitsWithinReach[i, 1] +  v_right ;
+                            _dp[i, j, LEFT_EMPTY] = _fruitsWithinReach[i, 1] + v_right;
+                            _dp[i, j, RIGHT_EMPTY] = _fruitsWithinReach[i, 1]; //right can be reached but right is empty
                         }
-                        else
+                        else // both sides cannot be reached
                         {
-                            _dp[i, j] = _fruitsWithinReach[i, 1]; // only curren fruits can be added sicne both left/right cannot be gone to
+                            _dp[i, j, LEFT_EMPTY] = _fruitsWithinReach[i, 1];
+                            _dp[i, j, RIGHT_EMPTY] = _fruitsWithinReach[i, 1];
+                            _dp[i, j, BOTH_FILLED] = _fruitsWithinReach[i, 1]; // only curren fruits can be added sicne both left/right cannot be gone to
                         }
                     }
                     else
                     {
-                        if (v_right == -1) { 
-                            _dp[i, j] = _fruitsWithinReach[i, 1] +   v_left ;
-                            harvestedLocations[i - 1] = true;
+                        if (v_right == -1) { // left can be reached right cannot be reached
+                            _dp[i, j, BOTH_FILLED] = _fruitsWithinReach[i, 1] +   v_left ;
+                            _dp[i, j, RIGHT_EMPTY] = _fruitsWithinReach[i, 1] + v_left;
+                            _dp[i, j, LEFT_EMPTY] = _fruitsWithinReach[i, 1]; // left can be reached but is empty
                         }
                         else
                         {
                             //both left and right could be mvoed to
-                            _dp[i, j] = _fruitsWithinReach[i, 1] + Math.Max(v_left, v_right);
-                            if(Math.Max(v_left, v_right) == v_left)
-                            {
-                                harvestedLocations[i - 1] = true;
-                            }
-                            else
-                            {
-                                harvestedLocations[i + 1] = true;
-                            }
+                            _dp[i, j, BOTH_FILLED] = _fruitsWithinReach[i, 1] + Math.Max(v_left, v_right);
+                            _dp[i, j, LEFT_EMPTY] = _fruitsWithinReach[i, 1] + v_right;
+                            _dp[i, j, RIGHT_EMPTY] = _fruitsWithinReach[i, 1] + v_left;
                         }
                     }
                     
@@ -181,12 +188,13 @@ namespace AlgoDemos.codecamp
 
             if (leftIndex == rightIndex)
             {
-                return  _dp[rightIndex, k];
+                return  _dp[rightIndex, k, BOTH_FILLED];
             }
             else
             {
 
-                return  Math.Max(_dp[leftIndex, k - Math.Abs(_startPos - leftStart)], _dp[rightIndex, k - Math.Abs(_startPos - rightStart)]);
+                return  Math.Max(_dp[leftIndex, k - Math.Abs(_startPos - leftStart), BOTH_FILLED], 
+                    _dp[rightIndex, k - Math.Abs(_startPos - rightStart), BOTH_FILLED]);
             }
 
         }
