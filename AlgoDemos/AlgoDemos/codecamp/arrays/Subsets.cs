@@ -10,13 +10,12 @@ namespace AlgoDemos.codecamp.arrays
     /// Given an integer array nums of unique elements, return all possible subsets (the power set).
     /// The solution set must not contain duplicate subsets. Return the solution in any order.
     /// Input: nums = [1,2,3] then Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
-    /// 134 ms - beats 36% of c# users. 43 MB - beats 30% of C# users.
+    /// 118 ms - beats 96% of c# users. 42 MB - beats 69% of C# users.
     /// </summary>
     public class SubsetsOfInts
     {
 
         int[] _nums;
-        IList<int[]> _response;
         IList<IList<int>> _responseActual;
         int _len;
 
@@ -25,14 +24,11 @@ namespace AlgoDemos.codecamp.arrays
         {
             _nums = nums;
             _len = _nums.Length;
-            _response = new List<int[]>();
-            _response.Add(Array.Empty<int>());
             _responseActual = new List<IList<int>>();
+            //add empty set
+            List<int> empty = new List<int>();
+            _responseActual.Add(empty);
             SubsetRecursive( 0, new List<int>());
-            foreach (var item in _response)
-            {
-                _responseActual.Add(new List<int>(item));
-            }
             return _responseActual;
 
         }
@@ -46,7 +42,7 @@ namespace AlgoDemos.codecamp.arrays
             for (int i = prevIndex; i < _len; i++)
             {
                 currentArr.Add(_nums[i]);
-                _response.Add(currentArr.ToArray());
+                _responseActual.Add(currentArr.ToList());
                 SubsetRecursive(i + 1, currentArr);
                 currentArr.Remove(_nums[i]);
             }
