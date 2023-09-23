@@ -90,8 +90,8 @@ namespace AlgoDemos
 
             // FruitHarvest.TestCase1();
             // StringOperations.TestCase_Permutations();
-            RatInMaze.Testcase();
-
+            // RatInMaze.Testcase();
+            nqueens.TestCase();
             Console.ReadKey();
         }
     }
