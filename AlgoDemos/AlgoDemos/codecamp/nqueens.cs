@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace AlgoDemos.codecamp
 {
     /// <summary>
-    /// Given nxn empty chessboard and n queens place all of them so that no 2 queens are attacking each other.
+    /// 51. N-queens - Given nxn empty chessboard and n queens place all of them so that no 2 queens are attacking each other.
+    /// 178 ms - beats 6% of C# users. 50 MB - breats 24% of C# users
     /// </summary>
 
     public class nqueens
@@ -26,11 +27,13 @@ namespace AlgoDemos.codecamp
 
         bool DoesCurrentPositionHaveQueen(int x, int y, int[,] board)
         {
-            int value = _board[x, y];
+            int value = board[x, y];
+            Console.WriteLine(value);
             for(int i=1; i<=_n;i++)
             {
                 int powerOfTwo = (int) Math.Pow(2, i);
-                if ((value & powerOfTwo)  == powerOfTwo) { return true;  }
+                if(value == powerOfTwo) { return true; }
+                // if ((value & 1 << i)  > 0 ) { return true;  }
             }
             return false;
         }
@@ -55,7 +58,7 @@ namespace AlgoDemos.codecamp
                 for(int i=0;i<_n;i++){
                     sb.Clear();
                     for(int j=0;j<_n;j++){
-                        sb.Append(DoesCurrentPositionHaveQueen(i, j, board)? "Q" : ",");
+                        sb.Append(DoesCurrentPositionHaveQueen(i, j, board)? "Q" : ".");
                     }
                     soln1.Add(sb.ToString());
                 }
@@ -180,11 +183,27 @@ namespace AlgoDemos.codecamp
             _board[i, j] &= ~(1 << (d + 1))  ; // d+1 th bit of _board[i,j] will be 0
         }
 
+
+        int[,] CloneBoard(int[,] board)
+        {
+            if (board == null) return null;
+            int x_len = board.GetLength(0), y_len = board.GetLength(1);
+            int[,] clone = new int[x_len, y_len];
+            for(int x=0;x<x_len; x++)
+            {
+                for(int y = 0; y < y_len; y++)
+                {
+                    clone[x,y]= board[x, y];
+                }
+            }
+            return clone;
+        }
+
         void PlaceQueenRecursive(int d){
             // dth queen is placed in dth row only, in any of n columns of dth row
             if(d >= _n){
                 //all n queens are placed
-                _allBoards.Add(_board); // hopefully it adds copy not reference
+                _allBoards.Add(CloneBoard(_board)); // hopefully it adds copy not reference
                 return;
             }
 
