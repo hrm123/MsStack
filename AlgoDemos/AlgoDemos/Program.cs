@@ -1,6 +1,7 @@
 ﻿using AlgoDemos.bits;
 using AlgoDemos.codecamp;
 using AlgoDemos.codecamp.arrays;
+using AlgoDemos.codecamp.matrix;
 using AlgoDemos.codecamp.strings;
 using AlgoDemos.DijkstrasAlgo;
 using AlgoDemos.ExpressionTree;
@@ -88,7 +89,8 @@ namespace AlgoDemos
             // kincreasing.Testcase();
 
             // FruitHarvest.TestCase1();
-            StringOperations.TestCase_Permutations();
+            // StringOperations.TestCase_Permutations();
+            RatInMaze.Testcase();
 
             Console.ReadKey();
         }
