@@ -24,6 +24,17 @@ namespace AlgoDemos.codecamp
             nq.SolveNQueens(4);
         }
 
+        bool DoesCurrentPositionHaveQueen(int x, int y, int[,] board)
+        {
+            int value = _board[x, y];
+            for(int i=1; i<=_n;i++)
+            {
+                int powerOfTwo = (int) Math.Pow(2, i);
+                if ((value & powerOfTwo)  == powerOfTwo) { return true;  }
+            }
+            return false;
+        }
+
         public IList<IList<string>> SolveNQueens(int n) {
              _board = new int[n,n];
             _n = n;
@@ -31,19 +42,20 @@ namespace AlgoDemos.codecamp
             Array.Fill(_occupiedCols, false);
             for(int i=0;i<n;i++)
             for(int j=0;j<n;j++){
-                _board[i,j] = -1;
+                _board[i,j] = 0;
             }
-
+            _allBoards = new List<int[,]>();
             PlaceQueenRecursive(0);
 
             IList<IList<string>>  answer = new List<IList<string>>();
             for(int s=0;s<_allBoards.Count();s++){
+                int[,] board = _allBoards[s];
                 StringBuilder sb = new StringBuilder();
                 IList<string> soln1 = new List<string>();
                 for(int i=0;i<_n;i++){
                     sb.Clear();
                     for(int j=0;j<_n;j++){
-                        sb.Append(_board[i,j] > 0 ? "Q" : ",");
+                        sb.Append(DoesCurrentPositionHaveQueen(i, j, board)? "Q" : ",");
                     }
                     soln1.Add(sb.ToString());
                 }
@@ -54,7 +66,7 @@ namespace AlgoDemos.codecamp
 
         bool IsSafe(int row, int col)
         {
-            return !_occupiedCols[col] && _board[row,col]<0 ;
+            return !_occupiedCols[col] && _board[row,col]==0;
             /*
             int x1 = row, y1 = col;
             while (x1 < _n && y1 >=0)
@@ -85,84 +97,87 @@ namespace AlgoDemos.codecamp
             */
         }
  
-        void QueenPlaced(int i, int j){
+        void QueenPlaced(int i, int j, int d){
             for(int x = 0; x < _n; x++) // x axis
             {
-                _board[x,j] = 0;
+                _board[x,j] |= 1 << (d + 1);
             }
             for (int x = 0; x < _n; x++) // y axis
             {
-                _board[i, x] = 0;
+                _board[i, x] |= 1 << (d + 1);
             }
 
             int x1 = i, y1 = j;
             while (x1 < _n && y1 >=0)
             {
-                _board[x1, y1] = 0;
+                _board[x1, y1] |= 1 << (d + 1);
                 x1++; y1--;
                 
             }
             x1 = i; y1 = j;
             while (x1 >=0 && y1 < _n)
             {
-                _board[x1, y1] = 0;
+                _board[x1, y1] |= 1 << (d + 1);
                 x1--; y1++;
                 
             }
             x1 = i; y1 = j;
             while (x1 >= 0 && y1 >=0)
             {
-                _board[x1, y1] = 0;
+                _board[x1, y1] |= 1 << (d + 1);
                 x1--; y1--;
                 
             }
             x1 = i; y1 = j;
             while (x1 < _n && y1 < _n)
             {
-                _board[x1, y1] = 0;
+                _board[x1, y1] |= 1 << (d + 1);
                 x1++; y1++;
                 
             }
+
+            _board[i, j] |= 1 << (d + 1); // d+1 th bit of _board[i,j] will be 1
         }
 
-        void QueenUnPlaced(int i, int j){
+        void QueenUnPlaced(int i, int j, int d){
             for (int x = 0; x < _n; x++) // x axis
             {
-                _board[x, j] = -1;
+                _board[x, j] &= ~(1 << (d + 1));
             }
             for (int x = 0; x < _n; x++) // y axis
             {
-                _board[i, x] = -1;
+                _board[i, x] &= ~(1 << (d + 1));
             }
 
             int x1 = i, y1 = j;
             while (x1 < _n && y1 >= 0)
             {
-                _board[x1, y1] = -1;
+                _board[x1, y1] &= ~(1 << (d + 1));
                 x1++; y1--;
                 
             }
             x1 = i; y1 = j;
             while (x1 >= 0 && y1 < _n)
             {
-                _board[x1, y1] = -1;
+                _board[x1, y1] &= ~(1 << (d + 1));
                 x1--; y1++;
                 
             }
             x1 = i; y1 = j;
             while (x1 >= 0 && y1 >= 0)
             {
-                _board[x1, y1] = -1;
+                _board[x1, y1] &= ~(1 << (d + 1));
                 x1--; y1--;
                 
             }
             x1 = i; y1 = j;
             while (x1 < _n && y1 < _n)
             {
-                _board[x1, y1] = -1;
+                _board[x1, y1] &= ~(1 << (d + 1));
                 x1++; y1++;
                 
             }
+            _board[i, j] &= ~(1 << (d + 1))  ; // d+1 th bit of _board[i,j] will be 0
         }
 
         void PlaceQueenRecursive(int d){
@@ -176,10 +191,10 @@ namespace AlgoDemos.codecamp
             for(int col=0;col<_n;col++){
                 if(IsSafe(d,col)){
                     _occupiedCols[col] = true;
-                    QueenPlaced(d,col);
-                    _board[d,col] = d+1;
+                    QueenPlaced(d,col, d);
+                    
                     PlaceQueenRecursive(d+1);
-                    QueenUnPlaced(d,col);
+                    QueenUnPlaced(d,col, d );
                     _occupiedCols[col] = false;
                 }
             }
