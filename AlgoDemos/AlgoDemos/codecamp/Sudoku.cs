@@ -15,12 +15,13 @@ namespace AlgoDemos.codecamp
     {
         int[,] _board = new int[9, 9];
         int[,] _boardOrig = new int[9, 9];
-        bool[,] _empty = new bool[9, 9];
+        string[,] _allNumbers = new string[9, 9];
         Dictionary<int,List<int>> _remains = new Dictionary<int,List<int>>();
-
+        int _ctr = 0;
         public static void TestCase()
         {
-            char[,] input = new char[9,9] { { '5', '3', '.', '.', '7', '.', '.', '.', '.' }, { '6', '.', '.', '1', '9', '5', '.', '.', '.' }, { '.', '9', '8', '.', '.', '.', '.', '6', '.' }, { '8', '.', '.', '.', '6', '.', '.', '.', '3' }, { '4', '.', '.', '8', '.', '3', '.', '.', '1' }, { '7', '.', '.', '.', '2', '.', '.', '.', '6' }, { '.', '6', '.', '.', '.', '.', '2', '8', '.' }, { '.', '.', '.', '4', '1', '9', '.', '.', '5' }, { '.', '.', '.', '.', '8', '.', '.', '7', '9' } };
+            // char[,] input = new char[9,9] { { '5', '3', '.', '.', '7', '.', '.', '.', '.' }, { '6', '.', '.', '1', '9', '5', '.', '.', '.' }, { '.', '9', '8', '.', '.', '.', '.', '6', '.' }, { '8', '.', '.', '.', '6', '.', '.', '.', '3' }, { '4', '.', '.', '8', '.', '3', '.', '.', '1' }, { '7', '.', '.', '.', '2', '.', '.', '.', '6' }, { '.', '6', '.', '.', '.', '.', '2', '8', '.' }, { '.', '.', '.', '4', '1', '9', '.', '.', '5' }, { '.', '.', '.', '.', '8', '.', '.', '7', '9' } };
+            char[,] input = new char[9, 9] { { '.', '.', '9', '7', '4', '8', '.', '.', '.' }, { '7', '.', '.', '.', '.', '.', '.', '.', '.' }, { '.', '2', '.', '1', '.', '9', '.', '.', '.' }, { '.', '.', '7', '.', '.', '.', '2', '4', '.' }, { '.', '6', '4', '.', '1', '.', '5', '9', '.' }, { '.', '9', '8', '.', '.', '.', '3', '.', '.' }, { '.', '.', '.', '8', '.', '3', '.', '2', '.' }, { '.', '.', '.', '.', '.', '.', '.', '.', '6' }, { '.', '.', '.', '2', '7', '5', '9', '.', '.' } };
             char[][] inputFormatted = new char[input.GetLength(0)][];
             for (int i = 0; i < 9; i++)
             {
@@ -50,13 +51,13 @@ namespace AlgoDemos.codecamp
                 {
                     if (board[i][j] == '.')
                     {
-                        _empty[i, j] = true;
+                        _allNumbers[i, j] = "";
                         _board[i, j] = 0;
                         _boardOrig[i, j] = 0;
                     }
                     else
                     {
-                        _empty[i, j] = false;
+                        _allNumbers[i, j] = board[i][j]+",";
                         _board[i, j] = (int)char.GetNumericValue(board[i][j]);
                         _boardOrig[i, j] = _board[i, j];
                     }
@@ -75,6 +76,8 @@ namespace AlgoDemos.codecamp
                     outp[i][j] = _boardOrig[i, j].ToString()[0];
                 }
             }
+
+
             return outp;
         }
 
@@ -85,7 +88,16 @@ namespace AlgoDemos.codecamp
             SudokuRecursive();
 
 
-            ConvertBoardToResult();
+            char[][] outp = ConvertBoardToResult();
+
+
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    board[i][j] = outp[i][j];
+                }
+            }
         }
 
         private bool MatrixNotFilled(int x1, int y1, int x2, int y2)
@@ -144,47 +156,6 @@ namespace AlgoDemos.codecamp
         }
 
 
-        void FillRow(int col, int n)
-        {
-            for (int i = 0; i < 9; i++)
-            {
-                if (_boardOrig[i, col] == 0)
-                {
-                    _boardOrig[i, col] = n;
-                    _board[i, col] = n;
-                }
-            }
-        }
-
-        private void FillSubMatrix(int x1, int y1, int x2, int y2, int n)
-        {
-            List<int> list = new List<int>();
-
-            for (int i = x1; i <= x2; i++)
-            {
-                for (int j = y1; j <= y2; j++)
-                {
-                    if (_boardOrig[i, j] == 0)
-                    {
-                        _boardOrig[i, j] = n;
-                        _board[i, j] = n;
-                    }
-                }
-            }
-        }
-
-        private void FillCol(int row, int n)
-        {
-            for (int i = 0; i < 9; i++)
-            {
-                if (_boardOrig[row, i] == 0)
-                {
-                    _boardOrig[row, i] = n;
-                    _board[row, i] = n;
-                }
-            }
-        }
-
         private Tuple<int, List<int>> GetRowRemainingNumbers(int col)
         {
             int remaining = 0;
@@ -234,17 +205,81 @@ namespace AlgoDemos.codecamp
 
         }
 
+        
+        void FillRow(int col, int n)
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                if (_boardOrig[i, col] == 0)
+                {
+                    _boardOrig[i, col] = n;
+                    _board[i, col] = n;
+                    _allNumbers[i, col] = n.ToString();
+                    _ctr++;
+                }
+            }
+        }
+
+        private void FillSubMatrix(int x1, int y1, int x2, int y2, int n)
+        {
+            List<int> list = new List<int>();
+
+            for (int i = x1; i <= x2; i++)
+            {
+                for (int j = y1; j <= y2; j++)
+                {
+                    if (_boardOrig[i, j] == 0)
+                    {
+                        _boardOrig[i, j] = n;
+                        _board[i, j] = n;
+                        _allNumbers[i, j] = n.ToString();
+                        _ctr++;
+                    }
+                }
+            }
+        }
+
+        private string GetNumbersDelimited(int n)
+        {
+
+            StringBuilder sb = new StringBuilder();
+            // Iterate through bits of n till we find a set bit
+            // i&n will be non-zero only when 'i' and 'n' have a set bit
+            // at same position
+            for(int i=1;i<=9;i++)
+            {
+                if ((1<<i & n) > 0)
+                {
+                    sb.Append($"{i},");
+                }
+            }
+            return sb.ToString();
+
+        }
+
+
+        private int[] GetNumbersOfState(int n)
+        {
+            List<int> list = new List<int> ();
+            StringBuilder sb = new StringBuilder();
+            // Iterate through bits of n till we find a set bit
+            // i&n will be non-zero only when 'i' and 'n' have a set bit
+            // at same position
+            for (int i = 1; i <= 9; i++)
+            {
+                if ((1 << i & n) > 0)
+                {
+                    list.Add(i);
+                }
+            }
+            return list.ToArray();
+
+        }
 
         private void FillMatrix(int x1, int y1, int x2, int y2)
         {
             // collect all filled values and make int with all remaining numbers
             var remaining = GetSubMatrixRemainingNumbers(x1, y1, x2, y2);
-            if (remaining.Item2.Count() == 1)
-            {
-                // only one remaining number can be filled
-                FillSubMatrix(x1,y1,x2, y2, remaining.Item2[0]);
-                return; // since state updated dont do further processing till next iteration
-            }
 
             // fill that int of remaining numbers in all the empty spaces
             for (int i = x1; i <= x2; i++)
@@ -254,19 +289,7 @@ namespace AlgoDemos.codecamp
                     if (_boardOrig[i, j] == 0)
                     {
                         var remainingOfRow = GetRowRemainingNumbers(j);
-                        if(remainingOfRow.Item2.Count() == 1)
-                        {
-                            // only one remaining number can be filled
-                            FillRow(j, remainingOfRow.Item2[0]);
-                            return; // since state updated dont do further processing till next iteration
-                        }
                         var remainingOfColumn = GetColumnRemainingNumbers(i);
-                        if (remainingOfColumn.Item2.Count() == 1)
-                        {
-                            // only one remaining number can be filled
-                            FillCol(i, remainingOfColumn.Item2[0]);
-                            return; // since state updated dont do further processing till next iteration
-                        }
                         int remains = (remaining.Item1 & remainingOfRow.Item1) & remainingOfColumn.Item1;
                         if (_board[i,j]>0)
                         {
@@ -279,9 +302,12 @@ namespace AlgoDemos.codecamp
                         {
                             _boardOrig[i, j] = res; // sucessfully filed one empty space
                             _board[i,j] = res;
+                            _allNumbers[i, j] = res.ToString();
+                            _ctr++;
                         } else
                         {
                             _board[i, j] = remains;
+                            _allNumbers[i, j] = GetNumbersDelimited(remains);
                         }
                         
                     }
@@ -290,6 +316,21 @@ namespace AlgoDemos.codecamp
                 }
             }
 
+        }
+
+
+        private void FillCol(int row, int n)
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                if (_boardOrig[row, i] == 0)
+                {
+                    _boardOrig[row, i] = n;
+                    _board[row, i] = n;
+                    _allNumbers[row, i] = n.ToString();
+                    _ctr++;
+                }
+            }
         }
 
         static bool isPowerOfTwo(int n)
@@ -318,10 +359,155 @@ namespace AlgoDemos.codecamp
             return pos;
         }
 
+        Tuple<int, int, int[]>[] ListOfZero(int[,] newBoard)
+        {
+            List<Tuple<int, int, int[]>> outp = new List<Tuple<int, int, int[]>>();
+            for (int i = 0; i < _board.GetLength(0); i++)
+            {
+                for (int j = 0; j < _board.GetLength(1); j++)
+                {
+                    if (newBoard[i, j] == 0)
+                    {
+                        int[] numbers = GetNumbersOfState(_board[i, j]);
+                        outp.Add(new Tuple<int, int, int[]>(i, j, numbers));
+                    }
+                }
+            }
+            return outp.ToArray();
+        }
+
+
+
+
+        private bool IsSafeRow(int[,] newBoard, int rowNumber)
+        {
+            
+            int total = 0;
+            for (int j = 0; j < newBoard.GetLength(1); j++)
+            {
+                total += newBoard[rowNumber, j];
+            }
+            if (total != 45)
+            {
+                return false;
+            }
+
+            var numbers = GetNumbersDict();
+            List<int> list = new List<int>();
+
+            for (int j = 0; j < newBoard.GetLength(1); j++)
+            {
+                  numbers[newBoard[rowNumber, j]]++;
+            }
+
+            for (int i = 1; i <= 9; i++)
+            {
+                if (numbers[i] > 1)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool IsSafeColumn(int[,] newBoard, int colNumber)
+        {
+            int total = 0;
+            for (int j = 0; j < newBoard.GetLength(1); j++)
+            {
+                total += newBoard[j, colNumber];
+            }
+            if (total != 45)
+            {
+                return false;
+            }
+
+            var numbers = GetNumbersDict();
+            List<int> list = new List<int>();
+
+            for (int j = 0; j < newBoard.GetLength(1); j++)
+            {
+                numbers[newBoard[j, colNumber]]++;
+            }
+
+            for (int i = 1; i <= 9; i++)
+            {
+                if (numbers[i] > 1)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool IsSafe(int[,] newBoard)
+        {
+            for (int i = 0; i < newBoard.GetLength(0); i++)
+            {
+                int total = 0;
+                for (int j = 0; j < newBoard.GetLength(1); j++)
+                {
+                    total += newBoard[i, j];
+                }
+                if(total != 36)
+                {
+                    return false;
+                }
+            }
+
+            for (int i = 0; i < newBoard.GetLength(0); i++)
+            {
+                int total = 0;
+                for (int j = 0; j < newBoard.GetLength(1); j++)
+                {
+                    total += newBoard[j, i];
+                }
+                if (total != 36)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /*
+        private bool FindNumberByElimination(int[,] newBoard, Tuple<int, int, int[]>[] zeros, int index)
+        {
+            if(index == zeros.Length) //end of recursion
+            {
+                return false;
+                
+
+            }
+            else
+            {
+                if (IsSafe(newBoard))
+                {
+                    return true;
+                }
+            }
+            var current = zeros[index];
+            for (int i = 0; i < current.Item3.Length; i++)
+            {
+                newBoard[current.Item1, current.Item2] = current.Item3[i];
+                if (FindNumberByElimination(newBoard, zeros, index+1))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        */
+       
+
+
         private void SudokuRecursive()
         {
             while (MatrixNotFilled(0,0,8,8))
             {
+                _ctr = 0;
                 for(int i=0;i<_threexthrees.Count;i++)
                 {
                     var item = _threexthrees[i];
@@ -359,7 +545,97 @@ namespace AlgoDemos.codecamp
                         FillMatrix(item[0], item[1], item[2], item[3]);
                     }
                 }
+                if(_ctr == 0)
+                {
+
+                    int[,] newBoard = new int[9, 9];
+
+                    ;
+                    for (int i = 0; i < 9; i++)
+                    {
+                        for (int j = 0; j < 9; j++)
+                        {
+                            newBoard[i, j] = _boardOrig[i, j];
+                        }
+                    }
+
+                    // no change happened after iterating all elements.. now change approach to elimination strategy
+                    // var zeros = ListOfZero(newBoard);
+                    // FindNumberByElimination(newBoard, zeros, 0);
+
+                    for(int i=0;i < 9; i++)
+                    {
+                        _rowCtr = 0;
+                        if(!FixRow(newBoard, i, 0))
+                        {
+                            _ctr = 0;
+                        }
+                    }
+
+                    //final check
+                    bool isSafeMatrix = true;
+                    for (int i = 0; i < 9; i++)
+                    {
+                        if (!IsSafeRow(newBoard, i))
+                        {
+                            isSafeMatrix = false;
+                        }
+                    }
+
+                    for (int i = 0; i < 9; i++)
+                    {
+                        if (!IsSafeColumn(newBoard, i))
+                        {
+                            isSafeMatrix = false;
+                        }
+                    }
+
+                    if (isSafeMatrix)
+                    {
+                        _board = newBoard;
+                        return;
+                    }
+                    else
+                    {
+                        throw new Exception("Server error");
+                    }
+
+
+
+                }
             }
+        }
+        int _rowCtr = 0;
+
+        private bool FixRow(int[,] newBoard, int rowNumber, int index)
+        {
+            _rowCtr++;
+            if (index == 9)
+            {
+                return false;
+            }
+            if(IsSafeRow(newBoard, rowNumber))
+            {
+                return true;
+            }
+            for(int col=index;col<9; col++) 
+            {
+                if (newBoard[rowNumber,col] == 0) 
+                {
+                    int[] numbers = GetNumbersOfState(_board[rowNumber, col]);
+                    for(int j=0;j<numbers.Length; j++)
+                    {
+                        newBoard[rowNumber, col] = numbers[j];
+                        if(FixRow(newBoard, rowNumber, index + 1))
+                        {
+                            return true;
+                        }
+                        newBoard[rowNumber, col] = 0;
+                    }
+                }
+
+            }
+            return false;
         }
     }
 }
