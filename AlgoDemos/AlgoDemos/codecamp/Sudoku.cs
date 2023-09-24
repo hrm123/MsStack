@@ -16,6 +16,7 @@ namespace AlgoDemos.codecamp
         int[,] _board = new int[9, 9];
         int[,] _boardOrig = new int[9, 9];
         bool[,] _empty = new bool[9, 9];
+        Dictionary<int,List<int>> _remains = new Dictionary<int,List<int>>();
 
         public static void TestCase()
         {
@@ -65,7 +66,15 @@ namespace AlgoDemos.codecamp
 
         char[][] ConvertBoardToResult()
         {
-            var outp =  new char[1][];
+            var outp =  new char[9][];
+            for(int i = 0; i < 9; i++)
+            {
+                outp[i] = new char[9];
+                for (int j = 0; j < 9; j++)
+                {
+                    outp[i][j] = _boardOrig[i, j].ToString()[0];
+                }
+            }
             return outp;
         }
 
@@ -84,9 +93,9 @@ namespace AlgoDemos.codecamp
             // check if any of cell of 9x9 is 0
             for(int i=x1; i<=x2; i++)
             {
-                for (int j = x1; j <= x2; j++)
+                for (int j = y1; j <= y2; j++)
                 {
-                    if (_board[i,j] == 0)
+                    if (_boardOrig[i,j] == 0)
                     {
                         return true;
                     }
@@ -105,11 +114,82 @@ namespace AlgoDemos.codecamp
             return numbers;
         }
 
-
-        private int GetRowRemainingNumbers(int col)
+        private Tuple<int, List<int>> GetSubMatrixRemainingNumbers(int x1, int y1, int x2, int y2)
         {
             int remaining = 0;
             var numbers = GetNumbersDict();
+            List<int> list = new List<int>();
+
+            for (int i = x1; i <= x2; i++)
+            {
+                for (int j = y1; j <= y2; j++)
+                {
+                    if (_boardOrig[i, j] != 0)
+                    {
+                        numbers[_boardOrig[i, j]]++;
+                    }
+                }
+            }
+
+            for (int i = 1; i <= 9; i++)
+            {
+                if (numbers[i] == 0)
+                {
+                    list.Add(i);
+                    remaining |= 1 << i;
+                }
+            }
+
+            return new Tuple<int, List<int>>(remaining, list);
+        }
+
+
+        void FillRow(int col, int n)
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                if (_boardOrig[i, col] == 0)
+                {
+                    _boardOrig[i, col] = n;
+                    _board[i, col] = n;
+                }
+            }
+        }
+
+        private void FillSubMatrix(int x1, int y1, int x2, int y2, int n)
+        {
+            List<int> list = new List<int>();
+
+            for (int i = x1; i <= x2; i++)
+            {
+                for (int j = y1; j <= y2; j++)
+                {
+                    if (_boardOrig[i, j] == 0)
+                    {
+                        _boardOrig[i, j] = n;
+                        _board[i, j] = n;
+                    }
+                }
+            }
+        }
+
+        private void FillCol(int row, int n)
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                if (_boardOrig[row, i] == 0)
+                {
+                    _boardOrig[row, i] = n;
+                    _board[row, i] = n;
+                }
+            }
+        }
+
+        private Tuple<int, List<int>> GetRowRemainingNumbers(int col)
+        {
+            int remaining = 0;
+            var numbers = GetNumbersDict();
+            List<int> list = new List<int>();
             for (int i = 0; i < 9; i++)
             {
                 if (_boardOrig[i, col] != 0)
@@ -122,15 +202,17 @@ namespace AlgoDemos.codecamp
             {
                 if (numbers[i] == 0)
                 {
+                    list.Add(i);
                     remaining |= 1 << i;
                 }
             }
-            return remaining;
+            return new Tuple<int, List<int>>(remaining, list);
         }
 
-        private int GetColumnRemainingNumbers(int row)
+        private Tuple<int,List<int>> GetColumnRemainingNumbers(int row)
         {
             int remaining = 0;
+            List<int> list = new List<int>();
             var numbers = GetNumbersDict();
             for (int i = 0; i < 9; i++)
             {
@@ -144,10 +226,11 @@ namespace AlgoDemos.codecamp
             {
                 if (numbers[i] == 0)
                 {
+                    list.Add(i);
                     remaining |= 1 << i;
                 }
             }
-            return remaining;
+            return new Tuple<int,List<int>>(remaining, list);
 
         }
 
@@ -155,44 +238,50 @@ namespace AlgoDemos.codecamp
         private void FillMatrix(int x1, int y1, int x2, int y2)
         {
             // collect all filled values and make int with all remaining numbers
-            int remaining = 0;
-            var numbers = GetNumbersDict();
-
-            for (int i = x1; i <= x2; i++)
+            var remaining = GetSubMatrixRemainingNumbers(x1, y1, x2, y2);
+            if (remaining.Item2.Count() == 1)
             {
-                for (int j = x1; j <= x2; j++)
-                {
-                    if (_boardOrig[i, j] != 0)
-                    {
-                        numbers[_boardOrig[i, j]]++;
-                    }
-                }
+                // only one remaining number can be filled
+                FillSubMatrix(x1,y1,x2, y2, remaining.Item2[0]);
+                return; // since state updated dont do further processing till next iteration
             }
-
-            for (int i = 1; i <= 9; i++)
-            {
-                if(numbers[i] == 0)
-                {
-                    remaining |= 1 << i;
-                }
-            }
-
 
             // fill that int of remaining numbers in all the empty spaces
             for (int i = x1; i <= x2; i++)
             {
-                for (int j = x1; j <= x2; j++)
+                for (int j = y1; j <= y2; j++)
                 {
                     if (_boardOrig[i, j] == 0)
                     {
-                        int remainingOfRow = GetRowRemainingNumbers(i);
-                        int remainingOfColumn = GetColumnRemainingNumbers(j);
-                        int remains = remaining & remainingOfColumn & remainingOfRow;
+                        var remainingOfRow = GetRowRemainingNumbers(j);
+                        if(remainingOfRow.Item2.Count() == 1)
+                        {
+                            // only one remaining number can be filled
+                            FillRow(j, remainingOfRow.Item2[0]);
+                            return; // since state updated dont do further processing till next iteration
+                        }
+                        var remainingOfColumn = GetColumnRemainingNumbers(i);
+                        if (remainingOfColumn.Item2.Count() == 1)
+                        {
+                            // only one remaining number can be filled
+                            FillCol(i, remainingOfColumn.Item2[0]);
+                            return; // since state updated dont do further processing till next iteration
+                        }
+                        int remains = (remaining.Item1 & remainingOfRow.Item1) & remainingOfColumn.Item1;
+                        if (_board[i,j]>0)
+                        {
+                            //this means mixed state is set here by earlier iterations
+                            remains = remains & _board[i, j];
+                        }
                         //if remains has only one bit set to 1 then that is correct number got
                         int res = findPositionOfTheOnlyOneBit(remains);
                         if (res != -1)
                         {
                             _boardOrig[i, j] = res; // sucessfully filed one empty space
+                            _board[i,j] = res;
+                        } else
+                        {
+                            _board[i, j] = remains;
                         }
                         
                     }
@@ -212,7 +301,7 @@ namespace AlgoDemos.codecamp
             if (!isPowerOfTwo(n))
                 return -1;
 
-            int i = 1, pos = 1;
+            int i = 1, pos = 0;
 
             // Iterate through bits of n till we find a set bit
             // i&n will be non-zero only when 'i' and 'n' have a set bit
@@ -233,9 +322,40 @@ namespace AlgoDemos.codecamp
         {
             while (MatrixNotFilled(0,0,8,8))
             {
-                foreach(var item in _threexthrees)
+                for(int i=0;i<_threexthrees.Count;i++)
                 {
+                    var item = _threexthrees[i];
                     if (MatrixNotFilled(item[0], item[1], item[2], item[3])){
+
+                        var remaining = GetSubMatrixRemainingNumbers(item[0], item[1], item[2], item[3]);
+                        if (remaining.Item2.Count() == 1)
+                        {
+                            // only one remaining number can be filled
+                            FillSubMatrix(item[0], item[1], item[2], item[3], remaining.Item2[0]);
+                            continue; // since state updated dont do further processing till next iteration
+                        }
+
+                        for (int y = 0; y < 9; y++)
+                        {
+                            var remainingOfColumn = GetColumnRemainingNumbers(y);
+                            if (remainingOfColumn.Item2.Count() == 1)
+                            {
+                                // only one remaining number can be filled
+                                FillCol(y, remainingOfColumn.Item2[0]);
+                                continue; // since state updated dont do further processing till next iteration
+                            }
+                        }
+
+                        for (int j = 0; j < 9; j++)
+                        {
+                            var remainingOfRow = GetRowRemainingNumbers(j);
+                            if (remainingOfRow.Item2.Count() == 1)
+                            {
+                                // only one remaining number can be filled
+                                FillRow(j, remainingOfRow.Item2[0]);
+                                continue; // since state updated dont do further processing till next iteration
+                            }
+                        }
                         FillMatrix(item[0], item[1], item[2], item[3]);
                     }
                 }
