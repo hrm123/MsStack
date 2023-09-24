@@ -91,7 +91,8 @@ namespace AlgoDemos
             // FruitHarvest.TestCase1();
             // StringOperations.TestCase_Permutations();
             // RatInMaze.Testcase();
-            nqueens.TestCase();
+            // nqueens.TestCase();
+            Sudoku.TestCase();
             Console.ReadKey();
         }
     }
