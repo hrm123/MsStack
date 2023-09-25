@@ -92,7 +92,7 @@ namespace AlgoDemos
             // StringOperations.TestCase_Permutations();
             // RatInMaze.Testcase();
             // nqueens.TestCase();
-            Sudoku.TestCase();
+            SudokuSolver.TestCase();
             Console.ReadKey();
         }
     }
