@@ -94,9 +94,7 @@ namespace AlgoDemos
             // nqueens.TestCase();
             // SudokuSolver.TestCase();
 
-            LCS_DP.TestCase();
-            LCS_DP.TestCase1();
-            LCS_DP.TestCase2();
+            LCS_Logical.TestCase();
 
             Console.ReadKey();
         }
