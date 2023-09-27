@@ -96,7 +96,8 @@ namespace AlgoDemos
 
             // LCS_Logical.TestCase();
 
-            FewestCoins.TestCase();
+            // FewestCoins.TestCase();
+            EditDistanceDP.TestCase();
 
             Console.ReadKey();
         }
