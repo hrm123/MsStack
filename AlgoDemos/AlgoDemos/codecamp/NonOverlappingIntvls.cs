@@ -10,10 +10,10 @@ namespace AlgoDemos.codecamp
     {
         public static void TestCase()
         {
-            int[][] intvls = new int[][] { new int[] { 0,1 }, new int[] { 3,4 }, new int[] { 1,2 }};
+            int[][] intvls = new int[][] { new int[] { -52, 31 }, new int[] { -73, -26 }, new int[] { 82, 97 }, new int[] { -65, -11 }, new int[] { -62, -49 }, new int[] { 95, 99 }, new int[] { 58, 95 }, new int[] { -31, 49 }, new int[] { 66, 98 }, new int[] { -63, 2 }, new int[] { 30, 47 }, new int[] { -40, -26 } };
             NonOverlappingIntvls noi = new NonOverlappingIntvls();
             int answer = noi.EraseOverlapIntervals(intvls);
-        }
+          }
 
         Tuple<int, int> CreateTuple(int x, int y)
         {
@@ -64,7 +64,7 @@ namespace AlgoDemos.codecamp
             for (i = 0; i < pointsNew.Count(); i++)
             {
 
-                if(i>0 && pointsNew[i].Item1 != pointsNew[i - 1].Item2)
+                if(i>0 && pointsNew[i].Item1 > pointsNew[i - 1].Item2)
                 {
                     depth += counts[pointsNew[i-1].Item2];
                 }
@@ -76,7 +76,10 @@ namespace AlgoDemos.codecamp
                     if (pointsNew[i].Item2 > pointsNew[i-1].Item2 )
                     {
                         //remove pointsNew[i]
-                        removeList.Add(pointsNew[i]);
+                        if (!removeList.Contains(pointsNew[i])) // some bug here - why is removed edge again there in flow
+                        {
+                            removeList.Add(pointsNew[i]);
+                        }
                         counts[pointsNew[i].Item2] += 1; // since earlier it ends there -1 was added. Now it does not end there anymore
                         counts[pointsNew[i].Item1] -= 1;
 
@@ -84,7 +87,10 @@ namespace AlgoDemos.codecamp
                     else
                     {
                         //remove pointsNew[i-1]
-                        removeList.Add(pointsNew[i - 1]);
+                        if (!removeList.Contains(pointsNew[i-1]))
+                        {
+                            removeList.Add(pointsNew[i - 1]);
+                        }
                         counts[pointsNew[i - 1].Item2] += 1; // since earlier it ends there -1 was added. Now it does not end there anymore
                         counts[pointsNew[i - 1].Item1] -= 1;
 
