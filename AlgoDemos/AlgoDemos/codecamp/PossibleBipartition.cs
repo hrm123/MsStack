@@ -13,7 +13,7 @@ namespace AlgoDemos.codecamp
     {
         public static void TestCase()
         {
-            int[][] arr = new int[][] { new int[] { 1, 2 }, new int[] { 1,3 }, new int[] { 2,3 } }; // new int[] { 1, 2 }, new int[] { 3, 4 }, new int[] { 5, 6 }, new int[] { 6, 7 }, new int[] { 8, 9 }, new int[] { 7, 8 } };
+            int[][] arr = new int[][] { new int[] { 1, 2 }, new int[] { 3, 4 }, new int[] { 5, 6 }, new int[] { 6, 7 }, new int[] { 8, 9 }, new int[] { 7, 8 } }; // new int[] { 1, 2 }, new int[] { 3, 4 }, new int[] { 5, 6 }, new int[] { 6, 7 }, new int[] { 8, 9 }, new int[] { 7, 8 } };
             int n = 10;
 
             var pbs = new PossibleBipartitionSln();
@@ -73,7 +73,7 @@ namespace AlgoDemos.codecamp
                         sets[l1Exists ].Remove(l1);
 
                         //now check if all dislikes are still honored
-                        for (int y = 0; y <= i; y++)
+                        for (int y = 0; y < i; y++)
                         {
                             int l1_1 = dislikes[y][0];
                             int l2_1 = dislikes[y][1];
