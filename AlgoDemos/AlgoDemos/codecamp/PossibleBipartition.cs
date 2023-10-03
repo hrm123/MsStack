@@ -49,7 +49,7 @@ namespace AlgoDemos.codecamp
             {
                 visited.Clear();
                 recursedNodes.Clear();
-                if (!DFS(graph, i, visited, recursedNodes))
+                if (IsCycle(graph, i, visited, recursedNodes))
                 {
                     return false;
                 }
@@ -57,10 +57,16 @@ namespace AlgoDemos.codecamp
             return true;
         }
 
-        private bool DFS(List<int>[] graph, int node, Dictionary<int, bool> visited, Dictionary<int, bool> recursedNodes  )
+        private bool IsCycle(List<int>[] graph, int node, Dictionary<int, bool> visited, Dictionary<int, bool> recursedNodes  )
         {
             if (recursedNodes.ContainsKey(node))
             {
+                StringBuilder sb = new StringBuilder();
+                foreach(var (key,value) in recursedNodes)
+                {
+                    sb.Append(key + "");
+                }
+                Console.WriteLine($"cycle - ${sb.ToString()}");
                 return true; // cycle is there
             }
             if (visited.ContainsKey(node))
@@ -73,15 +79,15 @@ namespace AlgoDemos.codecamp
 
             foreach (var neighbor in graph[node])
             {
-                if (!DFS(graph, neighbor, visited, recursedNodes))
+                if (IsCycle(graph, neighbor, visited, recursedNodes))
                 {
-                    return false;
+                    return true;
                 }
             }
 
             recursedNodes.Remove(node);
 
-            return true;
+            return false;
         }
     }
 }
