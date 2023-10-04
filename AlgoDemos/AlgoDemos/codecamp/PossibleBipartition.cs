@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace AlgoDemos.codecamp
 {
     /// <summary>
-    /// 886. Possible Bipartition
+    /// 886. Possible Bipartition - 311 ms - beats 8% c# users. 76MB - beats 10% c# users
     /// </summary>
     public class PossibleBipartitionSln
     {
@@ -53,12 +53,12 @@ namespace AlgoDemos.codecamp
                 graph[dislike[0]].Add(dislike[1]);
                 graph[dislike[1]].Add(dislike[0]);
             }
-            Dictionary<int, bool> visited = new Dictionary<int, bool>();
+            Dictionary<int, bool> colors = new Dictionary<int, bool>();
             for (var i = 1; i <= N; i++)
             {
-                if (!visited.ContainsKey(i))
+                if (!colors.ContainsKey(i))
                 {
-                    if (IsCycle(graph, i, visited, -1))
+                    if (!IsBipartite(graph, i, colors))
                     {
                         return false;
                     }
@@ -67,43 +67,45 @@ namespace AlgoDemos.codecamp
             return true;
         }
 
-        private bool IsCycle(List<int>[] graph, int node, Dictionary<int, bool> visited, int parent  )
+        private bool IsBipartite(List<int>[] graph, int node, Dictionary<int, bool> colors)
         {
-            if(visited.ContainsKey(node) )
-            {
-                return true;
-            }
-
-            visited[node] = true;
-            
+            colors[node] = true; // true => red / false => blue
             foreach (var neighbor in graph[node])
             {
-                if (!visited.ContainsKey(neighbor))
+                if (!colors.ContainsKey(neighbor))
                 {
-                    if (neighbor == parent)
+                    colors[neighbor] = false;
+                }
+                else
+                {
+                    if (colors[neighbor] == colors[node])
                     {
-                        continue;
+                        return false;
                     }
-                    if (IsCycle(graph, neighbor, visited, node))
+                }
+            }
+            foreach (var neighbor in graph[node])
+            {
+                foreach (var neighborsNeighbor in graph[neighbor])
+                {
+                    if (!colors.ContainsKey(neighborsNeighbor))
                     {
-                        if (visited.Count % 2 != 0)
+                        if (!IsBipartite(graph, neighborsNeighbor, colors))
                         {
-                            return true;
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        if (colors[neighborsNeighbor] == colors[neighbor])
+                        {
+                            return false;
                         }
                     }
                 }
-                else if (neighbor != parent)
-                {
-                    if (visited.Count % 2 != 0)
-                    {
-                        return true;
-                    }
-                }
-                    
             }
-
-
-            return false;
+            return true;
         }
+
     }
 }
