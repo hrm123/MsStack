@@ -18,16 +18,19 @@ namespace AlgoDemos.Graph
             {
                 "D:\\code\\MsftStack\\AlgoDemos\\AlgoDemos\\Graph\\evac_files\\01",
                 "D:\\code\\MsftStack\\AlgoDemos\\AlgoDemos\\Graph\\evac_files\\02",
+                "D:\\code\\MsftStack\\AlgoDemos\\AlgoDemos\\Graph\\evac_files\\03",
+                "D:\\code\\MsftStack\\AlgoDemos\\AlgoDemos\\Graph\\evac_files\\24",
+                "D:\\code\\MsftStack\\AlgoDemos\\AlgoDemos\\Graph\\evac_files\\28",
 
             };
 
-            int[] answers = new int[] { 6, 20000 };
+            int[] answers = new int[] { 6, 20000, 0 , 29600 , 59410 };
 
-            FastScanner fs = new FastScanner(files[0]);
+            FastScanner fs = new FastScanner(files[4]);
             var details = fs.ReadFile();
             var ce = new CityEvacuation(details.Item1, details.Item2, details.Item3);
             var answer = ce.MaxFlow();
-            Console.WriteLine($"{answer} should be {answers[0]}");
+            Console.WriteLine($"{answer} should be {answers[4]}");
         }
 
 
