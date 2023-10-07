@@ -98,7 +98,9 @@ namespace AlgoDemos
             // FewestCoins.TestCase();
             //EditDistanceDP.TestCase();
             // NonOverlappingIntvls.TestCase();
-            PossibleBipartitionSlnUF.TestCase2();
+            // PossibleBipartitionSlnUF.TestCase2();
+
+            CityEvacuation.TestCase();
 
             Console.ReadKey();
         }
