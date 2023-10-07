@@ -23,7 +23,7 @@ namespace AlgoDemos.codecamp
 
         public static void TestCase2()
         {
-            int[][] arr = new int[][] { new int[] { 1,2 }, new int[] { 1,3 }, new int[] { 2,3 }};
+            int[][] arr = new int[][] { new int[] { 1, 2 }, new int[] { 1, 3 }, new int[] { 2, 3 } };
             int n = 3;
 
             var pbs = new PossibleBipartitionSln();

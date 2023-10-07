@@ -1,5 +1,4 @@
 ﻿using AlgoDemos.bits;
-using AlgoDemos.codecamp;
 using AlgoDemos.codecamp.arrays;
 using AlgoDemos.codecamp.matrix;
 using AlgoDemos.codecamp.strings;
@@ -99,7 +98,7 @@ namespace AlgoDemos
             // FewestCoins.TestCase();
             //EditDistanceDP.TestCase();
             // NonOverlappingIntvls.TestCase();
-            PossibleBipartitionSln.TestCase2();
+            PossibleBipartitionSlnUF.TestCase2();
 
             Console.ReadKey();
         }
