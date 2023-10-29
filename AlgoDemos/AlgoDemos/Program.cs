@@ -1,4 +1,5 @@
 ﻿using AlgoDemos.bits;
+using AlgoDemos.codecamp;
 using AlgoDemos.codecamp.arrays;
 using AlgoDemos.codecamp.matrix;
 using AlgoDemos.codecamp.strings;
@@ -100,9 +101,11 @@ namespace AlgoDemos
             // NonOverlappingIntvls.TestCase();
             // PossibleBipartitionSlnUF.TestCase2();
 
-            CityEvacuation.TestCase();
+            // CityEvacuation.TestCase();
 
-            Console.ReadKey();
+            BuySellStock4.TestCase();
+
+                Console.ReadKey();
         }
     }
 }
