@@ -103,7 +103,8 @@ namespace AlgoDemos
 
             // CityEvacuation.TestCase();
 
-            BuySellStock4.TestCase();
+            // BuySellStock4.TestCase();
+            SubarraySumDP.testCase();
 
                 Console.ReadKey();
         }
