@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace AlgoDemos.codecamp.arrays
 {
+    /// <summary>
+    /// 560. Subarray Sum Equals K
+    /// O(n) solution using prefix sum along with hashtable
+    /// </summary>
     public class SubarraySumHashMap
     {
         public static void testCase()

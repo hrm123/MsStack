@@ -105,7 +105,8 @@ namespace AlgoDemos
 
             // BuySellStock4.TestCase();
             // SubarraySumDP.testCase();
-            SubarraySumHashMap.testCase();
+            // SubarraySumHashMap.testCase();
+            buysellstockfour.testcase();
 
                 Console.ReadKey();
         }
