@@ -108,7 +108,8 @@ namespace AlgoDemos
             // SubarraySumHashMap.testCase();
             // buysellstockfour.testcase();
 
-            ShortestPalindrome.TestCase();
+            // ShortestPalindrome.TestCase();
+            AhoCorasickTrie.Testcase();  
                 Console.ReadKey();
         }
     }

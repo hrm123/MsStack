@@ -90,6 +90,13 @@ namespace AlgoDemos.codecamp.strings
             Array.Fill(f, 0);
 
             //failure function is computed breadth first order on Trie
+            //failure function is basically the LPS of KMP algorithm except
+            //here LPS is constructed from multiple strings rather than only one string of KMP algorithm
+            // we have to find out longest suffix of current node (which is basically path from route to parent of current node)
+            // that matches with any prefix (which is basically deepest  path from  route to same value which is value of current node)
+            // and this can be got by traversing failure state of parent and failure state of that failure state and so on till you reach root (or)
+            // // find similar character of current state exists as goto state of any of the failure nodes that we are going through. If  we reach rootnode and root node also
+            // does not have same character as current state then we 
             Queue<int> q = new Queue<int>();
 
             //iterate over every possible input
@@ -115,7 +122,9 @@ namespace AlgoDemos.codecamp.strings
                 {
 
                     // If goto function is defined for
-                    // character 'ch' and 'state'
+                    // character 'ch' and 'state' - we compute failure states only for child nodes  of current node 
+                    // note - all nodes except root node have state = -1 if no goto state from that node is there
+                    // only root node has goto state =0 if no transform /goto state exists for particular character
                     if (g[state, ch] != -1)
                     {
 
@@ -123,15 +132,20 @@ namespace AlgoDemos.codecamp.strings
                         // note - there is only one failure state for given state (even though this state
                         // may have few characters transformed to another state and few characters resulting in failed state
                         // initially  failed state of first level nodes point to root node (represented by state = 0)
-                        int failure = f[state]; // get failure state of parent of current [state, 'c'h'} which is state'' itself
+                        int failure = f[state]; // get failure state of parent of current [state, 'c'} which is state  itself.. note - here state is actually parent state
 
                         // Find the deepest node labeled by
                         // proper suffix of String from root to
                         // current state.
-                        while (g[failure, ch] == -1) // keep going upward on parents till root is reached or another in-between parent has the state the transforms to  'ch' in which case the resulting inbetween parents ch child node becomes failure link of current g[state,ch]  node
+                        while (g[failure, ch] == -1) // climb through failure states while such failure state dont have transition to curent character
+                        {
+                            // keep going upward on parents till root is reached or another in-between parent has the state
+                            // the transforms to  'ch' in which case the resulting inbetween parents ch child node becomes failure link of current g[state,ch]  node
                             failure = f[failure];
+                        }
 
-                        failure = g[failure, ch];
+                        failure = g[failure, ch]; // we might have found failure state that has valid goto for current character or might have root failure state (where even if no transform state is
+                                                  // // there it will redirect to itself - root node - which has state = 0 and failure function of root = 0 .. since it does not have anywhere else to go)
                         f[g[state, ch]] = failure;
 
                         // Merge output values
