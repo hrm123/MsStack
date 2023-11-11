@@ -74,7 +74,7 @@ namespace AlgoDemos
 
             //PrimeNumbers.TestCase_GetPrimeDivisors();
 
-            //AhoKorasick.Testcase();
+            // AhoKorasick.Testcase();
 
             // BitArrayDemo.TestCase_Xor();
 
@@ -106,8 +106,9 @@ namespace AlgoDemos
             // BuySellStock4.TestCase();
             // SubarraySumDP.testCase();
             // SubarraySumHashMap.testCase();
-            buysellstockfour.testcase();
+            // buysellstockfour.testcase();
 
+            ShortestPalindrome.TestCase();
                 Console.ReadKey();
         }
     }
