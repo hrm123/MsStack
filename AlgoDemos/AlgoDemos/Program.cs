@@ -109,7 +109,8 @@ namespace AlgoDemos
             // buysellstockfour.testcase();
 
             // ShortestPalindrome.TestCase();
-            AhoCorasickTrie.Testcase();  
+            // AhoCorasickTrie.Testcase();  
+            SubstringSearch.Testcase();
                 Console.ReadKey();
         }
     }
