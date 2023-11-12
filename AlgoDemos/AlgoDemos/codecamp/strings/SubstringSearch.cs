@@ -127,9 +127,17 @@ namespace AlgoDemos.codecamp.strings
         StateNode _root = new StateNode(0);
         static int MAXC = 26; // max number of characters in alphabet
         char[] alphs = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+        Dictionary<string, List<Tuple<int, int>>> _searchCache = new Dictionary<string, List<Tuple<int, int>>>();
 
         public List<Tuple<int, int>> SearchWords(String[] arr, String text)
         {
+            string key = String.Join("-", arr) + text;
+
+            if(_searchCache.ContainsKey(key))
+            {
+                return _searchCache[key];
+            }
+
             List<Tuple<int, int>> wordsMatching = new List<Tuple<int, int>>();
             CreateTrie(arr);
 
@@ -146,6 +154,7 @@ namespace AlgoDemos.codecamp.strings
                 }
 
             }
+            _searchCache[key] =  wordsMatching;
             return wordsMatching;
         }
 
