@@ -10,7 +10,9 @@ using AlgoDemos.Graph.AdjList;
 using AlgoDemos.Graph.Connectivity;
 using AlgoDemos.MST.KruskalsAlgo;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Reflection;
 
 namespace AlgoDemos
 {
@@ -110,8 +112,18 @@ namespace AlgoDemos
 
             // ShortestPalindrome.TestCase();
             // AhoCorasickTrie.Testcase();  
-            SubstringSearch.Testcase();
-                Console.ReadKey();
+            // SubstringSearch.Testcase();
+
+            // ItemStore.TestAddItem();
+            // ItemStore.TestFetchByID();
+            // ItemStore.TestDropItems();
+            // Point.Test();
+            // WrongAnswer.Test();
+              EncryptDecrypt.Test();
+
+            Console.ReadKey();
         }
     }
+
+
 }
