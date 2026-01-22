@@ -1,4 +1,5 @@
 ﻿using AlgoDemos.DijkstrasAlgo;
+using AlgoDemos.DynamicProg;
 using AlgoDemos.ExpressionTree;
 using AlgoDemos.Graph;
 using AlgoDemos.Graph.AdjList;
@@ -39,8 +40,13 @@ namespace AlgoDemos
             g.Demo();
             */
 
+            /*
             UndiWtedGraphKruskal g = new UndiWtedGraphKruskal();
             g.Demo();
+            */
+
+            PalindromeSubSequence ps = new PalindromeSubSequence();
+            ps.Demo();
 
             Console.Write("Press any key to continue ...");
             Console.Read();
