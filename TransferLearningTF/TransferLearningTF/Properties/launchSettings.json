@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "TransferLearningTF": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
