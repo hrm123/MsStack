@@ -56,6 +56,8 @@ namespace TransferLearningTF
                 .Append(mlContext.Transforms.ResizeImages(outputColumnName: "input", imageWidth: InceptionSettings.ImageWidth, imageHeight: InceptionSettings.ImageHeight, inputColumnName: "input"))
                 // extract pixel data into numeric vectors and apply mean offset and scale (if any) as expected by the model. The ExtractPixels transform creates a new column "input" with the image data in float[] format.
                 .Append(mlContext.Transforms.ExtractPixels(outputColumnName: "input", interleavePixelColors: InceptionSettings.ChannelsLast, offsetImage: InceptionSettings.Mean))
+                // Load TrensorFlow model into memory. ScoreTensorFlowModel applies the loaded TensorFlow model to the input data. The output of this
+                // transform is a new column "softmax2_pre_activation" with the output from the model in float[] format.
                 .Append(mlContext.Model.LoadTensorFlowModel(inceptionTensorFlowModel)
                 .ScoreTensorFlowModel(outputColumnNames: new[] { "softmax2_pre_activation" }, inputColumnNames: new[] { "input" }, addBatchDimensionInput: true))
                 .Append(mlContext.Transforms.Conversion.MapValueToKey(outputColumnName: "LabelKey", inputColumnName: "Label"))
