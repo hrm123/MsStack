@@ -1,0 +1,17 @@
+﻿
+WHEN TO USE WHICH GRAPH-PATH ALGO
+---------------------------------------
+
+~~~~~~One source One Destination~~~~~~
+Use A* search for weighted as well as unweighted graphs. A* algorithm gives almost optimized number of steps (may be it will give 16 instead of 18 steps.. hence it is used in games etc where it is not dangerous if algo-optimal solution is very little less than real optimum).
+
+~~~~~~One source All  Destination~~~~~~
+
+Use BFS (For Unweighted Graphs) 
+Use Dijkstra (For Weighted Graphs without negative weights) 
+Use Bellman Ford (For Weighted Graphs with negative weights)
+
+
+~~~~~~Between every pair of nodes~~~~~~
+Floyd-Warshall 
+Johnson’s Algorithm

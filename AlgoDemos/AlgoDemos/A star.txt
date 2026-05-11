@@ -1,0 +1,94 @@
+﻿
+https://theory.stanford.edu/~amitp/GameProgramming/
+
+The heuristic can be used to control A*’s behavior.
+
+At one extreme, if h(n) is 0, then only g(n) plays a role, and A* turns into Dijkstra’s Algorithm, which is guaranteed to find a shortest path.
+
+If h(n) is always lower than (or equal to) the cost of moving from n to the goal, then A* is guaranteed to find a shortest path. The lower h(n) is, the more node A* expands, making it slower.
+
+If h(n) is exactly equal to the cost of moving from n to the goal, then A* will only follow the best path and never expand anything else, making it very fast. Although you can’t make this happen in all cases, you can make it exact in some special cases. It’s nice to know that given perfect information, A* will behave perfectly.
+
+If h(n) is sometimes greater than the cost of moving from n to the goal, then A* is not guaranteed to find a shortest path, but it can run faster.
+
+At the other extreme, if h(n) is very high relative to g(n), then only h(n) plays a role, and A* turns into Greedy Best-First-Search.
+
+Speed or accuracy -
+
+A*’s ability to vary its behavior based on the heuristic and cost functions can be very useful in a game. The tradeoff between speed and accuracy can be exploited to make your game faster. For most games, you don’t really need the best path between two points. You need something that’s close. What you need may depend on what’s going on in the game, or how fast the computer is. Using a function that guarantees it never overestimates the cost means that it will sometimes underestimate the cost by quite a bit.
+
+Suppose your game has two types of terrain, Flat and Mountain, and the movement costs are 1 for flat land and 3 for mountains, A* is going to search three times as far along flat land as it does along mountainous land. This is because it’s possible that there is a path along flat terrain that goes around the mountains. You can speed up A*’s search by using 1.5 as the heuristic distance between two map spaces. A* will then compare 3 to 1.5, and it won’t look as bad as comparing 3 to 1. It is not as dissatisfied with mountainous terrain, so it won’t spend as much time trying to find a way around it. Alternatively, you can speed up up A*’s search by decreasing the amount it searches for paths around mountains—tell A* that the movement cost on mountains is 2 instead of 3. Now it will search only twice as far along the flat terrain as along mountainous terrain. Either approach gives up ideal paths to get something quicker.
+
+The choice between speed and accuracy does not have to be static. You can choose dynamically based on the CPU speed, the fraction of time going into pathfinding, the number of units on the map, the importance of the unit, the size of the group, the difficulty level, or any other factor. One way to make the tradeoff dynamic is to build a heuristic function that assumes the minimum cost to travel one grid space is 1 and then build a cost function that scales:
+
+g1(n) = 1 + apha * (g(n) -1)
+
+If alpha is 0, then the modified cost function will always be 1. At this setting, terrain costs are completely ignored, and A* works at the level of simple passable/unpassable grid spaces. If alpha is 1, then the original cost function will be used, and you get the full benefit of A*. You can set alpha anywhere in between.
+
+You should also consider switching from the heuristic returning the absolute minimum cost to returning the expected minimum cost. For example, if most of your map is grasslands with a movement cost of 2 but some spaces on the map are roads with a movement cost of 1, then you might consider having the heuristic assume no roads, and return 2 * distance.
+
+The choice between speed and accuracy does not have to be global. You can choose some things dynamically based on the importance of having accuracy in some region of the map. For example, it may be more important to choose a good path near the current location, on the assumption that we might end up recalculating the path or changing direction at some point, so why bother being accurate about the faraway part of the path? Or perhaps it’s not so important to have the shortest path in a safe area of the map, but when sneaking past an enemy village, safety and quickness are essential.
+
+
+Perfect Heuristics -
+If your heuristic is exactly equal to the distance along the optimal path, you’ll see A* expand very few nodes, as in the diagram shown in the next section. What’s happening inside A* is that it is computing f(n) = g(n) + h(n) at every node. When h(n) exactly matches g(n), the value of f(n) doesn’t change along the path. All nodes not on the right path will have a higher value of f than nodes that are on the right path. Since A* doesn’t consider higher-valued f nodes until it has considered lower-valued f nodes, it never strays off the shortest path.
+
+Precomputed perfect heuristic#
+To construct a perfect heuristic we can precompute the length of the shortest path between every pair of points. This is called a Distance Oracle. A related structure is a Path Database, which stores the next step in the shortest path. We can think of the path database as the gradient of the distance oracle.
+
+Most game maps are too large to calculate or store the full distance oracle or path database. There are ways to store an approximate distance oracle and also ways to compress the path database.
+
+Linear perfect heuristic#
+There’s a special case where the heuristic is perfect: in a map with no obstacles and uniform movement costs, the shortest path is a straight line.
+
+This is useful as a test of your distance-based heuristic function. Construct a test map with no obstacles and uniform movement costs. Calculate your heuristic function from A to B. Calculate the cost of the shortest path from A to B. If these two do not match, then you may have a problem with scale or the type of heuristic you chose.
+
+Partial perfect heuristic#
+If we have a perfect heuristic to some points, we can extend that to construct an approximate heuristic to all points.
+
+Landmark Pathfinding Between Intersections (2008, Grant and Mould) constructs the distances to special points called “landmarks”. The shortest path is from the start to a landmark to another landmark etc. to the final goal. The landmarks are along the path.
+
+Differential Heuristics come from (ALT A*) (2004) which uses a different type of landmark. This algorithm attempts to use already-calculated shortest paths from the landmarks to improve the heuristic for a new path. I am writing an interactive guide to Differential Heuristics.
+
+
+Multiple goals-
+Multiple goals#
+If you want to search for any of several goals, construct a heuristic h'(x) that is the minimum of h1(x), h2(x), h3(x), ... where h1, h2, h3 are heuristics to each of the nearby spots.
+
+One way to think about this is that we can add a new zero-cost edge from each of the goals to a new graph node. A path to that new node will necessarily go through one of the goal nodes.
+
+If you want to search for paths to all of several goals, your best option may be Dijkstra’s Algorithm with early exit when you find all the goals. There may be a variant of A* that can calculate these paths; I don’t know.
+
+If you want to search for spot near a single goal, ask A* search to find a path to the center of the goal area. While processing nodes from the OPEN set, exit when you pull a node that is near enough.
+
+Breaking ties in f values -
+
+In some grid maps there are many paths with the same length. For example, in flat areas without variation in terrain, using a grid will lead to many equal-length paths. A* might explore all the paths with the same f value, instead of only one.
+
+The quick hack to work around this problem is to either adjust the g or h values. The tie breaker needs to be deterministic with respect to the vertex (i.e., it shouldn’t be a random number), and it needs to make the f values differ. Since A* sorts by f value, making them different means only one of the “equivalent” f values will be explored.
+
+One way to break ties is to nudge the scale of h slightly. If we scale it downwards, then f will increase as we move towards the goal. Unfortunately, this means that A* will prefer to expand vertices close to the starting point instead of vertices close to the goal. We can instead scale h upwards slightly (even by 0.1%). A* will prefer to expand vertices close to the goal.
+
+
+heuristic *= (1.0 + p)
+
+
+The factor p should be chosen so that p < (minimum cost of taking one step) / (expected maximum path length). Assuming that you don’t expect the paths to be more than 1000 steps long, you can choose p = 1/1000. (Note that this slightly breaks “admissibility” of the heuristic but in games it almost never matters.) The result of this tie-breaking nudge is that A* explores far less of the map than previously:
+
+Steven van Dijk suggests that a more straightforward way to do this would to pass h to the comparison function. When the f values are equal, the comparison function would break the tie by looking at h.
+
+Another way to break ties is to add a deterministic random number to the heuristic or edge costs. (One way to choose a deterministic random number is to compute a hash of the coordinates.) This breaks more ties than adjusting h as above. Thanks to Cris Fuhrman for suggesting this.
+
+A different way to break ties is to prefer paths that are along the straight line from the starting point to the goal:
+
+
+dx1 = current.x - goal.x
+dy1 = current.y - goal.y
+dx2 = start.x - goal.x
+dy2 = start.y - goal.y
+cross = abs(dx1*dy2 - dx2*dy1)
+heuristic += cross*0.001
+This code computes the vector cross-product between the start to goal vector and the current point to goal vector. When these vectors don’t line up, the cross product will be larger. The result is that this code will give some slight preference to a path that lies along the straight line path from the start to the goal. When there are no obstacles, A* not only explores less of the map, the path looks very nice as well:
+
+
+

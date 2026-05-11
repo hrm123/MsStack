@@ -45,8 +45,13 @@ namespace AlgoDemos
             g.Demo();
             */
 
+            /*
             PalindromeSubSequence ps = new PalindromeSubSequence();
             ps.Demo();
+            */
+
+            AlgoDemos.AStar.AstarAlgo astar = new();
+            astar.Demo();
 
             Console.Write("Press any key to continue ...");
             Console.Read();
