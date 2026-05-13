@@ -49,10 +49,13 @@ namespace AlgoDemos
             PalindromeSubSequence ps = new PalindromeSubSequence();
             ps.Demo();
             */
-
+            /*
             AlgoDemos.AStar.AstarAlgo astar = new();
             astar.Demo();
+            */
 
+            AlgoDemos.PrimeTeleportation.Solution primeTeleportation = new();
+            primeTeleportation.Demo();
             Console.Write("Press any key to continue ...");
             Console.Read();
 
