@@ -18,7 +18,7 @@ namespace AlgoDemos.PrimeTeleportation
 
         private HashSet<int> sieve_of_eratosthenes(int n)
         {
-            bool[] is_prime = new bool[n+1];
+            bool[] is_prime = new bool[n + 1];
             Array.Fill(is_prime, true);
             is_prime[0] = is_prime[1] = false;
             for (int x = 2; x < Math.Sqrt(n) + 1; x++)
@@ -43,52 +43,40 @@ namespace AlgoDemos.PrimeTeleportation
         }
 
 
-        
 
+        /// <summary>
+        /// Passes 922/933 testcases with the next case failing with time limit exceeded error.
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
         public int MinJumps(int[] nums)
         {
             int nMax = nums.Max();
             HashSet<int> primes = sieve_of_eratosthenes(nMax);
-            HashSet<int> currentPrimes = new HashSet<int>();
+            HashSet<(int, int)> currentPrimes = new HashSet<(int number, int location)>();
             for (int x = 0; x < nums.Length; x++)
             {
                 if (primes.Contains(nums[x]))
                 {
-                    currentPrimes.Add(nums[x]);
+                    currentPrimes.Add((nums[x], x));
                 }
             }
 
+            var primeNumbersTeleportLocations = new Dictionary<(int,int), List<int>>();
 
-            /*
-            var primeNumberLocationsInArray = new Dictionary<int,List<int>>();
-            foreach (var prime in currentPrimes)
+
+            for (int z = 0; z < currentPrimes.Count; z++)
             {
+                var (prime, location) = currentPrimes.ElementAt(z);
                 for (int x = 0; x < nums.Length; x++)
                 {
-                    if (nums[x] == prime)
+                    if (!(nums[x] == prime && x ==location) && nums[x] % prime == 0)
                     {
-                        if (!primeNumberLocationsInArray.ContainsKey(prime))
+                        if (!primeNumbersTeleportLocations.ContainsKey((prime, location)))
                         {
-                            primeNumberLocationsInArray[prime] = new List<int>();
+                            primeNumbersTeleportLocations[(prime, location)] = new List<int>();
                         }
-                        primeNumberLocationsInArray[prime].Add(x);
-                    }
-                }
-            }
-            */
-
-            var primeNumbersTeleportLocations = new Dictionary<int, List<int>>();
-            foreach (var prime in currentPrimes)
-            {
-                for (int x = 0; x < nums.Length; x++)
-                {
-                    if (nums[x] != prime && nums[x] % prime == 0)
-                    {
-                        if (!primeNumbersTeleportLocations.ContainsKey(prime))
-                        {
-                            primeNumbersTeleportLocations[prime] = new List<int>();
-                        }
-                        primeNumbersTeleportLocations[prime].Add(x);
+                        primeNumbersTeleportLocations[(prime, location)].Add(x);
                     }
                 }
             }
@@ -108,11 +96,11 @@ namespace AlgoDemos.PrimeTeleportation
                     adjacencyList[y].Add(y - 1);
                 }
 
-                if (currentPrimes.Contains(nums[y]) && primeNumbersTeleportLocations.ContainsKey(nums[y]))
+                if (primeNumbersTeleportLocations.TryGetValue((nums[y], y), out var teleportLocations))
                 {
-                    foreach(var teleportLocation in primeNumbersTeleportLocations[nums[y]])
+                    for (int z = 0; z < teleportLocations.Count; z++)
                     {
-                        adjacencyList[y].Add(teleportLocation);
+                        adjacencyList[y].Add(teleportLocations[z]);
                     }
                 }
             }
@@ -124,15 +112,15 @@ namespace AlgoDemos.PrimeTeleportation
 
         private int BFS(Dictionary<int, List<int>> adjList, int[] nums)
         {
-
             var bfs = new Queue<(int node, string path)>();
             var visited = new HashSet<int>();
 
             bfs.Enqueue((0, ""));
             visited.Add(0);
-            while(bfs.Count > 0) {
+            while (bfs.Count > 0)
+            {
                 var (curNode, path) = bfs.Dequeue();
-                if(curNode == nums.Length - 1)
+                if (curNode == nums.Length - 1)
                 {
                     return path.Count(c => c == ',');
                 }
@@ -153,30 +141,30 @@ namespace AlgoDemos.PrimeTeleportation
             PrimeTeleportation.Solution primeTeleportation = new();
             int[] nums = new int[] { 1, 2, 4, 6 };
             int answer = -1;
-            //answer = primeTeleportation.MinJumps(nums);
-            // Console.WriteLine($"Answer: {answer} should be 2");
+            answer = primeTeleportation.MinJumps(nums);
+            Console.WriteLine($"Answer: {answer} should be 2");
 
             nums = [4, 6, 5, 8];
             answer = primeTeleportation.MinJumps(nums);
             Console.WriteLine($"Answer: {answer} should be 3");
-
+            
             
             nums = [2, 3, 4, 7, 9];
             answer = primeTeleportation.MinJumps(nums);
             Console.WriteLine($"Answer: {answer} should be 2");
-
+            
             nums = [7, 5, 7];
             answer = primeTeleportation.MinJumps(nums);
             Console.WriteLine($"Answer: {answer} should be 1");
-
+            
             nums = [10, 3, 8, 10];
             answer = primeTeleportation.MinJumps(nums);
             Console.WriteLine($"Answer: {answer} should be 3");
-
+            
             nums = [5, 2, 20, 1, 15];
             answer = primeTeleportation.MinJumps(nums);
             Console.WriteLine($"Answer: {answer} should be 1");
-
+            
             nums = [17, 114, 68, 110, 9, 100, 7, 19, 111, 65, 28];
             answer = primeTeleportation.MinJumps(nums);
             Console.WriteLine($"Answer: {answer} should be 6");
