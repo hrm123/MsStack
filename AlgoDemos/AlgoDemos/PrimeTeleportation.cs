@@ -1,6 +1,8 @@
-﻿using System;
+﻿using AlgoDemos.ExpressionTree;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -41,6 +43,8 @@ namespace AlgoDemos.PrimeTeleportation
         }
 
 
+        
+
         public int MinJumps(int[] nums)
         {
             int nMax = nums.Max();
@@ -53,66 +57,95 @@ namespace AlgoDemos.PrimeTeleportation
                     currentPrimes.Add(nums[x]);
                 }
             }
-            //create locations of prime factors
-            var primeLocations = new Dictionary<int, SortedSet<int>>();
+
+
+            /*
+            var primeNumberLocationsInArray = new Dictionary<int,List<int>>();
             foreach (var prime in currentPrimes)
             {
                 for (int x = 0; x < nums.Length; x++)
                 {
-                    if (nums[x] % prime == 0)
+                    if (nums[x] == prime)
                     {
-                        if (!primeLocations.ContainsKey(prime))
+                        if (!primeNumberLocationsInArray.ContainsKey(prime))
                         {
-                            primeLocations[prime] = new SortedSet<int>();
+                            primeNumberLocationsInArray[prime] = new List<int>();
                         }
-                        primeLocations[prime].Add(x);
+                        primeNumberLocationsInArray[prime].Add(x);
                     }
                 }
             }
+            */
 
-            //get primefactor with maximum range such that low index is before high index
-            int primeWithMaxRange = -1;
-            int maxRange = -1;
-            int maxRangeStart = -1;
-            int maxRangeEnd = -1;
-            foreach (var (key, value) in primeLocations)
+            var primeNumbersTeleportLocations = new Dictionary<int, List<int>>();
+            foreach (var prime in currentPrimes)
             {
-                int minIndex = -1, maxIndex = -1;
-                if (value.Count == 1)
+                for (int x = 0; x < nums.Length; x++)
                 {
-                    continue; // just one prime factor location, so no range to consider
-                }
-                foreach (var y in value)
-                {
-                    if (nums[y] == key && minIndex == -1)
+                    if (nums[x] != prime && nums[x] % prime == 0)
                     {
-                        minIndex = y;
-                    }
-                    else
-                    {
-                        if (y > maxIndex)
+                        if (!primeNumbersTeleportLocations.ContainsKey(prime))
                         {
-                            maxIndex = y;
+                            primeNumbersTeleportLocations[prime] = new List<int>();
                         }
+                        primeNumbersTeleportLocations[prime].Add(x);
                     }
                 }
-                if (maxIndex > minIndex && maxIndex - minIndex > maxRange)
+            }
+
+
+            //create adjacency list
+            var adjacencyList = new Dictionary<int, List<int>>();
+            for (int y = 0; y < nums.Length; y++)
+            {
+                adjacencyList[y] = new List<int>();
+                if (y < nums.Length - 1)
                 {
-                    primeWithMaxRange = key;
-                    maxRangeStart = minIndex;
-                    maxRangeEnd = maxIndex;
-                    maxRange = maxRangeEnd - maxRangeStart;
+                    adjacencyList[y].Add(y + 1);
+                }
+                if (y > 0)
+                {
+                    adjacencyList[y].Add(y - 1);
+                }
+
+                if (currentPrimes.Contains(nums[y]) && primeNumbersTeleportLocations.ContainsKey(nums[y]))
+                {
+                    foreach(var teleportLocation in primeNumbersTeleportLocations[nums[y]])
+                    {
+                        adjacencyList[y].Add(teleportLocation);
+                    }
                 }
             }
 
-            if (maxRangeStart == -1 || maxRangeEnd == -1) // no 'prime range' found in the array
-            {
-                return nums.Length - 1;
+            return BFS(adjacencyList, nums);
+
+
+        }
+
+        private int BFS(Dictionary<int, List<int>> adjList, int[] nums)
+        {
+
+            var bfs = new Queue<(int node, string path)>();
+            var visited = new HashSet<int>();
+
+            bfs.Enqueue((0, ""));
+            visited.Add(0);
+            while(bfs.Count > 0) {
+                var (curNode, path) = bfs.Dequeue();
+                if(curNode == nums.Length - 1)
+                {
+                    return path.Count(c => c == ',');
+                }
+                foreach (var neighbor in adjList[curNode])
+                {
+                    if (!visited.Contains(neighbor))
+                    {
+                        visited.Add(neighbor);
+                        bfs.Enqueue((neighbor, path + "," + neighbor));
+                    }
+                }
             }
-
-            return maxRangeStart + (nums.Length - maxRangeEnd);
-
-
+            return -1;
         }
 
         public void Demo()
@@ -120,32 +153,34 @@ namespace AlgoDemos.PrimeTeleportation
             PrimeTeleportation.Solution primeTeleportation = new();
             int[] nums = new int[] { 1, 2, 4, 6 };
             int answer = -1;
-            // answer = primeTeleportation.MinJumps(nums);
+            //answer = primeTeleportation.MinJumps(nums);
             // Console.WriteLine($"Answer: {answer} should be 2");
-            nums = [4, 6, 5, 8];
-            
-            // answer = primeTeleportation.MinJumps(nums);
-            //Console.WriteLine($"Answer: {answer} should be 3");
 
+            nums = [4, 6, 5, 8];
+            answer = primeTeleportation.MinJumps(nums);
+            Console.WriteLine($"Answer: {answer} should be 3");
+
+            
             nums = [2, 3, 4, 7, 9];
-            // answer = primeTeleportation.MinJumps(nums);
-            // Console.WriteLine($"Answer: {answer} should be 2");
+            answer = primeTeleportation.MinJumps(nums);
+            Console.WriteLine($"Answer: {answer} should be 2");
 
             nums = [7, 5, 7];
-            // answer = primeTeleportation.MinJumps(nums);
-            // Console.WriteLine($"Answer: {answer} should be 1");
+            answer = primeTeleportation.MinJumps(nums);
+            Console.WriteLine($"Answer: {answer} should be 1");
 
             nums = [10, 3, 8, 10];
-            // answer = primeTeleportation.MinJumps(nums);
-            // Console.WriteLine($"Answer: {answer} should be 3");
+            answer = primeTeleportation.MinJumps(nums);
+            Console.WriteLine($"Answer: {answer} should be 3");
 
             nums = [5, 2, 20, 1, 15];
-            // answer = primeTeleportation.MinJumps(nums);
-            // Console.WriteLine($"Answer: {answer} should be 1");
+            answer = primeTeleportation.MinJumps(nums);
+            Console.WriteLine($"Answer: {answer} should be 1");
 
             nums = [17, 114, 68, 110, 9, 100, 7, 19, 111, 65, 28];
             answer = primeTeleportation.MinJumps(nums);
             Console.WriteLine($"Answer: {answer} should be 6");
+            
         }
     }
 }
