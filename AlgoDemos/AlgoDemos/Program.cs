@@ -54,8 +54,7 @@ namespace AlgoDemos
             astar.Demo();
             */
 
-            AlgoDemos.PrimeTeleportation.Solution primeTeleportation = new();
-            primeTeleportation.Demo();
+            AlgoDemos.PrimeTeleportation.Solution.Demo();
             Console.Write("Press any key to continue ...");
             Console.Read();
 
