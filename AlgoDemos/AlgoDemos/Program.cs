@@ -6,6 +6,7 @@ using AlgoDemos.Graph.AdjList;
 using AlgoDemos.Graph.Connectivity;
 using AlgoDemos.MST.KruskalsAlgo;
 using System;
+using System.Diagnostics;
 
 namespace AlgoDemos
 {
@@ -54,9 +55,19 @@ namespace AlgoDemos
             astar.Demo();
             */
 
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            AlgoDemos.PrimeTeleportationAlt.Solution.Demo();
+            sw.Stop();
+            Console.WriteLine($"Time taken: {sw.ElapsedMilliseconds} ms");
+            sw.Start();
             AlgoDemos.PrimeTeleportation.Solution.Demo();
+            sw.Stop();
+            Console.WriteLine($"Time taken: {sw.ElapsedMilliseconds} ms");
             Console.Write("Press any key to continue ...");
             Console.Read();
+
+
 
         }
     }
