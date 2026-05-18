@@ -10,14 +10,14 @@ namespace AlgoDemos.PrimeTeleportation
 {
     public class Solution
     {
-
-        HashSet<int> primes = new HashSet<int>();
-        int maxNumberSoFar = 0;
+        static HashSet<int> primes = new HashSet<int>();
+        static int maxNumberSoFar = 100000;
+        // Dedicated private lock handle (cannot be modified after creation)
+        private static readonly object _syncLock = new object();
 
         public Solution()
         {
-            // maxNumberSoFar = 100000;
-            // primes = sieve_of_eratosthenes(maxNumberSoFar);
+
         }
 
         private HashSet<int> sieve_of_eratosthenes(int n)
@@ -25,13 +25,13 @@ namespace AlgoDemos.PrimeTeleportation
             bool[] is_prime = new bool[n + 1];
             Array.Fill(is_prime, true);
             is_prime[0] = is_prime[1] = false;
-            for (int x = 2; x*x <= n ; x++)
+            for (int x = 2; x * x <= n; x++)
             {
                 if (is_prime[x])
                 {
                     for (int y = x * x; y <= n; y += x)
                     {
-                        
+
                         is_prime[y] = false;
                     }
                 }
@@ -47,17 +47,17 @@ namespace AlgoDemos.PrimeTeleportation
             return coll;
         }
 
-        Dictionary<int,List<int>> GetDictionary(int[] nums)
+        Dictionary<int, List<int>> GetDictionary(int[] nums)
         {
-            var dict = new Dictionary<int,List<int>>();
-            
+            var dict = new Dictionary<int, List<int>>();
+
             for (int i = 0; i < nums.Length; i++)
             {
                 if (!dict.ContainsKey(nums[i]))
                 {
                     dict[nums[i]] = new List<int>();
                 }
-                dict[nums[i]].Add(i); 
+                dict[nums[i]].Add(i);
             }
             return dict;
         }
@@ -73,7 +73,7 @@ namespace AlgoDemos.PrimeTeleportation
             bool pruning = false;
             for (int x = 0; x < nums.Length; x++)
             {
-                
+
                 if (pruning == true)
                 {
                     if (x == nums.Length - 1 && nums[x] == nums[x - 1])
@@ -81,7 +81,7 @@ namespace AlgoDemos.PrimeTeleportation
                         prunedArray.Add(nums[x]);//last number of current prime being pruned
                         break;
                     }
-                    if (x>0 && nums[x] != nums[x - 1])  // previous number ended one prime prune
+                    if (x > 0 && nums[x] != nums[x - 1])  // previous number ended one prime prune
                     {
                         pruning = false;
 
@@ -89,14 +89,14 @@ namespace AlgoDemos.PrimeTeleportation
                         {
                             //previous number ended one prime prune but is not start of prime prune
                             prunedArray.Add(nums[x - 1]);// add last number of previous prime prune
-                            
+
                         }
                         x--; // reset to examine current number again with same logic of the loop
                     }
                 }
                 else
                 {
-                    
+
                     if (currentPrimes.Contains(nums[x])) // start of new prime number
                     {
                         pruning = true; // numebr to be added at the end of this branch will be start of prime number prune
@@ -108,21 +108,32 @@ namespace AlgoDemos.PrimeTeleportation
         }
 
 
-        // 924/933 test cases pass. Time limit exceeded on test case with reverse order of numbres from 100000 to 1
+        // 933/933 test cases pass. Runtime 582ms beats 23.1%. memory 127.78 MB, beats 50.10%.
+        // After making primenumbers calculated  by seive method fewer times - 933/933 test cases pass.  Runtime 512ms beats 36.8%. memory 123 MB, beats 52%.
         public int MinJumps(int[] nums)
         {
-            
+
 
             int nMax = nums.Max();
 
-
-            primes = sieve_of_eratosthenes(nMax);
-            /*
-            if (nMax > maxNumberSoFar)
+            lock (_syncLock)
             {
-                primes = sieve_of_eratosthenes(nMax);
+                if (primes.Count == 0)
+                {
+                    maxNumberSoFar = Math.Max(100000, nMax);
+                    primes = sieve_of_eratosthenes(maxNumberSoFar);
+                }
+                else
+                {
+                    if (nMax > maxNumberSoFar)
+                    {
+                        maxNumberSoFar = nMax;
+                        primes = sieve_of_eratosthenes(nMax);
+                    }
+                }
             }
-            */
+
+
 
             var currentPrimes = new HashSet<int>();
             for (int x = 0; x < nums.Length; x++)
@@ -142,25 +153,25 @@ namespace AlgoDemos.PrimeTeleportation
             var adjacencyList = new Dictionary<int, List<int>>();
             foreach (var prime in currentPrimes)
             {
-                
+
                 List<int> locationsOfPrime = numsIndexDict[prime];
 
                 //prune the locations of prime - if same prime number is in adjacent cells then only consider the first and last location of that prime number for teleportation
                 //as we can reach from first to last location of that prime number by adjacent jumps. This way we can reduce the adjacency list size and avoid out of memory error.
-                
+
                 var sortedLocations = locationsOfPrime.OrderBy(x => x).ToList();
                 var nextLocation = sortedLocations[0];
                 List<int> finalPrimeLocations = new List<int>();
                 finalPrimeLocations.Add(nextLocation);
                 for (int x = 1; x < locationsOfPrime.Count; x++)
                 {
-                    if(locationsOfPrime[x] != nextLocation + 1) // if the next location is not adjacent to the previous location then consider it for teleportation
+                    if (locationsOfPrime[x] != nextLocation + 1) // if the next location is not adjacent to the previous location then consider it for teleportation
                     {
                         finalPrimeLocations.Add(locationsOfPrime[x]);
                         nextLocation = locationsOfPrime[x];
                     }
                 }
-                
+
                 for (int xyz = 0; xyz < finalPrimeLocations.Count; xyz++)
                 {
                     var cloneofLocations = new List<int>(finalPrimeLocations);
@@ -175,16 +186,17 @@ namespace AlgoDemos.PrimeTeleportation
                     }
                 }
 
-                for (int x=prime*2; x<= nMax; x+=prime) // these are all possible prime factors
+                for (int x = prime * 2; x <= nMax; x += prime) // these are all possible prime factors
                 {
-                    
+
                     if (numsIndexDict.TryGetValue(x, out List<int> locationOfX))
                     {
-                        
+
                         foreach (int primeFactorLocation in locationOfX)
                         {
-                            foreach (var locationofPrime in locationsOfPrime) {
-                                if(!adjacencyList.ContainsKey(locationofPrime))
+                            foreach (var locationofPrime in locationsOfPrime)
+                            {
+                                if (!adjacencyList.ContainsKey(locationofPrime))
                                 {
                                     adjacencyList[locationofPrime] = new List<int>();
                                 }
@@ -222,7 +234,7 @@ namespace AlgoDemos.PrimeTeleportation
             // var bfs = new Queue<(int node, string path)>(); //use string if you want to store the path also
             var bfs = new Queue<(int node, int numJumps)>();
             var visited = new HashSet<int>();
-                
+
             bfs.Enqueue((0, 0));
             visited.Add(0);
             while (bfs.Count > 0)
@@ -244,10 +256,10 @@ namespace AlgoDemos.PrimeTeleportation
                         visited.Add(next);
                         bfs.Enqueue((next, jumps + 1));
                     }
-                    
+
                 }
 
-                
+
                 //visit right
                 next = curNode + 1;
                 if (!visited.Contains(next))
@@ -272,6 +284,9 @@ namespace AlgoDemos.PrimeTeleportation
             return -1;
         }
 
+        
+
+        
         public static void Demo()
         {
             PrimeTeleportation.Solution primeTeleportation = new();
