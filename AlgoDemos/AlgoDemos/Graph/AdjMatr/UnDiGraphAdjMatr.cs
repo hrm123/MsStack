@@ -33,12 +33,12 @@ namespace AlgoDemos.Graph
             }
         }
 
-        public void InsertVertex(String name)
+        public void InsertVertex(string name)
         {
             vertexList[n++] = new Vertex(name);
         }
 
-        private int GetIndex(String s) // n => row-n and col-n represent that vertex
+        private int GetIndex(string s) // n => row-n and col-n represent that vertex
         {
             for(int i=0;i<n; i++)
             {
@@ -47,7 +47,7 @@ namespace AlgoDemos.Graph
                     return i;
                 }
             }
-            // String s1, s2;
+            // string s1, s2;
             // bool resp = EdgeExists(s1,s2)
 
             // int u, v;
@@ -66,7 +66,7 @@ namespace AlgoDemos.Graph
             return IsAdjacent(GetIndex(s1), GetIndex(s2));
         }
 
-        public void InsertEdge(String s1, String s2)
+        public void InsertEdge(string s1, string s2)
         {
             int u = GetIndex(s1);
             int v = GetIndex(s2);
@@ -86,7 +86,7 @@ namespace AlgoDemos.Graph
 
         }
 
-        public void DeleteEdge(String s1, String s2)
+        public void DeleteEdge(string s1, string s2)
         {
             int u = GetIndex(s1);
             int v = GetIndex(s2);
@@ -107,7 +107,7 @@ namespace AlgoDemos.Graph
         }
 
         //number of edges coming to a vertex
-        public int Degree(String s)
+        public int Degree(string s)
         {
             int u = GetIndex(s);
             int deg = 0;
@@ -122,7 +122,7 @@ namespace AlgoDemos.Graph
         {
             DiGraphAdjMatr g = new DiGraphAdjMatr();
             int choice;
-            String s1, s2;
+            string s1, s2;
 
             while (true)
             {

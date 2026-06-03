@@ -6,11 +6,11 @@ namespace AlgoDemos.Graph.Connectivity
 {
     class Vertex
     {
-        public String name;
+        public string name;
         public int state;
         public int componentNumber;
 
-        public Vertex(String name)
+        public Vertex(string name)
         {
             this.name = name;
         }

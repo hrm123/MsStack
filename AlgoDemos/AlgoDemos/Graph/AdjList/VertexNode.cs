@@ -6,11 +6,11 @@ namespace AlgoDemos.Graph.AdjList
 {
     class VertexNode
     {
-        public String name;
+        public string name;
         public VertexNode nextVertex;
         public EdgeNode firstEdge;
 
-        public VertexNode(String s)
+        public VertexNode(string s)
         {
             name = s;
         }

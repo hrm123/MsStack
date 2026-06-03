@@ -6,10 +6,10 @@ namespace AlgoDemos.MST.KruskalsAlgo
 {
     class Vertex
     {
-        public String name;
+        public string name;
         public int parent;
 
-        public Vertex(String name)
+        public Vertex(string name)
         {
             this.name = name;
         }

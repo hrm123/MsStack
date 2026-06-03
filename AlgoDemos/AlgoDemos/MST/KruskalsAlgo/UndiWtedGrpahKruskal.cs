@@ -100,12 +100,12 @@ namespace AlgoDemos.MST.KruskalsAlgo
             }
         }
 
-        public void InsertVertex(String name)
+        public void InsertVertex(string name)
         {
             vertexList[n++] = new Vertex(name);
         }
 
-        private int GetIndex(String s) // n => row-n and col-n represent that vertex
+        private int GetIndex(string s) // n => row-n and col-n represent that vertex
         {
             for(int i=0;i<n; i++)
             {
@@ -114,7 +114,7 @@ namespace AlgoDemos.MST.KruskalsAlgo
                     return i;
                 }
             }
-            // String s1, s2;
+            // string s1, s2;
             // bool resp = EdgeExists(s1,s2)
 
             // int u, v;
@@ -133,7 +133,7 @@ namespace AlgoDemos.MST.KruskalsAlgo
             return IsAdjacent(GetIndex(s1), GetIndex(s2));
         }
 
-        public void InsertEdge(String s1, String s2, int wt)
+        public void InsertEdge(string s1, string s2, int wt)
         {
             int u = GetIndex(s1);
             int v = GetIndex(s2);
@@ -153,7 +153,7 @@ namespace AlgoDemos.MST.KruskalsAlgo
 
         }
 
-        public void DeleteEdge(String s1, String s2)
+        public void DeleteEdge(string s1, string s2)
         {
             int u = GetIndex(s1);
             int v = GetIndex(s2);
@@ -174,7 +174,7 @@ namespace AlgoDemos.MST.KruskalsAlgo
         }
 
 
-        public int Outdegree(String s)
+        public int Outdegree(string s)
         {
             int u = GetIndex(s);
             int outd = 0;
@@ -186,7 +186,7 @@ namespace AlgoDemos.MST.KruskalsAlgo
         }
 
         //number of edges coming to a vertex
-        public int Indegree(String s)
+        public int Indegree(string s)
         {
             int u = GetIndex(s);
             int ind = 0;

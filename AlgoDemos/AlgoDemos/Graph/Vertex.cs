@@ -6,8 +6,8 @@ namespace AlgoDemos.Graph
 {
     class Vertex
     {
-        public String Name { get; set; }
-        public Vertex(String name)
+        public string Name { get; set; }
+        public Vertex(string name)
         {
             Name = name;
         }

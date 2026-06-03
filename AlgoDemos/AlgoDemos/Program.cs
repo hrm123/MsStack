@@ -5,6 +5,7 @@ using AlgoDemos.Graph;
 using AlgoDemos.Graph.AdjList;
 using AlgoDemos.Graph.Connectivity;
 using AlgoDemos.MST.KruskalsAlgo;
+using AlgoDemos.String;
 using System;
 using System.Diagnostics;
 
@@ -17,7 +18,7 @@ namespace AlgoDemos
             Console.WriteLine("Hello World!");
             /*
             var expTree = new Etree();
-            String postfix = "45+3/7*42/-";
+            string postfix = "45+3/7*42/-";
             expTree.Demo(postfix);
             */
 
@@ -55,6 +56,7 @@ namespace AlgoDemos
             astar.Demo();
             */
 
+            /*
             Stopwatch sw = new Stopwatch();
             sw.Start();
             AlgoDemos.PrimeTeleportationAlt.Solution.Demo();
@@ -64,6 +66,11 @@ namespace AlgoDemos
             AlgoDemos.PrimeTeleportation.Solution.Demo();
             sw.Stop();
             Console.WriteLine($"Time taken: {sw.ElapsedMilliseconds} ms");
+            
+
+            PalindromeSubstring.Demo();
+            */
+            JumpGame7.Demo();
             Console.Write("Press any key to continue ...");
             Console.Read();
 

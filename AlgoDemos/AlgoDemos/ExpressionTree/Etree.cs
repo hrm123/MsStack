@@ -21,7 +21,7 @@ namespace AlgoDemos.ExpressionTree
 
         }
 
-        public void BuildTree(String postfix)
+        public void BuildTree(string postfix)
         {
             StackNode stack = new StackNode(30);
             Node currentNode;
@@ -144,7 +144,7 @@ namespace AlgoDemos.ExpressionTree
 
         }
 
-        public void Demo(String postfix)
+        public void Demo(string postfix)
         {
             BuildTree(postfix);
             Display();

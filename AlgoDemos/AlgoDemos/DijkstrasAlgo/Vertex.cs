@@ -6,13 +6,13 @@ namespace AlgoDemos.DijkstrasAlgo
 {
     class Vertex
     {
-        public String name { get; set; }
+        public string name { get; set; }
         public int status { get; set; }
         public int predecessor { get; set; }
         public int pathLength { get; set; }
 
 
-        public Vertex(String name)
+        public Vertex(string name)
         {
             this.name = name;
         }

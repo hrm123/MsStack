@@ -14,7 +14,7 @@ namespace AlgoDemos.Graph.AdjList
 
         public int Edges => e;
 
-        public void InsertVertex(String s)
+        public void InsertVertex(string s)
         {
             VertexNode temp = new VertexNode(s);
             if (start != null)
@@ -44,13 +44,13 @@ namespace AlgoDemos.Graph.AdjList
             n++;
         }
 
-        public void DeleteVertex(String s)
+        public void DeleteVertex(string s)
         {
             DeletefromEdgeLists(s);
             DeletefromVertexList(s);
         }
 
-        private void DeletefromVertexList(String s)
+        private void DeletefromVertexList(string s)
         {
             if(start == null)
             {
@@ -87,7 +87,7 @@ namespace AlgoDemos.Graph.AdjList
             }
         }
 
-        private void DeletefromEdgeLists(String s)
+        private void DeletefromEdgeLists(string s)
         {
             for(VertexNode p = start; p != null; p = p.nextVertex)
             {
@@ -112,7 +112,7 @@ namespace AlgoDemos.Graph.AdjList
             }
         }
 
-        private VertexNode FindVertex(String s)
+        private VertexNode FindVertex(string s)
         {
             VertexNode p = start;
             while(p != null)
@@ -123,7 +123,7 @@ namespace AlgoDemos.Graph.AdjList
             return null;
         }
 
-        public void InsertEdge(String s1, String s2)
+        public void InsertEdge(string s1, string s2)
         {
             if (s1.Equals(s2))
             {
@@ -166,7 +166,7 @@ namespace AlgoDemos.Graph.AdjList
             }
         }
 
-        public void DeleteEdge(String s1, String s2)
+        public void DeleteEdge(string s1, string s2)
         {
             VertexNode u = FindVertex(s1);
             if(u == null || u.firstEdge == null)
@@ -210,7 +210,7 @@ namespace AlgoDemos.Graph.AdjList
             }
         }
 
-        public bool EdgeExists(String s1, String s2)
+        public bool EdgeExists(string s1, string s2)
         {
             VertexNode u = FindVertex(s1);
             EdgeNode curEdge = u.firstEdge;
@@ -222,7 +222,7 @@ namespace AlgoDemos.Graph.AdjList
             return false;
         }
 
-        public int OutDegree(String s)
+        public int OutDegree(string s)
         {
             VertexNode u = FindVertex(s);
             if (u == null)
@@ -239,7 +239,7 @@ namespace AlgoDemos.Graph.AdjList
             return outd;
         }
 
-        public int InDegree(String s)
+        public int InDegree(string s)
         {
             VertexNode u = FindVertex(s);
             if (u == null)
@@ -263,7 +263,7 @@ namespace AlgoDemos.Graph.AdjList
         {
             LinkedDiGraph g = new LinkedDiGraph();
             int choice;
-            String s1, s2;
+            string s1, s2;
 
             while (true)
             {

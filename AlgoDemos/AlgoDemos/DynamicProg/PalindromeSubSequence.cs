@@ -71,7 +71,7 @@ namespace AlgoDemos.DynamicProg
             char[] response = new char[solutionLength];
             WriteSolution(dp, ref response, i, j, ref k, s);
             
-            return new String(response);
+            return new string(response);
         }
 
         void WriteSolution(int[,] dp, ref char[] solution, int i, int j, ref int k, string s)
