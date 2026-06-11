@@ -4,6 +4,7 @@ using AlgoDemos.ExpressionTree;
 using AlgoDemos.Graph;
 using AlgoDemos.Graph.AdjList;
 using AlgoDemos.Graph.Connectivity;
+using AlgoDemos.Lists;
 using AlgoDemos.MST.KruskalsAlgo;
 using AlgoDemos.String;
 using System;
@@ -69,10 +70,15 @@ namespace AlgoDemos
             
 
             PalindromeSubstring.Demo();
-            */
+            
             JumpGame7.Demo();
+            
+            AddNumbers.Demo();
+            */
+            ReverseNumbers.Demo();
             Console.Write("Press any key to continue ...");
             Console.Read();
+            
 
 
 
