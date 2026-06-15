@@ -4,7 +4,9 @@ using AlgoDemos.ExpressionTree;
 using AlgoDemos.Graph;
 using AlgoDemos.Graph.AdjList;
 using AlgoDemos.Graph.Connectivity;
+using AlgoDemos.ints;
 using AlgoDemos.Lists;
+using AlgoDemos.Miscel;
 using AlgoDemos.MST.KruskalsAlgo;
 using AlgoDemos.String;
 using System;
@@ -74,8 +76,15 @@ namespace AlgoDemos
             JumpGame7.Demo();
             
             AddNumbers.Demo();
-            */
+            
             ReverseNumbers.Demo();
+            
+            PhoneCombinations.Demo();
+            
+            LRUCache.Demo();
+            */
+
+            FourSumFailed.Demo();
             Console.Write("Press any key to continue ...");
             Console.Read();
             
