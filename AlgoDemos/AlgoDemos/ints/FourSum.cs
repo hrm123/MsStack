@@ -1,6 +1,7 @@
 ﻿using AlgoDemos.String;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,22 +9,46 @@ using System.Threading.Tasks;
 namespace AlgoDemos.ints
 {  
     /// <summary>
-    /// LC says "Time Limit Exceeded for [200 2s] target =8
+    /// Even cached result version - LC says "Time Limit Exceeded for [200 2s] target =8
     /// </summary>
     public class FourSumFailed
     {
         Dictionary<int,HashSet<int>> _numsSet = new();
         int[] _nums;
         int ctr2 = 0, ctr3 = 0, _n=0;
+
+        // Dictionary<(int, bool[]), IList<IList<int>>> _TwoSumCache = new Dictionary<(int, bool[]), IList<IList<int>>>();
+        Dictionary<string, IList<IList<int>>> _TwoSumCache = new Dictionary<string, IList<IList<int>>>();
+
+        private string ToDictionaryKey(int target, bool[] used)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(target.ToString());
+            sb.Append(",");
+            foreach(var v in used)
+            {
+                sb.Append(v.ToString());
+                sb.Append(",");
+            }
+            return sb.ToString().Substring(0, sb.Length - 1);
+
+        }
+
         private IList<IList<int>> TwoSum(int target, bool[] used)
         {
+            string dicKey = ToDictionaryKey(target, used);
+            if (_TwoSumCache.ContainsKey(dicKey))
+            {
+                return _TwoSumCache[dicKey];
+            }
+
 
             // List<IList<int>> response = new();
             HashSet<ValueTuple<int, int>> response = new();
             for (int y = 0; y < _n; y++)
             {
                 if (used[y])
-                {
+                {   
                     continue;
                 }
                 used[y] = true;
@@ -43,16 +68,28 @@ namespace AlgoDemos.ints
             if (ctr2 == 0)
             {
                 string dbgOutput = string.Join(Environment.NewLine, response.Select(row => string.Join(" ", row)));
-                Console.WriteLine($"{dbgOutput}");
-                Console.WriteLine("-------TwoSum--------");
+                //Console.WriteLine($"{dbgOutput}");
+                //Console.WriteLine("-------TwoSum--------");
                 ctr2++;
             }
-            return response.Select(v => (IList<int>)new List<int> { v.Item1, v.Item2 }).ToList();
+            
+            var responseList = response.Select(v => (IList<int>)new List<int> { v.Item1, v.Item2 }.ToImmutableList()).ToList();
+            _TwoSumCache[dicKey] = responseList.ToImmutableList();
+            return responseList;
         }
 
+
+        Dictionary<string,IList<IList<int>>> _ThreeSumCache = new Dictionary<string, IList<IList<int>>> ();
         private IList<IList<int>> ThreeSum(int target, bool[] used)
         {
-            // List<IList<int>> response = new();
+
+            string dicKey = ToDictionaryKey(target, used);
+            if (_ThreeSumCache.ContainsKey(dicKey))
+            {
+                return _ThreeSumCache[dicKey];
+            }
+
+
             HashSet<ValueTuple<int, int, int>> response = new();
             for (int y = 0; y < _n; y++)
             {
@@ -65,17 +102,18 @@ namespace AlgoDemos.ints
                 int newTarget = target - _nums[y];
                 var twoSetList = TwoSum(newTarget, used);
                 foreach (var lst in twoSetList)
-                {   
-                    lst.Add(numb);
-                    ((List<int>)lst).Sort();
+                {
+                    var newList = new List<int>(lst);
+                    newList.Add(numb);
+                    ((List<int>)newList).Sort();
                     if (ctr2 < 2)
                     {
                         string dbgOutput = string.Join(Environment.NewLine, lst.Select(row => string.Join(" ", row)));
-                        Console.WriteLine($"{dbgOutput}");
-                        Console.WriteLine("-------ThreeSum--------");
+                        //Console.WriteLine($"{dbgOutput}");
+                        //Console.WriteLine("-------ThreeSum--------");
                         ctr2++;
                     }
-                    response.Add(new ValueTuple<int, int, int>(lst[0], lst[1], lst[2]));
+                    response.Add(new ValueTuple<int, int, int>(newList[0], newList[1], newList[2]));
                 }
                 used[y] = false;
             }
@@ -83,11 +121,13 @@ namespace AlgoDemos.ints
             if (ctr3 == 0)
             {
                 string dbgOutput = string.Join(Environment.NewLine, response.Select(row => string.Join(" ", row)));
-                Console.WriteLine($"{dbgOutput}");
-                Console.WriteLine("-------ThreeSum--------");
+                //Console.WriteLine($"{dbgOutput}");
+                //Console.WriteLine("-------ThreeSum--------");
                 ctr3++;
             }
-            return response.Select(v => (IList<int>)new List<int> { v.Item1, v.Item2, v.Item3 }).ToList();
+            var responseList = response.Select(v => (IList<int>)new List<int> { v.Item1, v.Item2, v.Item3 }).ToList();
+            _ThreeSumCache[dicKey] = responseList;
+            return responseList;
         }
         public IList<IList<int>> FourSum(int[] nums, int target)
         {
@@ -116,9 +156,10 @@ namespace AlgoDemos.ints
                 var threeSetList = ThreeSum(target - numb, used);
                 foreach (var lst in threeSetList)
                 {
-                    lst.Add(numb);
-                    ((List<int>)lst).Sort();
-                    response.Add(new ValueTuple<int, int, int, int>(lst[0], lst[1], lst[2], lst[3]));
+                    var newList = new List<int>(lst);
+                    newList.Add(numb);
+                    ((List<int>)newList).Sort();
+                    response.Add(new ValueTuple<int, int, int, int>(newList[0], newList[1], newList[2], newList[3]));
                 }
                 used[y] = false;
             }
@@ -154,11 +195,11 @@ namespace AlgoDemos.ints
 
             nums = [1, 0, -1, 0, -2, 2];
             target = 0;
-            // Console.WriteLine($"answer={Stringify(fsf.FourSum(nums, target))} should be of [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]");
+            Console.WriteLine($"answer={Stringify(fsf.FourSum(nums, target))} should be of [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]");
 
             nums = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
             target = 8;
-            Console.WriteLine($"answer={Stringify(fsf.FourSum(nums, target))} should be of [[2,2,2,2]]");
+            // Console.WriteLine($"answer={Stringify(fsf.FourSum(nums, target))} should be of [[2,2,2,2]]");
         }
     }
 }
