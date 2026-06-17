@@ -9,11 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace AlgoDemos.ints
-{  
+{
     /// <summary>
-    /// LC says "Time Limit Exceeded Time Limit Exceeded 293 / 294 testcases passed. 
-    /// just a little more optimization needed some where. I could optimize for few cases
-    /// like all positive number array and negative target but this seems kludge. I am feeling I might have to 
+    /// run time 2925 ms beats 5.04%. Memory 80.82 MB beats 5.38%. 294 / 294 testcases passed.
+    /// just a little more optimization needed some where. I  optimized for few special cases
+    /// like all positive number array and negative target but this seems kludge, though it passes LC. I am feeling I might have to 
     /// optimize algorithm further the, for example sorting the inpt array of numbers.
     /// </summary>
     public class FourSumOptimizedLong
@@ -115,9 +115,32 @@ namespace AlgoDemos.ints
         }
         public IList<IList<int>> FourSum(int[] nums, int target)
         {
+            List<IList<int>> ret = new();
             _nums = nums.Select(n => (long)n).ToArray();
             _n = nums.Length;
-            
+
+            long max = long.MinValue;
+            long min = long.MaxValue;
+            foreach (var x in _nums)
+            {
+                if (x > max)
+                {
+                    max = x;
+                }
+                if (x < min)
+                {
+                    min = x;
+                }
+            }
+            if(max>=0 && min >= 0 && target<0)
+            {
+                return ret;
+            }
+            if (max < 0 && min < 0 && target > 0)
+            {
+                return ret;
+            }
+
             for (int y=0;y<_n;y++)
             {
                 if (_numsSet.ContainsKey(nums[y]))
@@ -149,7 +172,8 @@ namespace AlgoDemos.ints
                 }
                 used[y] = false;
             }
-            return response.Select(v => (IList<int>)new List<int> { (int)v.Item1, (int)v.Item2, (int)v.Item3, (int)v.Item4 }).ToList();
+            ret = response.Select(v => (IList<int>)new List<int> { (int)v.Item1, (int)v.Item2, (int)v.Item3, (int)v.Item4 }).ToList();
+            return ret;
         }
 
 
@@ -178,21 +202,21 @@ namespace AlgoDemos.ints
             int target;
             
 
-            // nums = [1, 0, -1, 0, -2, 2];
-            // target = 0;
-            // Console.WriteLine($"answer={Stringify(fso.FourSum(nums, target))} should be of [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]");
-            // 
-            // nums = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
-            // target = 8;
-            // Console.WriteLine($"answer={Stringify(fso.FourSum(nums, target))} should be of [[2,2,2,2]]");
-            // 
-            // nums = [1000000000, 1000000000, 1000000000, 1000000000];
-            // target = -294967296;
-            // Console.WriteLine($"answer={Stringify(fso.FourSum(nums, target))} should be of [[]]");
+            nums = [1, 0, -1, 0, -2, 2];
+            target = 0;
+            Console.WriteLine($"answer={Stringify(fso.FourSum(nums, target))} should be of [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]");
+            
+            nums = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
+            target = 8;
+            Console.WriteLine($"answer={Stringify(fso.FourSum(nums, target))} should be of [[2,2,2,2]]");
+            
+            nums = [1000000000, 1000000000, 1000000000, 1000000000];
+            target = -294967296;
+            Console.WriteLine($"answer={Stringify(fso.FourSum(nums, target))} should be of []");
 
             nums = [1000000000, -1, -1, -1];
             target = 999999997;
-            Console.WriteLine($"answer={Stringify(fso.FourSum(nums, target))} should be of [[]]");
+            Console.WriteLine($"answer={Stringify(fso.FourSum(nums, target))} should be of [[1000000000, -1, -1, -1]]");
         }
     }
 }
