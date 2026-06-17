@@ -85,10 +85,12 @@ namespace AlgoDemos
 
             FourSumFailed.Demo();
 
-            */
             FourSumOptimizedLong.Demo();
+            */
 
-            
+            NSumBitarrayLong.Demo();
+
+
             Console.Write("Press any key to continue ...");
             Console.Read();
             
