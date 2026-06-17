@@ -82,9 +82,13 @@ namespace AlgoDemos
             PhoneCombinations.Demo();
             
             LRUCache.Demo();
-            */
 
             FourSumFailed.Demo();
+
+            */
+            FourSumOptimizedLong.Demo();
+
+            
             Console.Write("Press any key to continue ...");
             Console.Read();
             
