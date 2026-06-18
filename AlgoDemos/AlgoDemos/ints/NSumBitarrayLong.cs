@@ -12,10 +12,10 @@ using System.Threading.Tasks;
 namespace AlgoDemos.ints
 {
     /// <summary>
-    /// run time 2925 ms beats 5.04%. Memory 80.82 MB beats 5.38%. 294 / 294 testcases passed.
-    /// just a little more optimization needed some where. I  optimized for few special cases
-    /// like all positive number array and negative target but this seems kludge, though it passes LC. I am feeling I might have to 
-    /// optimize algorithm further the, for example sorting the inpt array of numbers.
+    /// run time 1771 ms beats 5%. Memory 77.04 MB beats 5.35%. sorted input array. Asoo changed the
+    /// nested processing to happen only from further of where parent processing is at.
+    /// To improve further I hav to remove sorting at other places except at start of the algorithm.
+    /// 
     /// </summary>
     public class NSumBitarrayLong
     {
@@ -24,30 +24,29 @@ namespace AlgoDemos.ints
         int _n=0;
 
 
-        private (long, BigInteger) ToDictionaryKey(long target, BitArray used)
+        private (long, BigInteger,int) ToDictionaryKey(long target, BitArray used, int depth=-1)
         {
             int bytesSize = (used.Length + 7) / 8;
             byte[] byteArray = new byte[bytesSize];
             used.CopyTo(byteArray, 0);
-            return (target,new BigInteger(byteArray));
-
+            return (target, new BigInteger(byteArray),depth);
         }
 
 
         
-        Dictionary<(long, BigInteger), ImmutableList<(long,long)>> _TwoSumCacheNew = new();
+        Dictionary<(long, BigInteger, int), ImmutableList<ImmutableList<long>>> _NSumCacheNew = new();
 
-        public ImmutableList<(long,long)> TwoSumNew(long target, BitArray used)
+        public ImmutableList<ImmutableList<long>> TwoSumNew(long target, BitArray used, int left)
         {
-            var dicKey = ToDictionaryKey(target, used);
-            if (_TwoSumCacheNew.ContainsKey(dicKey))
+            var dicKey = ToDictionaryKey(target, used,2);
+            if (_NSumCacheNew.ContainsKey(dicKey))
             {
-                return _TwoSumCacheNew[dicKey];
+                return _NSumCacheNew[dicKey];
             }
 
 
-            List<(long, long)> response = new();
-            for (int y = 0; y < _n; y++)
+            HashSet<(long, long)> response = new();
+            for (int y = left+1; y < _n; y++)
             {
                 if (used[y] == true)
                 {
@@ -67,11 +66,13 @@ namespace AlgoDemos.ints
                 used[y] = false;
             }
 
-            var responseList = response.Distinct().ToList().Select(v => (IList<long>)new List<long> { v.Item1, v.Item2 }.ToImmutableList()).ToList();
-            _TwoSumCacheNew[dicKey] = response.Distinct().ToImmutableList<(long, long)>();
-            return _TwoSumCacheNew[dicKey];
+            var responseList = response.Select(v => ImmutableList.Create<long>( v.Item1, v.Item2)).ToImmutableList();
+            _NSumCacheNew[dicKey] = responseList;
+            return _NSumCacheNew[dicKey];
 
         }
+
+
         public class ListComparer : IEqualityComparer<IList<long>>
         {
             public bool Equals(IList<long> x, IList<long> y)
@@ -98,23 +99,29 @@ namespace AlgoDemos.ints
             }
         }
 
-        public IList<IList<long>> NSumRecursive(long target, BitArray used, int l)
+        public ImmutableList<ImmutableList<long>> NSumRecursive(long target, BitArray used, int depth, int left)
         {
-            var response = new List<IList<long>>();
-            if (l == 2)
+            var dicKey = ToDictionaryKey(target, used, depth);
+            if (_NSumCacheNew.ContainsKey(dicKey))
             {
-                var twoSumList = TwoSumNew(target, used);
-                return twoSumList.Select(l => (IList<long>) new List<long> { l.Item1, l.Item2 }).ToList<IList<long>>();
+                return _NSumCacheNew[dicKey];
+            }
+
+            var response = new HashSet<IList<long>>();
+            if (depth == 2)
+            {
+                return TwoSumNew(target, used,left);
+                // return twoSumList.Select(l => (IList<long>) new List<long> { l.Item1, l.Item2 }).ToList<IList<long>>();
             }
             for (int y = 0; y < _n; y++)
             {
-                if (used[y] == true)
+                if (used[y] == true || y<=left)
                 {
                     continue;
                 }
                 used[y] = true;
                 long numb = _nums[y];
-                var resp = NSumRecursive(target - numb, used, l - 1);
+                var resp = NSumRecursive(target - numb, used, depth - 1,y);
 
                 foreach (var lst in resp)
                 {
@@ -126,7 +133,8 @@ namespace AlgoDemos.ints
                 used[y] = false;
             }
             var uresp = response.Distinct(new ListComparer()).ToList();
-            return uresp;
+            _NSumCacheNew[dicKey] = uresp.Select(l =>l.ToImmutableList()).ToImmutableList();
+            return _NSumCacheNew[dicKey];
         }
 
         public IList<IList<int>> FourSum(int[] nums, int target)
@@ -157,7 +165,7 @@ namespace AlgoDemos.ints
                     _numsSet[_nums[y]] = new HashSet<int> { y };
                 }
             }
-            var resp =  NSumRecursive((long)target,used,4);
+            var resp =  NSumRecursive((long)target,used,4,-1);
             return resp.Distinct(new ListComparer()).ToList().Select(x => (IList<int>) x.Select(y =>(int)y).ToList<int>()).ToList();
         }
     
