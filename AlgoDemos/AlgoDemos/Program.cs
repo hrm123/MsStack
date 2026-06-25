@@ -91,7 +91,7 @@ namespace AlgoDemos
             NSumBitarrayLong.Demo();
             */
 
-            WordBreakSolution.Demo();
+            WordBreakWithPrefixes.Demo();
 
             Console.Write("Press any key to continue ...");
             Console.Read();
