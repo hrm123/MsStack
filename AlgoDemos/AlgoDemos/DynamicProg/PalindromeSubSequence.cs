@@ -6,10 +6,10 @@ namespace AlgoDemos.DynamicProg
 {
     /// <summary>
     /// Given a string find the longest palindrome sub sequence (includes non-contiguous characters that form palindrome)
-    /// Note - dynamic progamming with O(n^2) runtime and O(n^2) space is optimal for subsequence but not for substring. For longest palindrome in substring, 
-    /// just a simple iteration over characters and expansion at each character 
-    /// is little better since it is O(n^2) runtime and O(1) space. Manacher's algorithm is even better for the other problem (substring based) 
-    /// since  it is O(n) runtime and O(1) space
+    /// Note - dynamic progamming with O(n^2) runtime and O(n^2) space is optimal for subsequence but not for substring. 
+    /// For longest palindrome in substring, just a simple iteration over characters and expansion at each character 
+    /// is little better since it is O(n^2) runtime and O(1) space. Manacher's algorithm is even better for the other 
+    /// problem (substring based) since  it is O(n) runtime and O(1) space
     /// </summary>
     public class PalindromeSubSequence
     {
